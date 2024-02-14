@@ -42,16 +42,16 @@ class Department(db.Model):
 
     id = db.Column(db.String(36), primary_key=True, default=str(uuid.uuid4()))
     department_name = db.Column(db.String(100))
-    faculty_id = db.Column(db.String(36), db.ForeignKey('faculty.id'))
+    faculty_id = db.Column(db.String(36), db.ForeignKey('faculties.id'))
 
 
 class Faculty(db.Model):
     __tablename__ = 'faculties'
 
-    id = db.Column(db.String(36), db.ForeignKey('user.id'), primary_key=True)
+    id = db.Column(db.String(36), db.ForeignKey('users.id'), primary_key=True)
     name = db.Column(db.String(50))
     email = db.Column(db.String(100))
-    department_id = db.Column(db.String(36), db.ForeignKey('department.id'))
+    department_id = db.Column(db.String(36), db.ForeignKey('departments.id'))
 
 
 class Semester(db.Model):
@@ -69,15 +69,15 @@ class Course(db.Model):
     id = db.Column(db.String(36), primary_key=True, default=str(uuid.uuid4()))
     course_name = db.Column(db.String)
     course_code = db.Column(db.String)
-    department_id = db.Column(db.Interger, db.ForeignKey('departments.id'))
+    department_id = db.Column(db.Integer, db.ForeignKey('departments.id'))
 
 
 class CourseSemester(db.Model):
     __tablename__ = 'course_semester'
 
     id = db.Column(db.String(36), primary_key=True, default=str(uuid.uuid4()))
-    course_id = db.Column(db.Interger, db.ForeignKey('courses.id'))
-    semester_id = db.Column(db.Interger, db.ForeignKey('semesters.id'))
+    course_id = db.Column(db.Integer, db.ForeignKey('courses.id'))
+    semester_id = db.Column(db.Integer, db.ForeignKey('semesters.id'))
 
 
 class Lecturer(db.Model):
@@ -95,8 +95,8 @@ class LecturerUnit(db.Model):
     __tablename__ = 'lecturer_unit'
 
     id = db.Column(db.String(36), primary_key=True, default=str(uuid.uuid4()))
-    lecturer_id = db.Column(db.String(36), db.ForeignKey('faculty.id'))
-    unit_id = db.Column(db.String(36), db.ForeignKey('unit.id'))
+    lecturer_id = db.Column(db.String(36), db.ForeignKey('faculties.id'))
+    unit_id = db.Column(db.String(36), db.ForeignKey('units.id'))
 
 
 class CourseWork(db.Model):
@@ -125,7 +125,7 @@ class Unit(db.Model):
     unit_code = db.Column(db.String(36))
     name = db.Column(db.String(100))
     passmark = db.Column(db.Float)
-    course_id = db.Column(db.String(36), db.ForeignKey('course.id'))
+    course_id = db.Column(db.String(36), db.ForeignKey('courses.id'))
     contact_hours = db.Column(db.Float)
 
 
@@ -133,5 +133,5 @@ class StudentCourses(db.Model):
     __tablename__ = 'student_courses'
 
     id = db.Column(db.String(36), primary_key=True, default=str(uuid.uuid4()))
-    student_id = db.Column(db.Interger, db.ForeignKey('students.id'))
-    course_id = db.Column(db.Interger, db.ForeignKey('courses.id'))
+    student_id = db.Column(db.Integer, db.ForeignKey('students.id'))
+    course_id = db.Column(db.Integer, db.ForeignKey('courses.id'))
