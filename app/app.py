@@ -1,0 +1,24 @@
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from flask_cors import CORS
+from flask_bcrypt import Bcrypt
+
+
+db = SQLAlchemy()
+bcrypt = Bcrypt()  # Create a Bcrypt instance
+
+
+def create_app():
+    app = Flask(__name__)
+    CORS(app)
+
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///edusphere.db'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+    # Initialize Flask-Bcrypt
+    bcrypt.init_app(app)
+    db.init_app(app)
+    migrate = Migrate(app, db)
+
+    return app
