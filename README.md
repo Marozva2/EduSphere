@@ -6,24 +6,24 @@ EduSphere is a comprehensive university management system built with Flask, SQLA
 
 The project is structured as follows:
 
-`.
-├── app
-│   ├── app.py
-│   ├── instance
-│   │   └── edusphere.db
-│   ├── migrations
-│   ├── models.py
-│   ├── routes
-│   │   ├── auth.py
-│   │   ├── students_bp.py
-│   │   ├── lecturers_bp.py
-│   │   ├── admins_bp.py
-│   │   └── users_bp.py
-│   ├── seed.py
-│   └── serializers.py
-├── Pipfile
-├── Pipfile.lock
-└── README.md`
+            .
+            ├── app
+            │   ├── app.py
+            │   ├── instance
+            │   │   └── edusphere.db
+            │   ├── migrations
+            │   ├── models.py
+            │   ├── routes
+            │   │   ├── auth.py
+            │   │   ├── students_bp.py
+            │   │   ├── lecturers_bp.py
+            │   │   ├── admins_bp.py
+            │   │   └── users_bp.py
+            │   ├── seed.py
+            │   └── serializers.py
+            ├── Pipfile
+            ├── Pipfile.lock
+            └── README.md
 
 # Models
 
