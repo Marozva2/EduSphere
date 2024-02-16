@@ -1,6 +1,6 @@
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 
-from models import User, Semester, Lecturer, Exam, Unit
+from models import User, Semester, Lecturer, Exam, Unit, Course
 
 
 class UserSchema(SQLAlchemyAutoSchema):
@@ -27,3 +27,8 @@ class ExamSchema(SQLAlchemyAutoSchema):
 class UnitSchema(SQLAlchemyAutoSchema):
     class Meta:
         model = Unit
+
+
+class CourseSchema(SQLAlchemyAutoSchema):
+    class Meta:
+        model = Course

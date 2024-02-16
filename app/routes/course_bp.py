@@ -1,25 +1,86 @@
-from flask import Blueprint, jsonify, request
-from flask_restful import Api, Resource
-from models import Course
+from flask import Blueprint, jsonify, abort
+from flask_restful import Api, Resource, reqparse
+from models import Course, db
 from serializers import CourseSchema
 
-students_bp = Blueprint('students_bp', __name__)
-api = Api(students_bp)
 
-class CoursesResource(Resource):
+courses_bp = Blueprint('courses_bp', __name__)
+api = Api(courses_bp)
+
+
+post_args = reqparse.RequestParser()
+post_args.add_argument('id', type=str, required=True,
+                       help='Id is required')
+post_args.add_argument('course_name', type=str, required=True,
+                       help='course name is required')
+post_args.add_argument('course_code', type=str, required=True,
+                       help='course code is required')
+post_args.add_argument('department_id', type=int,
+                       required=True, help='Department is required')
+
+patch_args = reqparse.RequestParser()
+patch_args.add_argument('course', type=str)
+patch_args.add_argument('course_code', type=str)
+patch_args.add_argument('department_id', type=int)
+
+
+course_schema = CourseSchema(many=True)
+course_schema_single = CourseSchema()
+
+
+class Courses(Resource):
     def get(self):
-        # Fetch all courses from the database
         courses = Course.query.all()
-
-        # Serialize the courses into JSON
-        course_schema = CourseSchema(many=True)
         result = course_schema.dump(courses)
 
         return jsonify(result)
 
-    def post(self, course_id):
-        # Logic to apply for a course
-        # This will depend on the specific requirements of your application
-        pass
+    def post(self):
+        data = post_args.parse_args()
 
-api.add_resource(CoursesResource, '/courses')
+        courses = Course.query.filter_by(id=data[id]).first()
+        if not courses:
+            abort(409, detail=f"Course with the same id already exists")
+
+        new_course = Course(
+            course_name=data['course_name'], course_code=data['course_data'], department_id=data['department_id'])
+        db.session.add(new_course)
+        db.session.commit()
+
+        result = course_schema.dump(new_course)
+        return result, 201
+
+
+class CourseById(Resource):
+    def get(self, id):
+        course = Course.query.get(id)
+        if not course:
+            abort(404, detail=f"course with id {id} doesn't exist")
+        result = course_schema_single.dump(course)
+        return jsonify(result)
+
+    def patch(self, id):
+        course = Course.query.get(id)
+        if not course:
+            abort(404, detail=f"Course with {id} doesn't exist")
+        data = patch_args.parse_args()
+        for key, value in data.items():
+            if value is not None:
+                setattr(course, key, value)
+        db.session.commit()
+
+        result = course_schema_single.dump(course)
+        return jsonify(result)
+
+    def delete(self, id):
+        course = Course.query.get(id)
+        if not course:
+            abort(404, detail=f"Course with id {id} doesn't exist")
+
+        db.session.delete(course)
+        db.session.commit()
+        return f'course with {id=} has been deleted.', 204
+
+
+api.add_resource(Courses, '/courses')
+api.add_resource(CourseById, '/course/<int:id>')
