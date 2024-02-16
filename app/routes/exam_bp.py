@@ -6,7 +6,7 @@ app = Flask(__name__)
 # Define the blueprint
 exam_bp = Blueprint('exam_bp', __name__)
 
-# Dummy data for exam results
+# Dummy data for exam result
 exam_results = {}
 
 # Route for submitting exam results
