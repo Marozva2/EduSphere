@@ -1,14 +1,21 @@
-from flask import Blueprint, jsonify, request
-from flask_restful import Api, Resource, abort, reqparse
+
+from flask import Blueprint, jsonify
+from flask_restful import Api, Resource, abort, reqparse,request
 from flask_marshmallow import Marshmallow
 from flask_bcrypt import Bcrypt
 from models import Student, db  
-from serializers import UserSchema  
+from serializers import UserSchema
+from app import create_app
+app = create_app
+
+
+
 
 student_bp = Blueprint('student_bp', __name__)
 ma = Marshmallow(student_bp)
 bcrypt = Bcrypt()
 api = Api(student_bp)
+
 
 post_args = reqparse.RequestParser()
 post_args.add_argument('id', type=int, required=True, help='ID is required')
@@ -45,6 +52,7 @@ courses = {
     'C018': {'name': 'Foreign Language - Spanish', 'description': 'Basic Spanish Language Skills', 'units': []},
     'C019': {'name': 'Foreign Language - French', 'description': 'Basic French Language Skills', 'units': []},
     'C020': {'name': 'Health Education', 'description': 'Health and Wellness Concepts', 'units': []}
+    
 }
 
 students = []
@@ -55,12 +63,12 @@ exam_card = {}
 extra_curricular_activities = []
 
 # View all available courses
-@student_bp.route('/courses', methods=['GET'])
+@app.route('/courses', methods=['GET'])
 def get_courses():
     return jsonify(courses)
 
 # View details of a specific course
-@student_bp.route('/courses/<course_id>', methods=['GET'])
+@app.route('/courses/<course_id>', methods=['GET'])
 def get_course(course_id):
     if course_id in courses:
         return jsonify(courses[course_id])
@@ -68,7 +76,7 @@ def get_course(course_id):
         return jsonify({'error': 'Course not found'}), 404
 
 # Apply for a specific course
-@student_bp.route('/apply/<course_id>', methods=['POST'])
+@app.route('/apply/<course_id>', methods=['POST'])
 def apply_course(course_id):
     # Implementation for applying to a course
     data = request.get_json()
@@ -79,7 +87,7 @@ def apply_course(course_id):
     return jsonify({'message': f'Applied for course {course_id} successfully'})
 
 # Add a new unit to the course
-@student_bp.route('/courses/<course_id>/units', methods=['POST'])
+@app.route('/courses/<course_id>/units', methods=['POST'])
 def add_unit(course_id):
     # Implementation for adding a new unit to the course
     data = request.get_json()
@@ -90,7 +98,7 @@ def add_unit(course_id):
     return jsonify({'message': 'Unit added successfully'})
 
 # Delete a unit from the course
-@student_bp.route('/courses/<course_id>/units/<unit_id>', methods=['DELETE'])
+@app.route('/courses/<course_id>/units/<unit_id>', methods=['DELETE'])
 def delete_unit(course_id, unit_id):
     # Implementation for deleting a unit from the course
     if unit_id in courses[course_id]['units']:
@@ -100,7 +108,7 @@ def delete_unit(course_id, unit_id):
         return jsonify({'error': 'Unit not found in course'}), 404
 
 # Update details of a unit in the course
-@student_bp.route('/courses/<course_id>/units/<unit_id>', methods=['PUT'])
+@app.route('/courses/<course_id>/units/<unit_id>', methods=['PUT'])
 def update_unit(course_id, unit_id):
     # Implementation for updating details of a unit in the course
     data = request.get_json()
@@ -108,7 +116,7 @@ def update_unit(course_id, unit_id):
     return jsonify({'message': 'Unit updated successfully'})
 
 # View all coursework for a specific course
-@student_bp.route('/courses/<course_id>/coursework', methods=['GET'])
+@app.route('/courses/<course_id>/coursework', methods=['GET'])
 def get_coursework(course_id):
     # Implementation for viewing coursework
     if course_id in coursework:
@@ -117,19 +125,19 @@ def get_coursework(course_id):
         return jsonify({'error': 'Coursework not found for course'}), 404
 
 # Register for a semester
-@student_bp.route('/register/semester', methods=['POST'])
+@app.route('/register/semester', methods=['POST'])
 def register_semester():
     # Implementation for registering for a semester
     return jsonify({'message': 'Registered for semester successfully'})
 
 # View exam results
-@student_bp.route('/results', methods=['GET'])
+@app.route('/results', methods=['GET'])
 def get_results():
     # Implementation for viewing exam results
     return jsonify(exam_results)
 
 # Add a new fee payment
-@student_bp.route('/payment', methods=['POST'])
+@app.route('/payment', methods=['POST'])
 def add_payment():
     # Implementation for adding a new fee payment
     data = request.get_json()
@@ -137,4 +145,48 @@ def add_payment():
     fee_payments.append(data)
     return jsonify({'message': 'Payment added successfully'})
 
-#
+# View fee payment history
+@app.route('/payment', methods=['GET'])
+def get_payment_history():
+    # Implementation for viewing fee payment history
+    return jsonify(fee_payments)
+
+# View exam card details
+@app.route('/examcard', methods=['GET'])
+def get_exam_card():
+    # Implementation for viewing exam card details
+    return jsonify(exam_card)
+
+# Download exam card
+@app.route('/examcard/download', methods=['GET'])
+def download_exam_card():
+    # Implementation for downloading exam card
+    # Return file or stream here
+    return jsonify({'message': 'Exam card downloaded successfully'})
+
+# View extra-curricular activities
+@app.route('/activities', methods=['GET'])
+def get_activities():
+    # Implementation for viewing extra-curricular activities
+    return jsonify(extra_curricular_activities)
+
+# Add a new extra-curricular activity
+@app.route('/activities', methods=['POST'])
+def add_activity():
+    # Implementation for adding a new extra-curricular activity
+    data = request.get_json()
+    # Add validation and processing logic here
+    extra_curricular_activities.append(data)
+    return jsonify({'message': 'Activity added successfully'})
+
+# Enroll for a course
+@app.route('/enroll', methods=['POST'])
+def enroll_course():
+    # Implementation for enrolling for a course
+    data = request.get_json()
+    # Add validation and processing logic here
+    students.append(data)
+    return jsonify({'message': 'Enrolled for course successfully'})
+
+# if __name__ == '__main__':
+#     app.run(debug=True)
