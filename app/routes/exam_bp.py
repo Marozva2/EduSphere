@@ -1,7 +1,6 @@
 from flask import Blueprint, jsonify
 from flask_restful import Api, Resource, abort, reqparse
 from flask_marshmallow import Marshmallow
-from datetime import datetime
 
 from models import Exam, db
 
@@ -36,21 +35,56 @@ examschema_single = ExamSchema()
 
 class ExamRs(Resource):
     def get(self):
-        pass
+        exams = Exam.query.all()
+        result = examschema.dump(exams, many=True)
+        return jsonify(result)
 
     def post(self):
-        pass
+        data = post_args.parse_args()
+
+        exams = Exam.query.filter_by(id=data[id]).first()
+        if not exams:
+            abort(409, detail=f"exam with the same id already exists")
+
+        new_exam = Exam(
+            unit_id=data['unit_id'], score=data['score'], student_id=data['student_id'], grade=data['grade'])
+        db.session.add(new_exam)
+        db.session.commit()
+
+        result = examschema.dump(new_exam)
+        return result, 201
 
 
 class ExamRsById(Resource):
     def get(self, id):
-        pass
+        exam = Exam.query.get(id)
+        if not exam:
+            abort(404, detail=f'Exam with id {id} does not exist')
+        result = examschema_single.dump(exam)
+        return jsonify(result)
 
     def patch(self, id):
-        pass
+        exam = Exam.query.get(id)
+        if not exam:
+            abort(404, detail=f'Exam with id {id} does not exist')
+
+        data = patch_args.parse_args()
+        for key, value in data.items():
+            if value is not None:
+                setattr(exam, key, value)
+        db.session.commit()
+
+        result = examschema_single.dump(exam)
+        return jsonify(result)
 
     def delete(self, id):
-        pass
+        exam = Exam.query.get(id)
+        if not exam:
+            abort(404, detail=f'exam with id {id} does not exist')
+
+        db.session.delete(exam)
+        db.session.commit()
+        return f'exam with {id=} has been successfully deleted.', 204
 
 
 api.add_resource(ExamRs, '/exams')
