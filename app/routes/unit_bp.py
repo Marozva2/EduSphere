@@ -1,7 +1,6 @@
 from flask import Blueprint, jsonify
 from flask_restful import Api, Resource, abort, reqparse
 from flask_marshmallow import Marshmallow
-from datetime import datetime
 
 from models import Unit, db
 
@@ -47,6 +46,18 @@ class UnitRs(Resource):
     def post(self):
         data = post_args.parse_args()
 
+        unit = Unit.query.filter_by(id=id).first()
+        if not unit:
+            abort(409, detail="Unit with the same id already exists")
+
+        new_unit = Unit(unit_code=data['unit_code'], name=data['name'], passmark=data['passmark'],
+                        course_id=data['course_id'], contact_hours=data['contact_hours'])
+        db.session.add(new_unit)
+        db.session.commit()
+
+        result = unitschema.dump(new_unit)
+        return result, 201
+
 
 class UnitByIdRs(Resource):
     def get(self, id):
@@ -58,7 +69,18 @@ class UnitByIdRs(Resource):
         return jsonify(result)
 
     def patch(self, id):
-        pass
+        single_unit = Unit.query.get(id)
+        if not single_unit:
+            abort(404, detail=f'Unit with {id} does not exist')
+
+        data = patch_args.parse_args()
+        for key, value in data.items():
+            if value is not None:
+                setattr(single_unit, key, value)
+            db.session.commit()
+
+            result = unitschema_single.dump(single_unit)
+            return jsonify(result)
 
     def delete(self, id):
         unit = Unit.query.get(id)
