@@ -23,3 +23,31 @@ patch_args.add_argument('faculty_id', type=str)
 department_schema = DepartmentSchema(many=True)
 department_schema_single = DepartmentSchema()
 
+class Departments(Resource):
+     # This handler GET request retrieves all departments
+    def get(self):
+        departments = Department.query.all()
+        result = department_schema.dump(departments)
+
+        return jsonify(result)
+
+    # This POST request creates a new department
+    def post(self):
+        data = post_args.parse_args()
+
+        # Check if department exists then throw an error if true
+        departments = Department.query.filter_by(id=data[id]).first()
+        if not departments:
+            abort(409, detail=f"Department with this id{id} already exists")
+
+        # Create new department then and add it to db
+        new_department = Department(
+            department_name=data['department_name'], faculty_id=data['faculty_id'])
+        db.session.add(new_department)
+        db.session.commit()
+
+        # Lastly, serialize and return the new department
+        result = department_schema.dump(new_department)
+        return result, 201
+    
+    
