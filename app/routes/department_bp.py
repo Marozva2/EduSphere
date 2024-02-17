@@ -50,4 +50,44 @@ class Departments(Resource):
         result = department_schema.dump(new_department)
         return result, 201
     
-    
+
+class DepartmentById(Resource):
+    # Handler to retrieve a department by id
+    def get(self, id):
+        department = Department.query.get(id)
+        if not department:
+            abort(404, detail=f"department with id {id} doesn't exist")
+        result = department_schema_single.dump(department)
+        return jsonify(result)
+
+    # Handler to help update a department by id
+    def patch(self, id):
+        department = Department.query.get(id)
+        if not department:
+            abort(404, detail=f"department with {id} doesn't exist")
+        data = patch_args.parse_args()
+
+        # This helps to update department attributes based on the provided data
+        for key, value in data.items():
+            if value is not None:
+                setattr(department, key, value)
+        db.session.commit()
+
+        # Serialize and return the updated department
+        result = department_schema_single.dump(department)
+        return jsonify(result)
+
+    # Delete a department by id
+    def delete(self, id):
+        department = Department.query.get(id)
+        if not department:
+            abort(404, detail=f"Department with id {id} doesn't exist")
+
+        # Delete department from the db
+        db.session.delete(department)
+        db.session.commit()
+        return f'department with {id=} has been deleted.', 204
+
+# Add Resource classes to the API with their respective routes
+api.add_resource(Departments, '/departments')
+api.add_resource(DepartmentById, '/department/<int:id>') 
