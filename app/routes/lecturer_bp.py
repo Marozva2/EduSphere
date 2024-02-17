@@ -35,16 +35,16 @@ class LecturerRs(Resource):
         result = Lecturer.dump(lecturer, many=True)
         return jsonify(result)
     
-    # Handler for POST requests to create new lecturer
+    # Handler for POST requests to create a new lecturer
     def post(self):
         data = post_args.parse_args()
 
-        # Check if lecturer with the same email already exists
+        # Check kwanza if the lecturer with the same email already exists
         lecturer = Lecturer.query.filter_by(email=data['email']).first()
         if lecturer:
             abort(409, detail="lecturer with this id already exists")
 
-        # Create new lecturer and add it to db
+        # Create new lecturer and add them to db
         new_lecturer = Lecturer(lecture_title=data['lecture_title'], facult_id=data['facult_id'],
                                 datetime=data['datetime'], location=data['location'])
         
@@ -56,3 +56,43 @@ class LecturerRs(Resource):
         result = lecturerschema.dump(new_lecturer)
         return result, 201
     
+class LectureByIdRs(Resource):
+    # Retrieve a lecturer by id
+    def get(self, id):
+        lecturer = Lecturer.query.get(id)
+        if not lecturer:
+            abort(404, detail=f'Lecturer with id {id} does not exist')
+        result = lecturerschema_single.dump(lecturer)
+        return jsonify(result)
+
+    # Update a lecturer by id
+    def patch(self, id):
+        lecturer = Lecturer.query.get(id)
+        if not lecturer:
+            abort(404, detail=f'Lecturer with id {id} does not exist')
+
+        # Update lecturer attributes
+        data = patch_args.parse_args()
+        for key, value in data.items():
+            if value is not None:
+                setattr(lecturer, key, value)
+        db.session.commit()
+
+        # Serialize and return the updated lecturer
+        result = lecturerschema_single.dump(lecturer)
+        return jsonify(result)
+
+    # Delete a lecturer by id
+    def delete(self, id):
+        lecturer = Lecturer.query.get(id)
+        if not lecturer:
+            abort(404, detail=f'lecturer with id {id} does not exist')
+
+        # Delete the lecturer from the db
+        db.session.delete(lecturer)
+        db.session.commit()
+        return f'lecturer with {id=} has been successfully deleted.', 204
+
+# Add Resource classes to the API with their respective routes
+api.add_resource(LecturerRs, '/lecturers')
+api.add_resource(LectureByIdRs, '/lecturer/<int:id>')
