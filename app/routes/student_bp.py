@@ -12,7 +12,7 @@ ma = Marshmallow(student_bp)
 api = Api(student_bp)
 
 post_args = reqparse.RequestParser()
-post_args.add_argument('id', type=int, required=True, help='ID is required')
+# post_args.add_argument('id', type=int, required=True, help='ID is required')
 post_args.add_argument('first_name', type=str,
                        required=True, help='first_name is required')
 post_args.add_argument('last_name', type=str, required=True,
@@ -46,8 +46,8 @@ class StudentRs(Resource):
     def post(self):
         data = post_args.parse_args()
 
-        student = Student.query.filter_by(id=id).first()
-        if not student:
+        student = Student.query.filter_by(id='id').first()
+        if student:
             abort(409, detail="Student with the same id already exists")
 
         new_student = Student(first_name=data['first_name'], last_name=data['last_name'], email=data['email'],
@@ -55,7 +55,7 @@ class StudentRs(Resource):
         db.session.add(new_student)
         db.session.commit()
 
-        result = student_schema.dump(new_student)
+        result = student_schema_single.dump(new_student)
         return result, 201
 
 
@@ -93,4 +93,4 @@ class StudentByIdRs(Resource):
 
 
 api.add_resource(StudentRs, '/students')
-api.add_resource(StudentByIdRs, '/student/<int:id>')
+api.add_resource(StudentByIdRs, '/student/<string:id>')

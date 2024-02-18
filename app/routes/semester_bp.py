@@ -1,7 +1,10 @@
 from flask import Blueprint, jsonify
 from flask_marshmallow import Marshmallow
 from flask_restful import Api, Resource, abort, reqparse
+from datetime import datetime
+
 from models import db, Semester
+
 
 from serializers import SemesterSchema
 
@@ -11,7 +14,7 @@ api = Api(semester_bp)
 
 
 post_args = reqparse.RequestParser()
-post_args.add_argument('id', type=int, required=True, help='ID is required')
+# post_args.add_argument('id', type=int, required=True, help='ID is required')
 post_args.add_argument('name', type=str, required=True,
                        help='Name is required')
 post_args.add_argument('start_date', type=str,
@@ -40,16 +43,22 @@ class SemesterRs(Resource):
     def post(self):
         data = post_args.parse_args()
 
-        semester = Semester.query.filter_by(id=data[id]).first()
-        if not semester:
+        start_date_str = data['start_date']
+        start_date_obj = datetime.strptime(start_date_str, '%Y:%m:%d').date()
+
+        end_date_str = data['end_date']
+        end_date_obj = datetime.strptime(end_date_str, '%Y:%m:%d').date()
+
+        semester = Semester.query.filter_by(id='id').first()
+        if semester:
             abort(409, detail=f"Semester with the same id already exists")
 
         new_sem = Semester(
-            name=data['name'], start_date=data['start_date'], end_date=data['end_date'])
+            name=data['name'], start_date=start_date_obj, end_date=end_date_obj)
         db.session.add(new_sem)
         db.session.commit()
 
-        result = semesterschema.dump(new_sem)
+        result = semesterschema_single.dump(new_sem)
         return result, 201
 
 
@@ -85,4 +94,4 @@ class SemesterRsById(Resource):
 
 
 api.add_resource(SemesterRs, '/semesters')
-api.add_resource(SemesterRsById, '/semester/<int:id>')
+api.add_resource(SemesterRsById, '/semester/<string:id>')

@@ -9,8 +9,8 @@ api = Api(department_bp)
 
 
 post_args = reqparse.RequestParser()
-post_args.add_argument('id', type=str, required=True,
-                       help='Id is required')
+# post_args.add_argument('id', type=str, required=True,
+#                        help='Id is required')
 post_args.add_argument('department_name', type=str, required=True,
                        help='Department name is required')
 post_args.add_argument('faculty_id', type=str, required=True,
@@ -36,8 +36,8 @@ class Departments(Resource):
     def post(self):
         data = post_args.parse_args()
 
-        departments = Department.query.filter_by(id=data[id]).first()
-        if not departments:
+        departments = Department.query.filter_by(id='id').first()
+        if departments:
             abort(409, detail=f"Department with the same id already exists")
 
         new_department = Department(
@@ -45,7 +45,7 @@ class Departments(Resource):
         db.session.add(new_department)
         db.session.commit()
 
-        result = department_schema.dump(new_department)
+        result = department_schema_single.dump(new_department)
         return result, 201
 
 
@@ -81,4 +81,4 @@ class DepartmentById(Resource):
 
 
 api.add_resource(Departments, '/departments')
-api.add_resource(DepartmentById, '/department/<int:id>')
+api.add_resource(DepartmentById, '/department/<string:id>')

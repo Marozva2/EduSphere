@@ -12,7 +12,7 @@ ma = Marshmallow(exam_bp)
 api = Api(exam_bp)
 
 post_args = reqparse.RequestParser()
-post_args.add_argument('unit_id', type=int, required=True,
+post_args.add_argument('unit_id', type=str,
                        help='unit_id is required')
 post_args.add_argument('score', type=float,
                        required=True, help='Score is required')
@@ -42,8 +42,8 @@ class ExamRs(Resource):
     def post(self):
         data = post_args.parse_args()
 
-        exams = Exam.query.filter_by(id=data[id]).first()
-        if not exams:
+        exams = Exam.query.filter_by(unit_id=data['unit_id']).first()
+        if exams:
             abort(409, detail=f"exam with the same id already exists")
 
         new_exam = Exam(
@@ -51,7 +51,7 @@ class ExamRs(Resource):
         db.session.add(new_exam)
         db.session.commit()
 
-        result = examschema.dump(new_exam)
+        result = examschema_single.dump(new_exam)
         return result, 201
 
 
@@ -88,4 +88,4 @@ class ExamRsById(Resource):
 
 
 api.add_resource(ExamRs, '/exams')
-api.add_resource(ExamRsById, '/exam/<int:id>')
+api.add_resource(ExamRsById, '/exam/<string:id>')

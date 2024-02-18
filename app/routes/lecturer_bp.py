@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify
 from flask_restful import Api, Resource, abort, reqparse
 from flask_marshmallow import Marshmallow
+from datetime import datetime
 
 from models import Lecturer, db
 
@@ -12,10 +13,10 @@ ma = Marshmallow(lecturer_bp)
 api = Api(lecturer_bp)
 
 post_args = reqparse.RequestParser()
-post_args.add_argument('id', type=int, required=True, help='ID is required')
+# post_args.add_argument('id', type=str, required=True, help='ID is required')
 post_args.add_argument('lecture_title', type=str,
                        required=True, help='Lecture_title is required')
-post_args.add_argument('facult', type=str, required=True,
+post_args.add_argument('facult_id', type=int, required=True,
                        help='Facult_id is required')
 post_args.add_argument('datetime', type=str, required=True,
                        help='Datetime is required')
@@ -25,7 +26,7 @@ post_args.add_argument('location', type=str, required=True,
 
 patch_args = reqparse.RequestParser()
 patch_args.add_argument('lecture_title', type=str)
-patch_args.add_argument('faculty_id', type=str)
+patch_args.add_argument('facult_id', type=int)
 patch_args.add_argument('datetime', type=str)
 patch_args.add_argument('location', type=str)
 
@@ -37,22 +38,25 @@ lecturerschema_single = LecturerSchema()
 class LecturerRs(Resource):
     def get(self):
         lecturer = Lecturer.query.all()
-        result = Lecturer.dump(lecturer, many=True)
+        result = lecturerschema.dump(lecturer, many=True)
         return jsonify(result)
 
     def post(self):
         data = post_args.parse_args()
 
-        lecturer = Lecturer.query.filter_by(email=data['email']).first()
+        datetime_str = data['datetime']
+        datetime_obj = datetime.strptime(datetime_str, '%Y:%m:%d')
+
+        lecturer = Lecturer.query.filter_by(id='id').first()
         if lecturer:
             abort(409, detail="lecturer with the same id already exists")
 
         new_lecturer = Lecturer(lecture_title=data['lecture_title'], facult_id=data['facult_id'],
-                                datetime=data['datetime'], location=data['location'])
+                                datetime=datetime_obj, location=data['location'])
         db.session.add(new_lecturer)
         db.session.commit()
 
-        result = lecturerschema.dump(new_lecturer)
+        result = lecturerschema_single.dump(new_lecturer)
         return result, 201
 
 
@@ -89,4 +93,4 @@ class LectureByIdRs(Resource):
 
 
 api.add_resource(LecturerRs, '/lecturers')
-api.add_resource(LectureByIdRs, '/lecturer/<int:id>')
+api.add_resource(LectureByIdRs, '/lecturer/<string:id>')

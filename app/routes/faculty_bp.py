@@ -9,13 +9,13 @@ api = Api(faculty_bp)
 
 
 post_args = reqparse.RequestParser()
-post_args.add_argument('id', type=str, required=True,
-                       help='Id is required')
+# post_args.add_argument('id', type=str, required=True,
+#                        help='Id is required')
 post_args.add_argument('name', type=str, required=True,
                        help='name is required')
 post_args.add_argument('email', type=str, required=True,
                        help='email code is required')
-post_args.add_argument('department_id', type=int,
+post_args.add_argument('department_id', type=str,
                        required=True, help='Department is required')
 
 patch_args = reqparse.RequestParser()
@@ -38,8 +38,8 @@ class Faculties(Resource):
     def post(self):
         data = post_args.parse_args()
 
-        faculties = Faculty.query.filter_by(id=data[id]).first()
-        if not faculties:
+        faculties = Faculty.query.filter_by(id='id').first()
+        if faculties:
             abort(409, detail=f"faculty with the same id already exists")
 
         new_faculty = Faculty(
@@ -47,7 +47,7 @@ class Faculties(Resource):
         db.session.add(new_faculty)
         db.session.commit()
 
-        result = faculty_schema.dump(new_faculty)
+        result = faculty_schema_single.dump(new_faculty)
         return result, 201
 
 
@@ -83,4 +83,4 @@ class FacultyById(Resource):
 
 
 api.add_resource(Faculties, '/faculties')
-api.add_resource(FacultyById, '/faculty/<int:id>')
+api.add_resource(FacultyById, '/faculty/<string:id>')

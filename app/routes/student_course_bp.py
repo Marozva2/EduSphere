@@ -12,7 +12,7 @@ ma = Marshmallow(student_course_bp)
 api = Api(student_course_bp)
 
 post_args = reqparse.RequestParser()
-post_args.add_argument('id', type=int, required=True, help='ID is required')
+# post_args.add_argument('id', type=int, required=True, help='ID is required')
 post_args.add_argument('student_id', type=str,
                        required=True, help='student_id is required')
 post_args.add_argument('course_id', type=int, required=True,
@@ -37,8 +37,8 @@ class StudentCoursesRs(Resource):
     def post(self):
         data = post_args.parse_args()
 
-        student_courses = StudentCourses.query.filter_by(id=id).first()
-        if not student_courses:
+        student_courses = StudentCourses.query.filter_by(id='id').first()
+        if student_courses:
             abort(409, detail="student_courses with the same id already exists")
 
         new_student_courses = StudentCourses(
@@ -46,7 +46,7 @@ class StudentCoursesRs(Resource):
         db.session.add(new_student_courses)
         db.session.commit()
 
-        result = student_courses_schema.dump(new_student_courses)
+        result = student_courses_single.dump(new_student_courses)
         return result, 201
 
 
@@ -83,5 +83,5 @@ class StudentCoursesByIdRs(Resource):
         return f'student_courses with {id=} has been successfully deleted.', 204
 
 
-api.add_resource(StudentCourses, '/student_courses')
+api.add_resource(StudentCoursesRs, '/student_courses')
 api.add_resource(StudentCoursesByIdRs, '/student_course/<int:id>')

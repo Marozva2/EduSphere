@@ -9,8 +9,8 @@ api = Api(courses_bp)
 
 
 post_args = reqparse.RequestParser()
-post_args.add_argument('id', type=str, required=True,
-                       help='Id is required')
+# post_args.add_argument('id', type=str, required=True,
+#                        help='Id is required')
 post_args.add_argument('course_name', type=str, required=True,
                        help='course name is required')
 post_args.add_argument('course_code', type=str, required=True,
@@ -19,7 +19,7 @@ post_args.add_argument('department_id', type=int,
                        required=True, help='Department is required')
 
 patch_args = reqparse.RequestParser()
-patch_args.add_argument('course', type=str)
+patch_args.add_argument('course_name', type=str)
 patch_args.add_argument('course_code', type=str)
 patch_args.add_argument('department_id', type=int)
 
@@ -38,16 +38,16 @@ class Courses(Resource):
     def post(self):
         data = post_args.parse_args()
 
-        courses = Course.query.filter_by(id=data[id]).first()
-        if not courses:
-            abort(409, detail=f"Course with the same id already exists")
+        courses = Course.query.filter_by(id='id').first()
+        if courses:
+            abort(409, message=f"Course with id {id} already exists")
 
         new_course = Course(
-            course_name=data['course_name'], course_code=data['course_data'], department_id=data['department_id'])
+            course_name=data['course_name'], course_code=data['course_code'], department_id=data['department_id'])
         db.session.add(new_course)
         db.session.commit()
 
-        result = course_schema.dump(new_course)
+        result = course_schema_single.dump(new_course)
         return result, 201
 
 
@@ -55,14 +55,14 @@ class CourseById(Resource):
     def get(self, id):
         course = Course.query.get(id)
         if not course:
-            abort(404, detail=f"course with id {id} doesn't exist")
+            abort(404, message=f"Course with id {id} doesn't exist")
         result = course_schema_single.dump(course)
         return jsonify(result)
 
     def patch(self, id):
         course = Course.query.get(id)
         if not course:
-            abort(404, detail=f"Course with {id} doesn't exist")
+            abort(404, message="Not found")
         data = patch_args.parse_args()
         for key, value in data.items():
             if value is not None:
@@ -75,7 +75,7 @@ class CourseById(Resource):
     def delete(self, id):
         course = Course.query.get(id)
         if not course:
-            abort(404, detail=f"Course with id {id} doesn't exist")
+            abort(404)
 
         db.session.delete(course)
         db.session.commit()
@@ -83,4 +83,4 @@ class CourseById(Resource):
 
 
 api.add_resource(Courses, '/courses')
-api.add_resource(CourseById, '/course/<int:id>')
+api.add_resource(CourseById, '/course/<string:id>')

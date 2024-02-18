@@ -12,7 +12,7 @@ ma = Marshmallow(course_sem_bp)
 api = Api(course_sem_bp)
 
 post_args = reqparse.RequestParser()
-post_args.add_argument('id', type=int, required=True, help='ID is required')
+# post_args.add_argument('id', type=int, required=True, help='ID is required')
 post_args.add_argument('course_id', type=int,
                        required=True, help='course_id is required')
 post_args.add_argument('semester_id', type=int, required=True,
@@ -30,15 +30,15 @@ course_sem_single = CourseSemesterSchema()
 
 class CourseSemesterRs(Resource):
     def get(self):
-        course_sem = CourseSemester.query.all()
-        result = course_sem.dump(course_sem, many=True)
+        course_semester = CourseSemester.query.all()
+        result = course_sem.dump(course_semester)
         return jsonify(result)
 
     def post(self):
         data = post_args.parse_args()
 
-        course_sem = CourseSemester.query.filter_by(id=id).first()
-        if not course_sem:
+        course_sem = CourseSemester.query.filter_by(id='id').first()
+        if course_sem:
             abort(409, detail="Course_sem with the same id already exists")
 
         new_course_sem = CourseSemester(
@@ -46,7 +46,7 @@ class CourseSemesterRs(Resource):
         db.session.add(new_course_sem)
         db.session.commit()
 
-        result = course_sem.dump(new_course_sem)
+        result = course_sem_single.dump(new_course_sem)
         return result, 201
 
 
@@ -54,7 +54,7 @@ class CourseSemesterByIdRs(Resource):
     def get(self, id):
         course_sem = CourseSemester.query.get(id)
         if not course_sem:
-            abort(404, detail=f'Unit with id {id} does not exist')
+            abort(404, detail=f'course_sem with id {id} does not exist')
 
         result = course_sem_single.dump(course_sem)
         return jsonify(result)
@@ -62,7 +62,7 @@ class CourseSemesterByIdRs(Resource):
     def patch(self, id):
         course_sem = CourseSemester.query.get(id)
         if not course_sem:
-            abort(404, detail=f'Unit with {id} does not exist')
+            abort(404, detail=f'course_sem with {id} does not exist')
 
         data = patch_args.parse_args()
         for key, value in data.items():
@@ -84,4 +84,4 @@ class CourseSemesterByIdRs(Resource):
 
 
 api.add_resource(CourseSemesterRs, '/course_sem')
-api.add_resource(CourseSemesterByIdRs, '/course_sem/<int:id>')
+api.add_resource(CourseSemesterByIdRs, '/course_sem/<string:id>')

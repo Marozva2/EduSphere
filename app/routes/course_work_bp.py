@@ -12,7 +12,7 @@ ma = Marshmallow(coursework_bp)
 api = Api(coursework_bp)
 
 post_args = reqparse.RequestParser()
-post_args.add_argument('id', type=int, required=True, help='ID is required')
+# post_args.add_argument('id', type=str, required=True, help='ID is required')
 post_args.add_argument('unit_id', type=int,
                        required=True, help='Unit_id is required')
 post_args.add_argument('student_id', type=int, required=True,
@@ -40,8 +40,8 @@ class CourseWorkRs(Resource):
     def post(self):
         data = post_args.parse_args()
 
-        course_work = CourseWork.query.filter_by(id=id).first()
-        if not course_work:
+        course_work = CourseWork.query.filter_by(id='id').first()
+        if course_work:
             abort(409, detail="course_work with the same id already exists")
 
         new_course_work = CourseWork(
@@ -49,7 +49,7 @@ class CourseWorkRs(Resource):
         db.session.add(new_course_work)
         db.session.commit()
 
-        result = course_work_schema.dump(new_course_work)
+        result = course_work_single.dump(new_course_work)
         return result, 201
 
 
@@ -57,7 +57,7 @@ class CourseWorkByIdRs(Resource):
     def get(self, id):
         course_work = CourseWork.query.get(id)
         if not course_work:
-            abort(404, detail=f'Unit with id {id} does not exist')
+            abort(404, detail=f'course_work with id {id} does not exist')
 
         result = course_work_single.dump(course_work)
         return jsonify(result)
@@ -65,7 +65,7 @@ class CourseWorkByIdRs(Resource):
     def patch(self, id):
         course_work = CourseWork.query.get(id)
         if not course_work:
-            abort(404, detail=f'Unit with {id} does not exist')
+            abort(404, detail=f'course_work with {id} does not exist')
 
         data = patch_args.parse_args()
         for key, value in data.items():
@@ -87,4 +87,4 @@ class CourseWorkByIdRs(Resource):
 
 
 api.add_resource(CourseWorkRs, '/course_works')
-api.add_resource(CourseWorkByIdRs, '/course_work/<int:id>')
+api.add_resource(CourseWorkByIdRs, '/course_work/<string:id>')
