@@ -8,7 +8,7 @@ function HeroSection() {
         <p>Raising Next Gen Leaders</p>
       </div>
       <div className="hero-image">
-        <img src="../../images/12.png" alt="EduSphere Image" />
+        {/* <img src="../images/12.jpg" alt="EduSphere Image" /> */}
       </div>
     </section>
   );

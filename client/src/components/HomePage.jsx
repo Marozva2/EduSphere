@@ -8,7 +8,7 @@ function HomePage() {
     <div>
       <Header />
       <main>
-        <Header />
+        {/* <Header /> */}
         <HeroSection />
         <Footer />
      
