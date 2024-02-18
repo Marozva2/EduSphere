@@ -10,7 +10,7 @@ function HomePage() {
       <main>
         {/* <Header /> */}
         <HeroSection />
-        <Footer />
+        {/* <Footer /> */}
      
       </main>
       <Footer />
