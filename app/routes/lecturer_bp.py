@@ -43,7 +43,7 @@ class LecturerRs(Resource):
         datetime_obj = datetime.strptime(data['datetime'], '%Y:%m:%d')
         lecturer = Lecturer.query.filter_by(id='id').first()
         if lecturer:
-            abort(409, detail="Lecturer with the same ID already exists")
+            abort(409, detail="Lecturer with this ID already exists")
         new_lecturer = Lecturer(lecture_title=data['lecture_title'], facult_id=data['facult_id'],
                                 datetime=datetime_obj, location=data['location'])
         db.session.add(new_lecturer)
@@ -72,7 +72,7 @@ class LectureByIdRs(Resource):
         return jsonify(result)
 
     def delete(self, id):
-        
+
         # Retrieve lecturer by ID from the database
         lecturer = Lecturer.query.get(id)
         if not lecturer:
