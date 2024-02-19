@@ -4,7 +4,6 @@ from flask_restful import Api, Resource, reqparse
 from models import Faculty, db
 from serializers import FacultySchema
 
-
 faculty_bp = Blueprint('faculty_bp', __name__)
 api = Api(faculty_bp)
 

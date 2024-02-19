@@ -3,11 +3,13 @@ from flask_migrate import Migrate
 from flask_cors import CORS
 from flask_marshmallow import Marshmallow
 
+
 from models import db
 
 
 from routes.auth import auth_bp, jwt
 from routes.users_bp import user_bp, bcrypt
+
 
 
 def create_app():
@@ -24,6 +26,9 @@ def create_app():
 
     app.register_blueprint(user_bp)
     app.register_blueprint(auth_bp)
+    app.register_blueprint(department_bp)
+    app.register_blueprint(faculties_bp)
+    app.register_blueprint(lecturer_bp)
 
     CORS(app)
     return app
