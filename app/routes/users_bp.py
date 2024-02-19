@@ -15,7 +15,7 @@ bcrypt = Bcrypt()
 api = Api(user_bp)
 
 post_args = reqparse.RequestParser()
-post_args.add_argument('id', type=int, required=True, help='ID is required')
+post_args.add_argument('id', type=str, required=True, help='ID is required')
 post_args.add_argument('username', type=str, required=True,
                        help='Username is required')
 post_args.add_argument('role', type=str, required=True,
@@ -63,7 +63,7 @@ class Users(Resource):
         db.session.add(new_user)
         db.session.commit()
 
-        result = userschema.dump(new_user)
+        result = userschema_single.dump(new_user)
         return result, 201
 
 

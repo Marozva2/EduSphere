@@ -12,7 +12,7 @@ ma = Marshmallow(unit_bp)
 api = Api(unit_bp)
 
 post_args = reqparse.RequestParser()
-post_args.add_argument('id', type=int, required=True, help='ID is required')
+# post_args.add_argument('id', type=int, required=True, help='ID is required')
 post_args.add_argument('unit_code', type=str,
                        required=True, help='Unit_code is required')
 post_args.add_argument('name', type=str, required=True,
@@ -46,8 +46,8 @@ class UnitRs(Resource):
     def post(self):
         data = post_args.parse_args()
 
-        unit = Unit.query.filter_by(id=id).first()
-        if not unit:
+        unit = Unit.query.filter_by(id='id').first()
+        if unit:
             abort(409, detail="Unit with the same id already exists")
 
         new_unit = Unit(unit_code=data['unit_code'], name=data['name'], passmark=data['passmark'],
@@ -55,7 +55,7 @@ class UnitRs(Resource):
         db.session.add(new_unit)
         db.session.commit()
 
-        result = unitschema.dump(new_unit)
+        result = unitschema_single.dump(new_unit)
         return result, 201
 
 
@@ -93,4 +93,4 @@ class UnitByIdRs(Resource):
 
 
 api.add_resource(UnitRs, '/units')
-api.add_resource(UnitByIdRs, '/unit/<int:id>')
+api.add_resource(UnitByIdRs, '/unit/<string:id>')
