@@ -1,4 +1,4 @@
-from models import User, db, Lecturer
+from models import User, db, Lecturer, Course
 from app import create_app
 from datetime import datetime
 
@@ -79,15 +79,15 @@ with app.app_context():
         "updated_at": "8/6/2023"
     }]
 
-    # for user_data in users:
-    #     user_data["created_at"] = datetime.strptime(
-    #         user_data["created_at"], "%m/%d/%Y")
-    #     user_data["updated_at"] = datetime.strptime(
-    #         user_data["updated_at"], "%m/%d/%Y")
+    for user_data in users:
+        user_data["created_at"] = datetime.strptime(
+            user_data["created_at"], "%m/%d/%Y")
+        user_data["updated_at"] = datetime.strptime(
+            user_data["updated_at"], "%m/%d/%Y")
 
-    #     user = User(**user_data)
-    #     db.session.add(user)
-    # db.session.commit()
+        user = User(**user_data)
+        db.session.add(user)
+    db.session.commit()
     print("Users added!!!")
 
     courses = [{
@@ -107,9 +107,9 @@ with app.app_context():
         "department_id": 3
     }]
 
-    # for course in courses:
+    for course in courses:
 
-    #     course = Course(**course)
-    #     db.session.add(course)
-    # db.session.commit()
-    # print("courses added!!!")
+        course = Course(**course)
+        db.session.add(course)
+    db.session.commit()
+    print("courses added!!!")
