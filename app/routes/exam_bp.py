@@ -1,68 +1,91 @@
-from flask import request, jsonify, Blueprint
+from flask import Blueprint, jsonify
+from flask_restful import Api, Resource, abort, reqparse
+from flask_marshmallow import Marshmallow
 
-# Assuming you have already initialized your Flask app
-app = Flask(__name__)
+from models import Exam, db
 
-# Define the blueprint
+
+from serializers import ExamSchema
+
 exam_bp = Blueprint('exam_bp', __name__)
+ma = Marshmallow(exam_bp)
+api = Api(exam_bp)
 
-# Dummy data for exam result
-exam_results = {}
+post_args = reqparse.RequestParser()
+post_args.add_argument('unit_id', type=str,
+                       help='unit_id is required')
+post_args.add_argument('score', type=float,
+                       required=True, help='Score is required')
+post_args.add_argument('student_id', type=int, required=True,
+                       help='Student_id is required')
+post_args.add_argument('grade', type=str, required=True,
+                       help='Grade is required')
 
-# Route for submitting exam results
-@exam_bp.route('/exams/submit', methods=['POST'])
-def submit_exam_results():
-    data = request.json  # Assuming JSON data is sent in the request body
-    exam_id = data.get('exam_id')
-    student_id = data.get('student_id')
-    score = data.get('score')
 
-    if not exam_id or not student_id or not score:
-        return jsonify({'error': 'Incomplete data provided'}), 400
+patch_args = reqparse.RequestParser()
+patch_args.add_argument('unit_id', type=str)
+patch_args.add_argument('score', type=float)
+patch_args.add_argument('student_id', type=int)
+patch_args.add_argument('grade', type=str)
 
-    # Store exam results
-    exam_results[exam_id] = {'student_id': student_id, 'score': score}
 
-    return jsonify({'message': 'Exam results submitted successfully'})
+examschema = ExamSchema(many=True)
+examschema_single = ExamSchema()
 
-# Route for retrieving exam results for a specific student
-@exam_bp.route('/exams/results/<student_id>', methods=['GET'])
-def get_exam_results(student_id):
-    student_results = [result for result in exam_results.values() if result['student_id'] == student_id]
-    if not student_results:
-        return jsonify({'error': 'No exam results found for the student'}), 404
 
-    return jsonify({'exam_results': student_results})
+class ExamRs(Resource):
+    def get(self):
+        exams = Exam.query.all()
+        result = examschema.dump(exams, many=True)
+        return jsonify(result)
 
-# Route for retrieving exam results for all students
-@exam_bp.route('/exams/results', methods=['GET'])
-def get_all_exam_results():
-    return jsonify(exam_results)
+    def post(self):
+        data = post_args.parse_args()
 
-# Route for updating exam results
-@exam_bp.route('/exams/update/<exam_id>', methods=['PUT'])
-def update_exam_results(exam_id):
-    data = request.json  # Assuming JSON data is sent in the request body
-    new_score = data.get('score')
+        exams = Exam.query.filter_by(unit_id=data['unit_id']).first()
+        if exams:
+            abort(409, detail=f"exam with the same id already exists")
 
-    if exam_id not in exam_results:
-        return jsonify({'error': 'Exam ID not found'}), 404
+        new_exam = Exam(
+            unit_id=data['unit_id'], score=data['score'], student_id=data['student_id'], grade=data['grade'])
+        db.session.add(new_exam)
+        db.session.commit()
 
-    exam_results[exam_id]['score'] = new_score
-    return jsonify({'message': f'Exam results for {exam_id} updated successfully'})
+        result = examschema_single.dump(new_exam)
+        return result, 201
 
-# Route for deleting exam results
-@exam_bp.route('/exams/delete/<exam_id>', methods=['DELETE'])
-def delete_exam_results(exam_id):
-    if exam_id not in exam_results:
-        return jsonify({'error': 'Exam ID not found'}), 404
 
-    del exam_results[exam_id]
-    return jsonify({'message': f'Exam results for {exam_id} deleted successfully'})
+class ExamRsById(Resource):
+    def get(self, id):
+        exam = Exam.query.get(id)
+        if not exam:
+            abort(404, detail=f'Exam with id {id} does not exist')
+        result = examschema_single.dump(exam)
+        return jsonify(result)
 
-# Register the blueprint with the Flask app
-app.register_blueprint(exam_bp)
+    def patch(self, id):
+        exam = Exam.query.get(id)
+        if not exam:
+            abort(404, detail=f'Exam with id {id} does not exist')
 
-# Run the Flask app
-if __name__ == '__main__':
-    app.run(debug=True)
+        data = patch_args.parse_args()
+        for key, value in data.items():
+            if value is not None:
+                setattr(exam, key, value)
+        db.session.commit()
+
+        result = examschema_single.dump(exam)
+        return jsonify(result)
+
+    def delete(self, id):
+        exam = Exam.query.get(id)
+        if not exam:
+            abort(404, detail=f'exam with id {id} does not exist')
+
+        db.session.delete(exam)
+        db.session.commit()
+        return f'exam with {id=} has been successfully deleted.', 204
+
+
+api.add_resource(ExamRs, '/exams')
+api.add_resource(ExamRsById, '/exam/<string:id>')
