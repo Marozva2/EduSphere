@@ -52,6 +52,10 @@
     .header-section nav ul li a:hover {
     color: #007bff;
     }
+
+    .header-section nav ul li:hover .dropdown {
+        display: block;
+      }
     
     .logo img {
     width: 100px;
@@ -59,18 +63,32 @@
     }
     
     
-    
     .dropdown {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        position: absolute;
+        background-color: #f9f9f9;
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        top: calc(100% + 10px); /* Position dropdown below its parent item */
+        left: 0; /* Align dropdown with the left edge of its parent item */
+        min-width: 200px; /* Set minimum width for the dropdown */
+        display: none;
+      }
+
+      .dropdown ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
     }
+      
     
-    .dropdown li {
-    display: block;
-    }
-    
+      .dropdown li {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+}
+
+    /* Style for last dropdown list item */
+.dropdown li:last-child {
+    border-bottom: none; /* Remove border from the last list item */
+  }
     
     .apply-button {
     display: flex;
@@ -119,7 +137,6 @@
     transition: background-color 0.3s ease;
     }
     
-    
     .nav-button.prev {
     left: 10px;
     transform: translate(0, -50%);
@@ -136,3 +153,4 @@
     background-color: hsl(0, 100%, 25%);
     color: white;
     }
+
