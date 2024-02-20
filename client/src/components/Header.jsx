@@ -6,64 +6,50 @@ function Header() {
 
     return (
         <header>
-            <div className="header-section maroon-bg">
-                <nav>
-                    <ul>
-                        <li>
-                            <a href="#login">Login</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-            <div className="header-section white-bg">
-                <div className="logo">
-                    <img src="../../images/logo.png" alt="Logo" />
-                    <li>
-                        <a>EduSphere</a>
-                    </li>
+            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                <div className="container">
+                    <a className="navbar-brand" href="#home">
+                        <img src="../../images/logo.png" alt="Logo" className="logo" style={{ width: "80px" }} />
+                        <span className="d-none d-lg-inline">EduSphere</span>
+                    </a>
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                    <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
+                        <ul className="navbar-nav">
+                            <li className="nav-item">
+                                <a className="nav-link" href="#home">Home</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#about">About Us</a>
+                            </li>
+                            <li className="nav-item dropdown" onMouseEnter={() => setShowAcademicsDropdown(true)} onMouseLeave={() => setShowAcademicsDropdown(false)}>
+                                <a className="nav-link dropdown-toggle" href="#academics" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Academics
+                                </a>
+                                <ul className="dropdown-menu" aria-labelledby="navbarDropdown" style={{ display: showAcademicsDropdown ? 'block' : 'none' }}>
+                                    <li><a className="dropdown-item" href="#engineering">Faculty of Engineering</a></li>
+                                    <li><a className="dropdown-item" href="#education">Faculty of Education</a></li>
+                                    <li><a className="dropdown-item" href="#business">Faculty of Business</a></li>
+                                    <li><a className="dropdown-item" href="#health">Faculty of Medicine & Health Sciences</a></li>
+                                    <li><a className="dropdown-item" href="#law">Faculty of Law</a></li>
+                                </ul>
+                            </li>
+                            <li className="nav-item dropdown" onMouseEnter={() => setShowAdmissionsDropdown(true)} onMouseLeave={() => setShowAdmissionsDropdown(false)}>
+                                <a className="nav-link dropdown-toggle" href="#admissions" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Admissions
+                                </a>
+                                <ul className="dropdown-menu" aria-labelledby="navbarDropdown" style={{ display: showAdmissionsDropdown ? 'block' : 'none' }}>
+                                    <li><a className="dropdown-item" href="../../form/application-form.pdf" download>Download Application Form</a></li>
+                                </ul>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#login">Login</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <nav>
-                    <ul>
-                        <li>
-                            <a href="#home">Home</a>
-                        </li>
-                        <li>
-                            <a href="#about">About Us</a>
-                        </li>
-                        <li onMouseEnter={() => setShowAcademicsDropdown(true)} onMouseLeave={() => setShowAcademicsDropdown(false)}>
-                            <a href="#academics">Academics</a>
-                            <ul className="dropdown" style={{ display: showAcademicsDropdown ? 'block' : 'none' }}>
-                                <li>
-                                    <a href="#engineering">Faculty of Engineering</a>
-                                </li>
-                                <li>
-                                    <a href="#education">Faculty of Education</a>
-                                </li>
-                                <li>
-                                    <a href="#business">Faculty of Business</a>
-                                </li>
-                                <li>
-                                    <a href="#health">Faculty of Medicine & Health Sciences</a>
-                                </li>
-                                <li>
-                                    <a href="#law">Faculty of Law</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li onMouseEnter={() => setShowAdmissionsDropdown(true)} onMouseLeave={() => setShowAdmissionsDropdown(false)}>
-                            <a href="#admissions">Admissions</a>
-                            <ul className="dropdown" style={{ display: showAdmissionsDropdown ? 'block' : 'none' }}>
-                                <li>
-                                    <a href="../../form/application-form.pdf" download>Download Application Form</a>
-                                </li>
-                                <li>
-                                    <a href="#apply">Apply</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+            </nav>
         </header>
     );
 }
