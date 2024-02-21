@@ -8,6 +8,7 @@ from models import db
 
 from routes.auth import auth_bp, jwt
 from routes.users_bp import user_bp, bcrypt
+from routes.course_bp import course_bp
 
 
 def create_app():
@@ -24,6 +25,7 @@ def create_app():
 
     app.register_blueprint(user_bp)
     app.register_blueprint(auth_bp)
+    app.register_blueprint(course_bp)
 
     CORS(app)
     return app

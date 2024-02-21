@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request
 from flask_restful import Api, Resource, abort, reqparse
 from models import Course, db
 
-from serializers import CourseSchema
+# from serializers import CourseSchema
 
 course_bp = Blueprint('course_bp', __name__)
 api = Api(course_bp)
