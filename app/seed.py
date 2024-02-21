@@ -1,4 +1,4 @@
-from models import User, db, Course, Admin
+from models import User, db, Lecturer, Course
 from app import create_app
 from datetime import datetime
 
@@ -43,6 +43,7 @@ with app.app_context():
         course = Course(**course_data)
         db.session.add(course)
     db.session.commit()
+<<<<<<< HEAD
     print("Courses added!!!")
 
     
@@ -51,3 +52,30 @@ with app.app_context():
  
 
     
+=======
+    print("Users added!!!")
+
+    courses = [{
+        "id": 1,
+        "course_name": "Protein Expression",
+        "course_code": 1,
+        "department_id": 1
+    }, {
+        "id": 2,
+        "course_name": "Oracle SQL Developer",
+        "course_code": 2,
+        "department_id": 2
+    }, {
+        "id": 3,
+        "course_name": "Life Sciences",
+        "course_code": 3,
+        "department_id": 3
+    }]
+
+    for course in courses:
+
+        course = Course(**course)
+        db.session.add(course)
+    db.session.commit()
+    print("courses added!!!")
+>>>>>>> main

@@ -17,4 +17,9 @@ flask-jwt-extended = "*"
 [dev-packages]
 
 [requires]
+<<<<<<< HEAD
 python_version = "3.10"
+=======
+
+python_version = "3.11"
+>>>>>>> main
