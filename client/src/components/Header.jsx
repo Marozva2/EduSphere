@@ -21,7 +21,7 @@ function Header() {
                                 <a className="nav-link" href="#home">Home</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#about">About Us</a>
+                                <a className="nav-link" href="#about-us">About Us</a>
                             </li>
                             <li className="nav-item dropdown" onMouseEnter={() => setShowAcademicsDropdown(true)} onMouseLeave={() => setShowAcademicsDropdown(false)}>
                                 <a className="nav-link dropdown-toggle" href="#academics" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

@@ -28,6 +28,7 @@ function HeroSection() {
     setDownloadClicked(true);
   };
 
+
   const goToPrev = () => {
     sliderRef.current.slickPrev();
   };
@@ -37,6 +38,7 @@ function HeroSection() {
   };
 
   return (
+    <React.Fragment>
     <section className="hero">
       <div className="container">
         <div className="row">
@@ -94,10 +96,49 @@ function HeroSection() {
           </div>
         </div>
       </div>
+      
+    </section>
+    {/* About Us Section */}
+    <section id="about" className="about">
+      <div className="container" data-aos="fade-up">
+
+        <div className="section-header">
+          <h2>About Us</h2>
+          <h1>Learn More <span>About Us</span></h1>
+        </div>
+
+        <div className="row gy-4">
+          <div className="col-lg-7 position-relative about-img" style={{backgroundImage: 'url(assets/img/learn.jpg)'}} data-aos="fade-up" data-aos-delay="150">
+            <div className="call-us position-absolute">
+              <h2>Order from Us</h2>
+              <h1> 07 4779 1243</h1>
+            </div>
+          </div>
+          <div className="col-lg-5 d-flex align-items-end" data-aos="fade-up" data-aos-delay="300">
+            <div className="content ps-0 ps-lg-5">
+              <p className="fst-italic">
+                We are a small family-run local business, located and operating in Cairville for 5 years. We have,
+                however, over 25 years of experience in floristry. We are hoping to improve our business by getting
+                on the Internet. Our florist shop is located at 223 Bolsover St. We offer the exceptional quality and
+                choice of fresh flowers & foliage tailor-made to suit any occasion. We also do next-day home
+                delivery (as long as the order is made by 3pm the day before).
+              </p>
+              <ul>
+                <li><i className="bi bi-check2-all"></i> Exceptional Quality</li>
+                <li><i className="bi bi-check2-all"></i> Fresh Flowers</li>
+                <li><i className="bi bi-check2-all"></i> Next Day Home Delivery (3PM)</li>
+              </ul>
+              <p>
+               We have the best flowers in town, tailored for you so don't hesitate to order from us. 
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     
-
+</React.Fragment>
   );
 }
 
