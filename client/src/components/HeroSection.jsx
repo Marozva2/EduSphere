@@ -38,7 +38,7 @@ function HeroSection() {
   };
 
   return (
-    <React.Fragment>
+    <>
     <section className="hero">
       <div className="container">
         <div className="row">
@@ -90,8 +90,6 @@ function HeroSection() {
                   <img src={image5} alt="EduSphere Image 5" />
                 </div>
               </Slider>
-              <button className="btn btn-primary nav-button prev" onClick={goToPrev}>&lt;</button>
-              <button className="btn btn-primary nav-button next" onClick={goToNext}>&gt;</button>
             </div>
           </div>
         </div>
@@ -137,9 +135,7 @@ function HeroSection() {
         </div>
       </div>
     </section>
-
-    
-</React.Fragment>
+</>
   );
 }
 
