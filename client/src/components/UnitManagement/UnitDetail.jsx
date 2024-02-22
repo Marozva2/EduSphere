@@ -1,11 +1,20 @@
-const UnitList = () => {
-    // UnitList component logic here
-    return (
-        <div>
-            <h2>Unit List</h2>
-            {/* Display unit list items */}
-        </div>
-    );
+import React from 'react';
+
+const UnitDetail = () => {
+  const unit = {
+    name: 'Sample Unit',
+    code: 'UNIT-001',
+    description: 'This is a sample unit description.',
+  };
+
+  return (
+    <div>
+      <h2>Unit Detail</h2>
+      <p><strong>Name:</strong> {unit.name}</p>
+      <p><strong>Code:</strong> {unit.code}</p>
+      <p><strong>Description:</strong> {unit.description}</p>
+    </div>
+  );
 };
 
-export default UnitList;
+export default UnitDetail;
