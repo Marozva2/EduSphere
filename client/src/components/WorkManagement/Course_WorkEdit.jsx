@@ -15,8 +15,8 @@ const Course_WorkEdit = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Implement form submission logic here
-    console.log(courseWorkDetails); // Example: Log form data
+    
+    console.log(courseWorkDetails); 
   };
 
   return (

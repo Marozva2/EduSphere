@@ -1,7 +1,7 @@
 import React from 'react';
 
 const UnitList = () => {
-  const unitItems = ['Unit 1', 'Unit 2', 'Unit 3', 'Unit 4']; 
+  const unitItems = ['Community Health', 'Nutrition', 'Public Health', 'Health Promotion']; 
 
   return (
     <div>

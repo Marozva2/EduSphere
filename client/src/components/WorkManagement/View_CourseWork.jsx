@@ -2,8 +2,8 @@ import React from 'react';
 
 const View_CourseWork = () => {
   const courseWorkDetails = {
-    title: 'React Basics',
-    description: 'Learn the fundamentals of React',
+    title: 'Public Health',
+    description: 'Learn the fundamentals of Public Health',
     deadline: '2022-12-31',
     status: 'Pending',
   };

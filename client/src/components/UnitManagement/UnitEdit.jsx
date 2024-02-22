@@ -13,7 +13,7 @@ const UnitEdit = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add your logic to handle form submission here
+    
     console.log(unitDetails); 
   };
 

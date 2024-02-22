@@ -2,9 +2,9 @@ import React from 'react';
 
 const UnitDetail = () => {
   const unit = {
-    name: 'Sample Unit',
+    name: 'Nutrition',
     code: 'UNIT-001',
-    description: 'This is a sample unit description.',
+    description: 'Unit trains Community nutritionists who play a pivotal role in educating members of the community on ideal nutrition, diet and food selection. In addition, this cadre educates the community on ways to develop healthy eating habits that fulfill their dietetic requirements and ways to manage diseases through nutrition.',
   };
 
   return (
