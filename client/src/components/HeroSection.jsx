@@ -98,6 +98,7 @@ function HeroSection() {
       </div>
       
     </section>
+    <hr></hr>
     {/* About Us Section */}
     <section id="about" className="about">
       <div className="container" data-aos="fade-up">
@@ -108,7 +109,7 @@ function HeroSection() {
         </div>
 
         <div className="row gy-4">
-          <div className="col-lg-7 position-relative about-img" style={{backgroundImage: 'url(assets/img/learn.jpg)'}} data-aos="fade-up" data-aos-delay="150">
+          <div className="col-lg-7 position-relative about-img" style={{backgroundImage: 'url(../..images/12.jpg)'}} data-aos="fade-up" data-aos-delay="150">
             <div className="call-us position-absolute">
               <h2>Order from Us</h2>
               <h1> 07 4779 1243</h1>
