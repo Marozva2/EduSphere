@@ -46,7 +46,7 @@ function HeroSection() {
                 <h1 className="edusphere-title">EDUSPHERE</h1>
                 <h1 className="edusphere-title2">University</h1>
                 <p>EduSphere University is not just any ordinary Institution.We are distinctive in our performance 
-                and take charge of our student's learning. For the service of God and humanity. </p>
+                and take charge of our student's learning. For the service of God and humanity </p>
                 <button className="apply-button"
                 onClick={handleDownload}>
                   Apply for Course <span>&rarr;</span>
@@ -95,6 +95,8 @@ function HeroSection() {
         </div>
       </div>
     </section>
+
+    
 
   );
 }
