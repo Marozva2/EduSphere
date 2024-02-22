@@ -9,12 +9,9 @@ from models import db
 
 from routes.auth import auth_bp, jwt
 from routes.users_bp import user_bp, bcrypt
-<<<<<<< HEAD
-from routes.course_bp import course_bp
-=======
 from routes.course_bp import courses_bp
-from routes.course_semester_bp import course_sem_bp
-from routes.course_work_bp import coursework_bp
+from routes.course_semester_bp import course_semester_bp
+from routes.course_work_bp import course_work_bp
 from routes.department_bp import department_bp
 from routes.exam_bp import exam_bp
 from routes.faculty_bp import faculty_bp
@@ -24,7 +21,6 @@ from routes.semester_bp import semester_bp
 from routes.student_bp import student_bp
 from routes.student_course_bp import student_course_bp
 from routes.unit_bp import unit_bp
->>>>>>> main
 
 
 def create_app():
@@ -41,12 +37,9 @@ def create_app():
 
     app.register_blueprint(user_bp)
     app.register_blueprint(auth_bp)
-<<<<<<< HEAD
-    app.register_blueprint(course_bp)
-=======
     app.register_blueprint(courses_bp)
-    app.register_blueprint(course_sem_bp)
-    app.register_blueprint(coursework_bp)
+    app.register_blueprint(course_semester_bp)
+    app.register_blueprint(course_work_bp)
     app.register_blueprint(department_bp)
     app.register_blueprint(exam_bp)
     app.register_blueprint(faculty_bp)
@@ -56,7 +49,6 @@ def create_app():
     app.register_blueprint(student_bp)
     app.register_blueprint(student_course_bp)
     app.register_blueprint(unit_bp)
->>>>>>> main
 
     CORS(app)
     return app

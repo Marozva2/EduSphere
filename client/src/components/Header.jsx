@@ -1,25 +1,14 @@
-// Header.jsx
 import React, { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
 
 function Header() {
   const [showAcademicsDropdown, setShowAcademicsDropdown] = useState(false);
   const [showAdmissionsDropdown, setShowAdmissionsDropdown] = useState(false);
-  const navigate = useNavigate();
-
-  const handleDropdownClick = (path) => {
-    // Navigate to the selected path
-    navigate(path);
-    // Hide the dropdown
-    setShowAcademicsDropdown(false);
-    setShowAdmissionsDropdown(false);
-  };
 
   return (
     <header>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container">
-          <NavLink className="navbar-brand" to="/">
+          <a className="navbar-brand" href="#home">
             <img
               src="../../images/logo.png"
               alt="Logo"
@@ -27,7 +16,7 @@ function Header() {
               style={{ width: "80px" }}
             />
             <span className="d-none d-lg-inline">EduSphere</span>
-          </NavLink>
+          </a>
           <button
             className="navbar-toggler"
             type="button"
@@ -45,80 +34,97 @@ function Header() {
           >
             <ul className="navbar-nav">
               <li className="nav-item">
-                <NavLink className="nav-link" to="/home">
+                <a className="nav-link" href="#home">
                   Home
-                </NavLink>
+                </a>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/about">
+                <a className="nav-link" href="#about">
                   About Us
-                </NavLink>
+                </a>
               </li>
               <li
                 className="nav-item dropdown"
                 onMouseEnter={() => setShowAcademicsDropdown(true)}
                 onMouseLeave={() => setShowAcademicsDropdown(false)}
               >
-                <span
+                <a
                   className="nav-link dropdown-toggle"
-                  id="academicsDropdown"
+                  href="#academics"
+                  id="navbarDropdown"
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
                   Academics
-                </span>
+                </a>
                 <ul
                   className="dropdown-menu"
-                  aria-labelledby="academicsDropdown"
+                  aria-labelledby="navbarDropdown"
                   style={{ display: showAcademicsDropdown ? "block" : "none" }}
                 >
                   <li>
-                    <span
-                      className="dropdown-item"
-                      onClick={() => handleDropdownClick("/engineering")}
-                    >
+                    <a className="dropdown-item" href="#engineering">
                       Faculty of Engineering
-                    </span>
+                    </a>
                   </li>
                   <li>
-                    <span
-                      className="dropdown-item"
-                      onClick={() => handleDropdownClick("/education")}
-                    >
+                    <a className="dropdown-item" href="#education">
                       Faculty of Education
-                    </span>
+                    </a>
                   </li>
                   <li>
-                    <span
-                      className="dropdown-item"
-                      onClick={() => handleDropdownClick("/business")}
-                    >
+                    <a className="dropdown-item" href="#business">
                       Faculty of Business
-                    </span>
+                    </a>
                   </li>
                   <li>
-                    <span
-                      className="dropdown-item"
-                      onClick={() => handleDropdownClick("/medicine")}
-                    >
+                    <a className="dropdown-item" href="#health">
                       Faculty of Medicine & Health Sciences
-                    </span>
+                    </a>
                   </li>
                   <li>
-                    <span
-                      className="dropdown-item"
-                      onClick={() => handleDropdownClick("/law")}
-                    >
+                    <a className="dropdown-item" href="#law">
                       Faculty of Law
-                    </span>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li
+                className="nav-item dropdown"
+                onMouseEnter={() => setShowAdmissionsDropdown(true)}
+                onMouseLeave={() => setShowAdmissionsDropdown(false)}
+              >
+                <a
+                  className="nav-link dropdown-toggle"
+                  href="#admissions"
+                  id="navbarDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Admissions
+                </a>
+                <ul
+                  className="dropdown-menu"
+                  aria-labelledby="navbarDropdown"
+                  style={{ display: showAdmissionsDropdown ? "block" : "none" }}
+                >
+                  <li>
+                    <a
+                      className="dropdown-item"
+                      href="../../form/application-form.pdf"
+                      download
+                    >
+                      Download Application Form
+                    </a>
                   </li>
                 </ul>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/login">
+                <a className="nav-link" href="#login">
                   Login
-                </NavLink>
+                </a>
               </li>
             </ul>
           </div>
