@@ -1,29 +1,29 @@
 import React, { useState, useEffect } from "react";
 
-const Course_WorkEdit = ({ courseworkId }) => {
-  const [courseWork, setCourseWork] = useState({});
+const LecEdit = ({ lecturerId }) => {
+  const [lecturer, setLec] = useState({});
 
   useEffect(() => {
-    async function fetchCourseWork() {
+    async function fetchlecturer() {
       const response = await fetch(
-        `http://127.0.0.1:5000/course_work/${courseworkId}`
+        `http://127.0.0.1:5000/lecturer/${lecturerId}`
       );
       const data = await response.json();
-      setCourseWork(data);
+      setLec(data);
     }
 
-    fetchCourseWork();
-  }, [courseworkId]);
+    fetchlecturer();
+  }, [lecturerId]);
 
-  async function updateCourseWork() {
+  async function updateLecturer() {
     const response = await fetch(
-      `http://127.0.0.1:5000/course_work/${courseworkId}`,
+      `http://127.0.0.1:5000/lecturer/${lecturerId}`,
       {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(courseWork),
+        body: JSON.stringify(lecturer),
       }
     );
     const data = await response.json();
@@ -31,43 +31,49 @@ const Course_WorkEdit = ({ courseworkId }) => {
   }
 
   const handleInputChange = (event) => {
-    setCourseWork({
-      ...courseWork,
+    setLec({
+      ...lecturer,
       [event.target.name]: event.target.value,
     });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    updateCourseWork();
+    updateLecturer();
   };
 
   return (
     <div>
-      <h2>Edit Course Work</h2>
+      <h2>Edit Lecturer</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
           name="id"
-          value={courseWork.courseName}
-          onChange={handleInputChange}
-        />
-        <input
-          type="number"
-          name="unit_id"
-          value={courseWork.unit_id}
+          value={lecturer.id}
           onChange={handleInputChange}
         />
         <input
           type="text"
-          name="student_id"
-          value={courseWork.student_id}
+          name="lecture_title"
+          value={lecturer.lecture_title}
           onChange={handleInputChange}
         />
         <input
-          type="number"
-          name="score"
-          value={courseWork.score}
+          type="text"
+          name="faculty_id"
+          value={lecturer.faculty_id}
+          onChange={handleInputChange}
+        />
+        <input
+          type="date"
+          name="datetime"
+          value={lecturer.datetime}
+          onChange={handleInputChange}
+        />
+        <input
+          type="text"
+          name="location"
+          value={lecturer.location}
           onChange={handleInputChange}
         />
         <button type="submit">Submit</button>
@@ -76,4 +82,4 @@ const Course_WorkEdit = ({ courseworkId }) => {
   );
 };
 
-export default Course_WorkEdit;
+export default LecEdit;
