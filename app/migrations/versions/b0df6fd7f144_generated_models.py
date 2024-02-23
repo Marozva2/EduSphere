@@ -1,8 +1,8 @@
-"""created models
+"""generated models
 
-Revision ID: 5cb30c6f67c9
+Revision ID: b0df6fd7f144
 Revises: 
-Create Date: 2024-02-14 22:23:07.069287
+Create Date: 2024-02-19 13:26:34.803179
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '5cb30c6f67c9'
+revision = 'b0df6fd7f144'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -31,7 +31,6 @@ def upgrade():
     sa.Column('email', sa.String(length=100), nullable=True),
     sa.Column('department_id', sa.String(length=36), nullable=True),
     sa.ForeignKeyConstraint(['department_id'], ['departments.id'], ),
-    sa.ForeignKeyConstraint(['id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('semesters',

@@ -9,8 +9,11 @@ api = Api(department_bp)
 
 
 post_args = reqparse.RequestParser()
-post_args.add_argument('department_name', type=str, required=True, help='Department name is required')
-post_args.add_argument('faculty_id', type=str, required=True, help='faculty_id is required')
+
+post_args.add_argument('department_name', type=str, required=True,
+                       help='Department name is required')
+post_args.add_argument('faculty_id', type=str, required=True,
+                       help='faculty_id is required')
 
 
 patch_args = reqparse.RequestParser()

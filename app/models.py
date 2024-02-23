@@ -48,7 +48,7 @@ class Department(db.Model):
 class Faculty(db.Model):
     __tablename__ = 'faculties'
 
-    id = db.Column(db.String(36), db.ForeignKey('users.id'), primary_key=True)
+    id = db.Column(db.String(36), primary_key=True, default=str(uuid.uuid4()))
     name = db.Column(db.String(50))
     email = db.Column(db.String(100))
     department_id = db.Column(db.String(36), db.ForeignKey('departments.id'))
