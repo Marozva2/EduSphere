@@ -39,7 +39,7 @@ function HeroSection() {
 
   return (
     <>
-    <section className="hero">
+    <section id ="home "className="hero">
       <div className="container">
         <div className="row">
           <div className="col-md-6">
@@ -98,7 +98,7 @@ function HeroSection() {
     </section>
     <hr></hr>
     {/* About Us Section */}
-    <section id="about" className="about">
+    <section id="about-us" className="about">
       <div className="container" data-aos="fade-up">
 
         <div className="section-header">

@@ -1,6 +1,7 @@
 import React from 'react';
 import AdminNavbar from './AdminNavbar';
 import Sidebar from './Sidebar';
+import UserProfile from './UserProfile';
 
 const Admin = () => {
   return (

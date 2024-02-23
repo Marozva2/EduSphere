@@ -2,6 +2,7 @@ import React, {Fragment} from "react";
 import Header from "./Header.jsx"
 import HeroSection from "./HeroSection.jsx"
 import Footer from "./Footer.jsx"
+import Admin from "./Dashboards/Admin.jsx"
 
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
       <Header />
       <HeroSection />
       <Footer />
+      <Admin />
     </>
   )
 }
