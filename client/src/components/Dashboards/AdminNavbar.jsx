@@ -12,7 +12,7 @@ const AdminNavbar = () => {
               <span className="navbar-toggler-bar bar3"></span>
             </button>
           </div>
-          <a className="navbar-brand" href="#pablo">Admin Dashboard</a>
+          <a className="navbar-brand" href="#pablo">Student Dashboard</a>
         </div>
       </div>
     </nav>
