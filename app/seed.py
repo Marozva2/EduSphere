@@ -1,4 +1,4 @@
-from models import User, db, Lecturer, Course
+from models import User, db, Lecturer, Course, Unit, Department
 from app import create_app
 from datetime import datetime
 
@@ -79,15 +79,15 @@ with app.app_context():
         "updated_at": "8/6/2023"
     }]
 
-    for user_data in users:
-        user_data["created_at"] = datetime.strptime(
-            user_data["created_at"], "%m/%d/%Y")
-        user_data["updated_at"] = datetime.strptime(
-            user_data["updated_at"], "%m/%d/%Y")
+    # for user_data in users:
+    #     user_data["created_at"] = datetime.strptime(
+    #         user_data["created_at"], "%m/%d/%Y")
+    #     user_data["updated_at"] = datetime.strptime(
+    #         user_data["updated_at"], "%m/%d/%Y")
 
-        user = User(**user_data)
-        db.session.add(user)
-    db.session.commit()
+    #     user = User(**user_data)
+    #     db.session.add(user)
+    # db.session.commit()
     print("Users added!!!")
 
     courses = [{
@@ -107,9 +107,59 @@ with app.app_context():
         "department_id": 3
     }]
 
-    for course in courses:
+    # for course in courses:
 
-        course = Course(**course)
-        db.session.add(course)
-    db.session.commit()
+    #     course = Course(**course)
+    #     db.session.add(course)
+    # db.session.commit()
     print("courses added!!!")
+
+    units = [{
+        "id": 1,
+        "unit_code": "AWB",
+        "name": "Roomm",
+        "passmark": 41.62,
+        "course_id": 1,
+        "contact_hours": 57.05
+    }, {
+        "id": 2,
+        "unit_code": "LYU",
+        "name": "Devshare",
+        "passmark": 46.59,
+        "course_id": 2,
+        "contact_hours": 55.69
+    }, {
+        "id": 3,
+        "unit_code": "XAB",
+        "name": "Viva",
+        "passmark": 69.53,
+        "course_id": 3,
+        "contact_hours": 32.86
+    }]
+    # for unit in units:
+
+    #     unit = Unit(**unit)
+    #     db.session.add(unit)
+    # db.session.commit()
+    print("units added!!!")
+
+    departments = [{
+        "id": 1,
+        "department_name": "Sawayn, Gleason and Tillman",
+        "faculty_id": 1
+    }, {
+        "id": 2,
+        "department_name": "Lowe Group",
+        "faculty_id": 2
+    }, {
+        "id": 3,
+        "department_name": "Bogan Inc",
+        "faculty_id": 3
+    }]
+
+    for department in departments:
+
+        department = Department(**department)
+        db.session.add(department)
+    db.session.commit()
+    print("departments added!!!")

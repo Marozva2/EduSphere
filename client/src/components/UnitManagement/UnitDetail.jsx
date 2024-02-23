@@ -1,18 +1,42 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 
-const UnitDetail = () => {
-  const unit = {
-    name: 'Nutrition',
-    code: 'UNIT-001',
-    description: 'Unit trains Community nutritionists who play a pivotal role in educating members of the community on ideal nutrition, diet and food selection. In addition, this cadre educates the community on ways to develop healthy eating habits that fulfill their dietetic requirements and ways to manage diseases through nutrition.',
-  };
+const UnitDetail = ({ unitId }) => {
+  const [unit, setUnit] = useState(null);
+
+  useEffect(() => {
+    async function fetchUnit() {
+      const response = await fetch(`http://127.0.0.1:5000/unit/${unitId}`);
+      const data = await response.json();
+      setUnit(data);
+    }
+
+    fetchUnit();
+  }, [unitId]);
 
   return (
     <div>
       <h2>Unit Detail</h2>
-      <p><strong>Name:</strong> {unit.name}</p>
-      <p><strong>Code:</strong> {unit.code}</p>
-      <p><strong>Description:</strong> {unit.description}</p>
+      {unit ? (
+        <div>
+          <p>
+            <strong>Unit Code:</strong> {unit.unit_code}
+          </p>
+          <p>
+            <strong>Unit Name:</strong> {unit.name}
+          </p>
+          <p>
+            <strong>Unit Passmark:</strong> {unit.passmark}
+          </p>
+          <p>
+            <strong>Course Id:</strong> {unit.course_id}
+          </p>
+          <p>
+            <strong>Contact Hours:</strong> {unit.contact_hours}
+          </p>
+        </div>
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   );
 };

@@ -1,22 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 
-const Course_WorkDetail = () => {
-  const courseWorkDetails = [
-    { id: 1, title: 'Assignment 1', deadline: '2022-09-30' },
-    { id: 2, title: 'Quiz 1', deadline: '2022-10-15' },
-    { id: 3, title: 'Project 1', deadline: '2022-11-30' },
-  ];
+const Course_WorkDetail = ({ courseworkId }) => {
+  const [courseWork, setCourseWork] = useState(null);
+
+  useEffect(() => {
+    async function fetchCourseWork() {
+      const response = await fetch(
+        `http://127.0.0.1:5000/course_work/${courseworkId}`
+      );
+      const data = await response.json();
+      setCourseWork(data);
+    }
+
+    fetchCourseWork();
+  }, [courseworkId]);
 
   return (
     <div>
       <h2>Course Work Detail</h2>
-      <ul>
-        {courseWorkDetails.map((work) => (
-          <li key={work.id}>
-            <strong>{work.title}</strong> - Deadline: {work.deadline}
-          </li>
-        ))}
-      </ul>
+      {courseWork ? (
+        <div>
+          <p>
+            <strong>Course_work Id:</strong> {courseWork.id}
+          </p>
+          <p>
+            <strong>Unit id:</strong> {courseWork.unit_id}
+          </p>
+          <p>
+            <strong>Student id:</strong> {courseWork.student_id}
+          </p>
+          <p>
+            <strong>Score:</strong> {courseWork.score}
+          </p>
+        </div>
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   );
 };
