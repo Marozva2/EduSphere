@@ -19,7 +19,7 @@ function HeroSection() {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 2000,
     arrows: false,
     rtl: true,
   };
@@ -109,26 +109,23 @@ function HeroSection() {
         <div className="row gy-4">
           <div className="col-lg-7 position-relative about-img" style={{backgroundImage: 'url(../..images/12.jpg)'}} data-aos="fade-up" data-aos-delay="150">
             <div className="call-us position-absolute">
-              <h2>Order from Us</h2>
-              <h1> 07 4779 1243</h1>
+              <h2>Call Admissions</h2>
+              <h1> 020-023 799100</h1>
             </div>
           </div>
           <div className="col-lg-5 d-flex align-items-end" data-aos="fade-up" data-aos-delay="300">
             <div className="content ps-0 ps-lg-5">
               <p className="fst-italic">
-                We are a small family-run local business, located and operating in Cairville for 5 years. We have,
-                however, over 25 years of experience in floristry. We are hoping to improve our business by getting
-                on the Internet. Our florist shop is located at 223 Bolsover St. We offer the exceptional quality and
-                choice of fresh flowers & foliage tailor-made to suit any occasion. We also do next-day home
-                delivery (as long as the order is made by 3pm the day before).
+                
               </p>
               <ul>
-                <li><i className="bi bi-check2-all"></i> Exceptional Quality</li>
-                <li><i className="bi bi-check2-all"></i> Fresh Flowers</li>
-                <li><i className="bi bi-check2-all"></i> Next Day Home Delivery (3PM)</li>
+                <li><i className="bi bi-check2-all"></i> Student Centred</li>
+                <li><i className="bi bi-check2-all"></i> Wholistic Learning Approach</li>
+                <li><i className="bi bi-check2-all"></i>Best Facilities </li>
               </ul>
               <p>
-               We have the best flowers in town, tailored for you so don't hesitate to order from us. 
+                EduSphere University is not just any ordinary Institution.We are distinctive in our performance 
+                and take charge of our student's learning. For the service of God and humanity 
               </p>
             </div>
           </div>
