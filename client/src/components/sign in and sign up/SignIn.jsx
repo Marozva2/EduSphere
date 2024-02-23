@@ -38,7 +38,7 @@ function SignIn({ onSignIn }) {
             <button className="ui primary button">Sign In</button>
           </Link>
           <p>
-            Don't have an account <Link to="/sign-up">Sign up</Link>
+            Don't have an account <Link to="/signup">Sign up</Link>
           </p>
         </form>
       </div>
