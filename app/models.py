@@ -135,3 +135,4 @@ class StudentCourses(db.Model):
     id = db.Column(db.String(36), primary_key=True, default=str(uuid.uuid4()))
     student_id = db.Column(db.Integer, db.ForeignKey('students.id'))
     course_id = db.Column(db.Integer, db.ForeignKey('courses.id'))
+
