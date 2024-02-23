@@ -19,7 +19,7 @@ function HeroSection() {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 2000,
     arrows: false,
     rtl: true,
   };
@@ -27,6 +27,7 @@ function HeroSection() {
   const handleDownload = () => {
     setDownloadClicked(true);
   };
+
 
   const goToPrev = () => {
     sliderRef.current.slickPrev();
@@ -37,6 +38,7 @@ function HeroSection() {
   };
 
   return (
+    <>
     <section className="hero">
       <div className="container">
         <div className="row">
@@ -46,7 +48,7 @@ function HeroSection() {
                 <h1 className="edusphere-title">EDUSPHERE</h1>
                 <h1 className="edusphere-title2">University</h1>
                 <p>EduSphere University is not just any ordinary Institution.We are distinctive in our performance 
-                and take charge of our student's learning. For the service of God and humanity. </p>
+                and take charge of our student's learning. For the service of God and humanity </p>
                 <button className="apply-button"
                 onClick={handleDownload}>
                   Apply for Course <span>&rarr;</span>
@@ -88,14 +90,49 @@ function HeroSection() {
                   <img src={image5} alt="EduSphere Image 5" />
                 </div>
               </Slider>
-              <button className="btn btn-primary nav-button prev" onClick={goToPrev}>&lt;</button>
-              <button className="btn btn-primary nav-button next" onClick={goToNext}>&gt;</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </section>
+    <hr></hr>
+    {/* About Us Section */}
+    <section id="about" className="about">
+      <div className="container" data-aos="fade-up">
+
+        <div className="section-header">
+          <h2>About Us</h2>
+          <h1>Learn More <span>About Us</span></h1>
+        </div>
+
+        <div className="row gy-4">
+          <div className="col-lg-7 position-relative about-img" style={{backgroundImage: 'url(../..images/12.jpg)'}} data-aos="fade-up" data-aos-delay="150">
+            <div className="call-us position-absolute">
+              <h2>Call Admissions</h2>
+              <h1> 020-023 799100</h1>
+            </div>
+          </div>
+          <div className="col-lg-5 d-flex align-items-end" data-aos="fade-up" data-aos-delay="300">
+            <div className="content ps-0 ps-lg-5">
+              <p className="fst-italic">
+                
+              </p>
+              <ul>
+                <li><i className="bi bi-check2-all"></i> Student Centred</li>
+                <li><i className="bi bi-check2-all"></i> Wholistic Learning Approach</li>
+                <li><i className="bi bi-check2-all"></i>Best Facilities </li>
+              </ul>
+              <p>
+                EduSphere University is not just any ordinary Institution.We are distinctive in our performance 
+                and take charge of our student's learning. For the service of God and humanity 
+              </p>
             </div>
           </div>
         </div>
       </div>
     </section>
-
+</>
   );
 }
 
