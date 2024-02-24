@@ -1,30 +1,30 @@
 import React, { useState } from "react";
 
-const Course_Create = () => {
-  const [course, setCourse] = useState({});
+const CourseSemester_Create = () => {
+  const [courseSemester, setCourseSemester] = useState({});
 
   async function getCourseData() {
-    const response = await fetch("http://127.0.0.1:5000/courses");
+    const response = await fetch("http://127.0.0.1:5000/course-semesters");
     console.log(response);
     const data = await response.json();
     return data;
   }
 
   async function postCourseData() {
-    const response = await fetch("http://127.0.0.1:5000/courses", {
+    const response = await fetch("http://127.0.0.1:5000/course-semesters", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(course),
+      body: JSON.stringify(courseSemester),
     });
     const data = await response.json();
     return data;
   }
 
   const handleInputChange = (event) => {
-    setCourse({
-      ...course,
+    setCourseSemester({
+      ...courseSemester,
       [event.target.name]: event.target.value,
     });
   };
@@ -36,16 +36,15 @@ const Course_Create = () => {
 
   return (
     <div>
-      <h2>Create Course </h2>
+      <h2>Create CourseSemester</h2>
       <form onSubmit={handleSubmit}>
-        <input type="text" name="course_id" onChange={handleInputChange} />
-        <input type="text" name="course_name" onChange={handleInputChange} />
-        <input type="text" name="course_code" onChange={handleInputChange} />
-        <input type="text" name="department_id" onChange={handleInputChange} />
+        <input type="text" name="coursesemester_name" onChange={handleInputChange} />
+        <input type="number" name="course_id" onChange={handleInputChange} />
+        <input type="number" name="coursesemester_id" onChange={handleInputChange} />       
         <button type="submit">Submit</button>
       </form>
     </div>
   );
 };
 
-export default Course_Create;
+export default CourseSemester_Create;
