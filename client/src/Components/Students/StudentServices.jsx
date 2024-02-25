@@ -1,5 +1,5 @@
 // StudentServices.js
-const BASE_URL = 'http://localhost:5000'; //  API base URL
+const BASE_URL = 'http://localhost:5000'; 
 
 const StudentServices = {
   getAllStudents: async () => {

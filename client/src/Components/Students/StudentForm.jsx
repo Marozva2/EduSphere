@@ -36,6 +36,7 @@ const StudentForm = () => {
       ...formData,
       [name]: value,
     });
+  
   };
 
   return (

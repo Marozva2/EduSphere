@@ -8,14 +8,20 @@ const StudentDetails = () => {
   const [student, setStudent] = useState(null);
 
   useEffect(() => {
-    // Fetch student data by ID from the server
-    StudentServices.getStudentById(id)
-      .then((data) => {
-        setStudent(data);
-      })
-      .catch((error) => {
-        console.error(`Error fetching student with ID ${id}:`, error);
-      });
+    
+     
+    const fetchStudents = async () => {
+      try{
+        const response = await fetch(`http://localhost:5000/students/${Student.id}`);
+        const data = await response.json();
+        setExams(data); 
+      } catch (error) {
+        console.error('Error fetching student:', error);
+      }
+      }
+      
+    
+   
   }, [id]);
 
   return (
