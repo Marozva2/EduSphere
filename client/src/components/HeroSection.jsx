@@ -97,7 +97,8 @@ function HeroSection() {
       
     </section>
     <hr></hr>
-    {/* About Us Section */}
+
+    {/* Section ya About Us */}
     <section id="about-us" className="about">
       <div className="container" data-aos="fade-up">
 

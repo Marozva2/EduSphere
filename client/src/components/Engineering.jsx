@@ -3,7 +3,9 @@ import React from 'react'
 
 function Engineering() {
   return (
-    <div>Faculty of Engineering</div>
+    <div>
+      <h1>Faculty of Engineering</h1>
+    </div>
   )
 }
 
