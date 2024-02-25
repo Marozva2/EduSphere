@@ -4,7 +4,7 @@ const ExamList = () => {
   const [exams, setExams] = useState([]);
 
   useEffect(() => {
-    fetchExams(); // Fetch exams when component mounts
+    fetchExams(); 
   }, []);
 
   const fetchExams = async () => {
