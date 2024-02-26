@@ -108,10 +108,12 @@ function HeroSection() {
         </div>
 
         <div className="row gy-4">
-          <div className="col-lg-7 position-relative about-img" style={{backgroundImage: 'url(../..images/12.jpg)'}} data-aos="fade-up" data-aos-delay="150">
-            <div className="call-us position-absolute">
-              <h2>Call Admissions</h2>
-              <h1> 020-023 799100</h1>
+          <div className="col-lg-7 position-relative about-img" style={{backgroundImage: 'url(../../../../images/8.jpg)', backgroundSize: 'cover', backgroundPosition: 'center', borderRadius: '80%'}} data-aos="fade-up" data-aos-delay="150">
+            <div className="call-us position-absolute" style={{borderRadius: '12px', width: '60%', height: '20%'}}>
+              <div className="call-us-writing position-absolute">
+                <h2 className="ca" style={{fontSize: '18px'}}>Call Admissions</h2>
+                <h1 id="h11" style={{fontSize: '20px', color: 'maroon'}}> 020-023 799100</h1>
+              </div>
             </div>
           </div>
           <div className="col-lg-5 d-flex align-items-end" data-aos="fade-up" data-aos-delay="300">

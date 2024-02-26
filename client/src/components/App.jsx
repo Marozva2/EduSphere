@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./Header.jsx";
-import Engineering from "../components/Engineering.jsx";
+import Engineering from "./Engineering/Engineering.jsx";
 // import Education from "../components/Education.jsx";
 // import Business from "../components/Business.jsx";
 // import Health from "../components/Health.jsx";
@@ -13,17 +13,28 @@ function App() {
   return (
     <Router>
       <div>
-        <Header />
         <Routes>
-        {/* <Route exact path="/" element={<HeroSection />} /> */}
-          <Route exact path="/" element={<Engineering/>} />
-          {/* <Route exact path="/education" component={Education} />
-          <Route exact path="/business" component={Business} />
-          <Route exact path="/health" component={Health} />
-          <Route exact path="/law" component={Law} /> */}
+          <Route
+            path="/"
+            element={
+              <>
+                <Header />
+                <HeroSection />
+                <Footer />
+              </>
+            }
+          >
+          </Route>
+
+          {/* <Route exact path="/" element={<HeroSection />} /> */}
+
+          <Route exact path="/engineering" element={<Engineering />} />
+
+          {/* <Route exact path="/education" element={<Education/>} /> */}
+          {/* <Route exact path="/business" element={<Business/>} />
+          <Route exact path="/health" element={<Health/>} />
+          <Route exact path="/law" element={<Law/>} /> */}
         </Routes>
-        <HeroSection />
-        <Footer />
       </div>
     </Router>
   );

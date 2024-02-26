@@ -5,7 +5,6 @@
 }
 
 
-
 .apply-button {
   background-color: maroon;
   color: white;
@@ -93,6 +92,8 @@
 
 
 /* About Us Section */
+
+
 .about .about-img {
   min-height: 500px;
 }
