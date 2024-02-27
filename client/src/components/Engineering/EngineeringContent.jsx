@@ -1,17 +1,19 @@
 import React from 'react';
 import Footer from '../Footer';
 import Image from '../../../images/l3.jpg';
+import Header from "../Header"
 
 function EngineeringContent() {
   return (
     <>
+    <Header />
       <section className="landing-section" style={{width: '100%', height: '50%'}}>
         <div className="landing-image" style={{ backgroundImage: `url(${Image})` }}>
           <div className="overlay"></div>
           <div className="container">
             <div className="row">
               <div className="col-md-12 text-left" style={{color:'goldenrod', fontSize: '40px'}} >
-                <h1 className="landing-title">Faculty of Engineering</h1>
+                <h1 className="landing-title">FACULTY OF ENGINEERING</h1>
               </div>
             </div>
           </div>

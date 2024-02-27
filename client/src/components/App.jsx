@@ -2,11 +2,16 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./Header.jsx";
 import Engineering from "./Engineering/Engineering.jsx";
-// import Education from "../components/Education.jsx";
+import { About } from "./AboutUs.jsx";
+import Education  from "./Education/Education.jsx";
+import Health from "./Health/Health.jsx"
+import Law from "./Law/Law.jsx"
+import Business from "./Business/Business.jsx"
 // import Business from "../components/Business.jsx";
 // import Health from "../components/Health.jsx";
 // import Law from "../components/Law.jsx";
 import HeroSection from "./HeroSection.jsx";
+// import AboutUs  from "./AboutUs.jsx";
 import Footer from "./Footer.jsx";
 
 function App() {
@@ -29,11 +34,11 @@ function App() {
           {/* <Route exact path="/" element={<HeroSection />} /> */}
 
           <Route exact path="/engineering" element={<Engineering />} />
-
-          {/* <Route exact path="/education" element={<Education/>} /> */}
-          {/* <Route exact path="/business" element={<Business/>} />
-          <Route exact path="/health" element={<Health/>} />
-          <Route exact path="/law" element={<Law/>} /> */}
+          <Route exact path="/about-us" element={<About />} />
+          <Route exact path="education" element={<Education />} />
+          <Route exact path="health" element={<Health />} />
+          <Route exact path="law" element={<Law />} />
+          <Route exact path="/business" element={<Business/>} />
         </Routes>
       </div>
     </Router>
