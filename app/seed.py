@@ -1,4 +1,4 @@
-from models import User, db, Lecturer, Course, Unit, Department
+from models import User, db, Lecturer, Course, Unit, Department, TokenBlocklist, Student
 from app import create_app
 from datetime import datetime
 
@@ -6,160 +6,198 @@ from datetime import datetime
 app = create_app()
 
 
-with app.app_context():
-    users = [{
-        "id": 1,
-        "username": "frowlett0",
-        "password": "aG0)%",
-        "role": "Construction Expeditor",
-        "created_at": "3/18/2023",
-        "updated_at": "12/26/2023"
-    }, {
-        "id": 2,
-        "username": "ibernaciak1",
-        "password": "zZ9?y",
-        "role": "Estimator",
-        "created_at": "4/15/2023",
-        "updated_at": "1/1/2024"
-    }, {
-        "id": 3,
-        "username": "djosilowski2",
-        "password": "qJ3)}h=",
-        "role": "Estimator",
-        "created_at": "8/8/2023",
-        "updated_at": "8/27/2023"
-    }, {
-        "id": 4,
-        "username": "kfoulcher3",
-        "password": "wW9$ET0Z~",
-        "role": "Construction Foreman",
-        "created_at": "3/23/2023",
-        "updated_at": "5/18/2023"
-    }, {
-        "id": 5,
-        "username": "charroll4",
-        "password": "lZ7_,\"!k_",
-        "role": "Subcontractor",
-        "created_at": "12/20/2023",
-        "updated_at": "12/11/2023"
-    }, {
-        "id": 6,
-        "username": "bedlin5",
-        "password": "lL1,pTLU",
-        "role": "Construction Manager",
-        "created_at": "7/24/2023",
-        "updated_at": "5/9/2023"
-    }, {
-        "id": 7,
-        "username": "eberi6",
-        "password": "uO0\"H&",
-        "role": "Architect",
-        "created_at": "7/15/2023",
-        "updated_at": "11/10/2023"
-    }, {
-        "id": 8,
-        "username": "esammut7",
-        "password": "hM2@I}n",
-        "role": "Subcontractor",
-        "created_at": "3/13/2023",
-        "updated_at": "3/6/2023"
-    }, {
-        "id": 9,
-        "username": "dshires8",
-        "password": "jK2\\YjKNE",
-        "role": "Construction Worker",
-        "created_at": "6/6/2023",
-        "updated_at": "7/25/2023"
-    }, {
-        "id": 10,
-        "username": "collington9",
-        "password": "pC8%c&)I",
-        "role": "Estimator",
-        "created_at": "2/28/2023",
-        "updated_at": "8/6/2023"
-    }]
+def seed_database():
+    with app.app_context():
+        User.query.delete()
+        Lecturer.query.delete()
+        Course.query.delete()
+        Unit.query.delete()
+        Department.query.delete()
+        TokenBlocklist.query.delete()
 
-    # for user_data in users:
-    #     user_data["created_at"] = datetime.strptime(
-    #         user_data["created_at"], "%m/%d/%Y")
-    #     user_data["updated_at"] = datetime.strptime(
-    #         user_data["updated_at"], "%m/%d/%Y")
+        users = [{
 
-    #     user = User(**user_data)
-    #     db.session.add(user)
-    # db.session.commit()
-    print("Users added!!!")
+            "username": "frowlett0",
+            "password": "aG0)%",
+            "role": "Admin",
+            "created_at": "3/18/2023"
+        }, {
 
-    courses = [{
-        "id": 1,
-        "course_name": "Protein Expression",
-        "course_code": 1,
-        "department_id": 1
-    }, {
-        "id": 2,
-        "course_name": "Oracle SQL Developer",
-        "course_code": 2,
-        "department_id": 2
-    }, {
-        "id": 3,
-        "course_name": "Life Sciences",
-        "course_code": 3,
-        "department_id": 3
-    }]
+            "username": "ibernaciak1",
+            "password": "zZ9?y",
+            "role": "Student",
+            "created_at": "4/15/2023"
+        }, {
 
-    # for course in courses:
+            "username": "djosilowski2",
+            "password": "qJ3)}h=",
+            "role": "Lecturer",
+            "created_at": "8/8/2023"
 
-    #     course = Course(**course)
-    #     db.session.add(course)
-    # db.session.commit()
-    print("courses added!!!")
+        }]
 
-    units = [{
-        "id": 1,
-        "unit_code": "AWB",
-        "name": "Roomm",
-        "passmark": 41.62,
-        "course_id": 1,
-        "contact_hours": 57.05
-    }, {
-        "id": 2,
-        "unit_code": "LYU",
-        "name": "Devshare",
-        "passmark": 46.59,
-        "course_id": 2,
-        "contact_hours": 55.69
-    }, {
-        "id": 3,
-        "unit_code": "XAB",
-        "name": "Viva",
-        "passmark": 69.53,
-        "course_id": 3,
-        "contact_hours": 32.86
-    }]
-    # for unit in units:
+        for user_data in users:
+            user_data["created_at"] = datetime.strptime(
+                user_data["created_at"], "%m/%d/%Y")
 
-    #     unit = Unit(**unit)
-    #     db.session.add(unit)
-    # db.session.commit()
-    print("units added!!!")
+            user = User(**user_data)
+            db.session.add(user)
+        db.session.commit()
+        print("Users added!!!")
 
-    departments = [{
-        "id": 1,
-        "department_name": "Sawayn, Gleason and Tillman",
-        "faculty_id": 1
-    }, {
-        "id": 2,
-        "department_name": "Lowe Group",
-        "faculty_id": 2
-    }, {
-        "id": 3,
-        "department_name": "Bogan Inc",
-        "faculty_id": 3
-    }]
+        units = [{
 
-    for department in departments:
+            "unit_code": "AWB",
+            "name": "Roomm",
+            "passmark": 41.62,
+            "course_id": 1,
+            "contact_hours": 57.05
+        }, {
 
-        department = Department(**department)
-        db.session.add(department)
-    db.session.commit()
-    print("departments added!!!")
+            "unit_code": "LYU",
+            "name": "Devshare",
+            "passmark": 46.59,
+            "course_id": 2,
+            "contact_hours": 55.69
+        }, {
+
+            "unit_code": "XAB",
+            "name": "Viva",
+            "passmark": 69.53,
+            "course_id": 3,
+            "contact_hours": 32.86
+        }]
+        for unit in units:
+
+            unit = Unit(**unit)
+            db.session.add(unit)
+        db.session.commit()
+        print("units added!!!")
+
+        departments = [{
+            "id": 1,
+            "name": "Sawayn, Gleason and Tillman",
+            "faculty_id": 1
+        }, {
+
+            "name": "Lowe Group",
+            "faculty_id": 2
+        }, {
+
+            "name": "Bogan Inc",
+            "faculty_id": 3
+        }]
+
+        for department in departments:
+
+            department = Department(**department)
+            db.session.add(department)
+        db.session.commit()
+        print("departments added!!!")
+
+        courses = [{
+            "name": "Twitterlist",
+            "code": "AGGF",
+            "department_id": 1,
+            "thumbnail": "http://dummyimage.com/114x100.png/dddddd/000000"
+        }, {
+            "name": "Realmix",
+            "code": "WBKK",
+            "department_id": 2,
+            "thumbnail": "http://dummyimage.com/187x100.png/ff4444/ffffff"
+        }, {
+            "name": "Youfeed",
+            "code": "FZSA",
+            "department_id": 3,
+            "thumbnail": "http://dummyimage.com/222x100.png/ff4444/ffffff"
+        }, {
+            "name": "Kaymbo",
+            "code": "KPOE",
+            "department_id": 4,
+            "thumbnail": "http://dummyimage.com/206x100.png/cc0000/ffffff"
+        }, {
+            "name": "Zoonder",
+            "code": "FMMI",
+            "department_id": 5,
+            "thumbnail": "http://dummyimage.com/153x100.png/cc0000/ffffff"
+        }]
+
+        for course in courses:
+
+            course = Course(**course)
+            db.session.add(course)
+        db.session.commit()
+        print("courses added!!!")
+
+        lecturers_data = [{
+
+            "lecture_title": "A Fugitive from the Past",
+            "facult_id": "Engineering",
+            "datetime": "8/18/2023",
+            "location": "Sherman"
+        }, {
+
+            "lecture_title": "In the Soup",
+            "facult_id": "Accounting",
+            "datetime": "7/20/2023",
+            "location": "Wayridge"
+        }, {
+
+            "lecture_title": "One Point O",
+            "facult_id": "Engineering",
+            "datetime": "1/18/2024",
+            "location": "Mccormick"
+        }]
+
+        lecturers = []
+        for lecturer_info in lecturers_data:
+
+            lecturer_info["datetime"] = datetime.strptime(
+                lecturer_info["datetime"], "%m/%d/%Y")
+
+            lecturer = Lecturer(**lecturer_info)
+            lecturers.append(lecturer)
+            db.session.add(lecturer)
+        db.session.commit()
+        print("lecturers added!!!")
+
+        token_blocklist_data = [
+            {"jti": "token 1", "created_at": datetime.utcnow()},
+            {"jti": "token 2", "created_at": datetime.utcnow()}
+        ]
+
+        for token_info in token_blocklist_data:
+            token = TokenBlocklist(**token_info)
+            db.session.add(token)
+        db.session.commit()
+        print("Tokens added!!!")
+
+        students = [{
+            "first_name": "Garv",
+            "last_name": "Colleford",
+            "email": "gcolleford0@baidu.com",
+            "department_id": "1",
+            "profile_photo": "http://dummyimage.com/163x100.png/ff4444/ffffff"
+        }, {
+            "first_name": "Jen",
+            "last_name": "Attwool",
+            "email": "jattwool1@comsenz.com",
+            "department_id": "2",
+            "profile_photo": "http://dummyimage.com/176x100.png/cc0000/ffffff"
+        }, {
+            "first_name": "Jerri",
+            "last_name": "Moralee",
+            "email": "jmoralee2@salon.com",
+            "department_id": "3",
+            "profile_photo": "http://dummyimage.com/185x100.png/ff4444/ffffff"
+        }]
+
+        for student in students:
+            token = Student(**student)
+            db.session.add(token)
+        db.session.commit()
+        print("Student added!!!")
+
+
+if __name__ == "__main__":
+    seed_database()
