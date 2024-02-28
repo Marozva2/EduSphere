@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   BsBackpackFill,
   BsGrid1X2Fill,
@@ -9,6 +9,17 @@ import {
 } from "react-icons/bs";
 
 function Sidebar({ openSidebarToggle, OpenSidebar }) {
+  const [studentDropdownOpen, setStudentDropdownOpen] = useState(false);
+  const [lecturerDropdownOpen, setLecturerDropdownOpen] = useState(false);
+
+  const toggleStudentDropdown = () => {
+    setStudentDropdownOpen(!studentDropdownOpen);
+  };
+
+  const toggleLecturerDropdown = () => {
+    setLecturerDropdownOpen(!lecturerDropdownOpen);
+  };
+
   return (
     <aside
       id="sidebar"
@@ -25,34 +36,58 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
 
       <ul className="sidebar-list">
         <li className="sidebar-list-item">
-          <a href="">
-            <BsGrid1X2Fill className="icon" /> Dashboard
-          </a>
-        </li>
-        <li className="sidebar-list-item">
-          <a href="">
-            <BsDatabaseLock className="icon" /> Admin
-          </a>
-        </li>
-        <li className="sidebar-list-item">
-          <a href="/admindash/lecturers">
-            <BsFillGrid3X3GapFill className="icon" /> Lecturers
-          </a>
-        </li>
-        <li className="sidebar-list-item">
-          <a href="/admindash/students">
+          <a onClick={toggleStudentDropdown}>
             <BsPeopleFill className="icon" /> Students
           </a>
+          {studentDropdownOpen && (
+            <ul>
+              <li>
+                <a href="/admindash/students">Student List</a>
+              </li>
+              <li>
+                <a href="/admindash/students/create">Enroll Student</a>
+              </li>
+              <li>
+                <a href="/admindash/courses">Courses</a>
+              </li>
+              <li>
+                <a href="/admindash/courses/create">Add Courses</a>
+              </li>
+              <li>
+                <a href="/admindash/courses/edit/:id">Update Course</a>
+              </li>
+              <li>
+                <a href="/admindash/fees">Fees</a>
+              </li>
+              <li>
+                <a href="/admindash/fees/edit/:id">Update fees</a>
+              </li>
+              <li>
+                <a href="/admindash/units">Units</a>
+              </li>
+              <li>
+                <a href="/admindash/units/create">Create Units</a>
+              </li>
+              <li>
+                <a href="/admindash/units/edit/:id">Update Units</a>
+              </li>
+            </ul>
+          )}
         </li>
         <li className="sidebar-list-item">
-          <a href="/admindash/courses">
-            <BsFillArchiveFill className="icon" /> Courses
+          <a onClick={toggleLecturerDropdown}>
+            <BsFillGrid3X3GapFill className="icon" /> Lecturers
           </a>
-        </li>
-        <li className="sidebar-list-item">
-          <a href="/">
-            <BsFillArchiveFill className="icon" /> Home
-          </a>
+          {lecturerDropdownOpen && (
+            <ul>
+              <li>
+                <a href="/admindash/lecturers/">Lecturers list</a>
+              </li>
+              <li>
+                <a href="/admindash/lecturers/parttime">Part Time</a>
+              </li>
+            </ul>
+          )}
         </li>
       </ul>
     </aside>
