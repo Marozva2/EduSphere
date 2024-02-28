@@ -30,7 +30,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/login-page" element={<SignIn />} />
+        <Route path="/login" element={<SignIn />} />
         <Route
           path="/student"
           element={
@@ -43,18 +43,14 @@ function App() {
             userRole === "lecturer" ? (
               <LecturerDashboard />
             ) : (
-              <Navigate to="/login-page" />
+              <Navigate to="/login" />
             )
           }
         />
         <Route
           path="/admin"
           element={
-            userRole === "admin" ? (
-              <AdminDashboard />
-            ) : (
-              <Navigate to="/login-page" />
-            )
+            userRole === "admin" ? <AdminDashboard /> : <Navigate to="/login" />
           }
         />
         <Route path="/signup" element={<SignUp />} />
@@ -78,5 +74,3 @@ function App() {
 }
 
 export default App;
-
-

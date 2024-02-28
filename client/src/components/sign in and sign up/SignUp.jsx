@@ -105,7 +105,7 @@ function SignUp() {
             Sign Up
           </button>
           <p>
-            Have an account? <Link to="/login-page">Sign in</Link>
+            Have an account? <Link to="/login">Sign in</Link>
           </p>
         </form>
       </div>
