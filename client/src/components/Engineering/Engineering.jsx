@@ -6,6 +6,7 @@ import "react-alice-carousel/lib/alice-carousel.css";
 import l3 from "../../../images/l3.jpg";
 import l4 from "../../../images/l4.jpg";
 import l5 from "../../../images/l5.jpg";
+import deanImage from "../../../images/steve.jpg" // Import the dean's image
 
 function Engineering() {
   const carouselImages = [l3, l4, l5];
@@ -31,6 +32,7 @@ function Engineering() {
   return (
     <>
       <Header />
+
       <section
         className="landing-section"
         style={{ backgroundImage: `url(${l3})` }}
@@ -46,6 +48,34 @@ function Engineering() {
                 <h3 className="h3eng">
                   Explore our departments and courses below
                 </h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="faculty-section">
+        <div className="container">
+          <div className="row align-items-center">
+            <div className="col-md-6">
+              <div className="faculty-info">
+                <h2>About the Faculty</h2>
+                <p>
+                  The Faculty of Engineering at Edusphere University is dedicated
+                  to fostering innovation and excellence in engineering
+                  education and research with state of the art facilities, hackathons and competitions that 
+                  equip our learners with the right training fit for the global workplace. 
+                </p>
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="dean-info">
+                <img
+                  src={deanImage}
+                  alt="Dean"
+                  className="dean-image"
+                />
+                <p>Meet the Dean - Dr. Steven Maarifa Otieno</p>
               </div>
             </div>
           </div>

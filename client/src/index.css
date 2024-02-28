@@ -268,6 +268,48 @@
 
 /* ENGINEERING ROUTE */
 
+
+/* Faculty section */
+.faculty-section {
+  padding: 40px 0; /* Adjust padding as needed */
+}
+
+/* Faculty info */
+.faculty-info {
+  margin-bottom: 20px; /* Adjust spacing between faculty info and dean info */
+}
+
+.faculty-info h2 {
+  font-size: 24px; /* Adjust font size */
+  font-weight: bold;
+}
+
+.faculty-info p {
+  font-size: 16px; /* Adjust font size */
+  line-height: 1.5; /* Adjust line height */
+}
+
+/* Dean info */
+.dean-info {
+  text-align: center; /* Center the content */
+}
+
+.dean-image {
+  width: 200px; /* Adjust the width of the dean's image */
+  height: 200px; /* Adjust the height of the dean's image */
+  border-radius: 50%; /* Create a circle shape */
+  margin-bottom: 10px; /* Adjust spacing between the image and caption */
+}
+
+.dean-info p {
+  font-size: 14px; /* Adjust font size of the caption */
+}
+
+
+
+
+
+
 .landing-section {
   height: 100vh;
   background-size: cover;
@@ -366,6 +408,10 @@
   border-radius: 40px;
   max-width: 50%;
 }
+
+
+
+/* EDUCATION ROUTE STYING */
 
 
 
