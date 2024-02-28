@@ -20,7 +20,7 @@ function Footer() {
                     <h3>Links</h3>
                     <ul>
                         <li><a href="home">Home</a></li>
-                        <li><a href="about">About Us</a></li>
+                        <li><a href="about-us">About Us</a></li>
                         <li><a href="academics">Academics</a></li>
                         <li><a href="admissions">Admissions</a></li>
                     </ul>
