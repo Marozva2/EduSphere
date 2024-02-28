@@ -1,16 +1,14 @@
 import React from "react";
 import Header from "../Header";
 import Footer from "../Footer";
+import { Link } from "react-router-dom";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
 
+// import facultimage from "../../../images/l7.jpg"" 
+
 function Education() {
-  const carouselImages = [
-    "image1.jpg",
-    "image2.jpg",
-    "image3.jpg",
-    
-  ];
+  const carouselImages = ["image1.jpg", "image2.jpg", "image3.jpg"];
 
   const responsive = {
     superLargeDesktop: {
@@ -35,19 +33,35 @@ function Education() {
     <>
       <Header />
 
-      <section
-        className="landing-section"
-        style={{ backgroundImage: `url(${l3})` }}
-      >
+      <section className="landing-section" style={{ backgroundImage: `url(${facultyImage})` }}>
         <div className="overlay"></div>
         <div className="container">
           <div className="row align-items-center">
             <div className="col-md-6">
               <div className="landing-content">
                 <h1 className="h1eng">Faculty of Education</h1>
-                <h2 className="h2eng">Empowering Future Educators</h2>
-                <hr className="line"></hr>
-                <h3 className="h3eng">Discover our education courses below</h3>
+                <h2 className="h2eng">We are raising the next generation educators</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="faculty-section">
+        <div className="container">
+          <div className="row align-items-center">
+            <div className="col-md-6">
+              <div className="faculty-info">
+                <h2>About the Faculty</h2>
+                <p>
+                  This is the best faculty so far raising the best educators in the industry.
+                </p>
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="dean-info">
+                <img src={deanImage} alt="Dean" className="dean-image" />
+                <p>Meet the Dean - Dr. Kitetu Philemon</p>
               </div>
             </div>
           </div>
@@ -60,21 +74,11 @@ function Education() {
             <div className="col-md-6">
               <div className="departments-box">
                 <div className="departments">
-                  <h2>Courses</h2>
+                  <h2>Departments</h2>
                   <ul className="department-list">
                     <li>Masters in Education</li>
                     <li>Masters in Education Psychology</li>
-                    <li>Masters in Curriculum Development</li>
-                    <li>Bsc. Mathematics and Chemistry</li>
-                    <li>Bsc. Mathematics and Physics</li>
-                    <li>Bsc. Applied Mathematics</li>
-                    <li>Bachelor of Science (Physics & Chemistry)</li>
-                    <li>Bsc. General Science</li>
-                    <li>Bachelor of Arts (English & Literature)</li>
-                    <li>Bachelor of Arts (Mathematics & Business)</li>
-                    <li>Bachelor of Arts (Kiswahili & CRE)</li>
-                    <li>Bachelor of Arts (Geography & Kiswahili)</li>
-                    <li>Bachelor of Arts (History & CRE)</li>
+                    
                   </ul>
                 </div>
               </div>
@@ -83,10 +87,10 @@ function Education() {
               <div className="explore-programs">
                 <h2>Explore Our Other Programs</h2>
                 <ul className="programs-list">
-                  <li>Medicine</li>
-                  <li>Business</li>
-                  <li>Engineering</li>
-                  <li>Law</li>
+                  <li><Link to="/medicine">Medicine</Link></li>
+                  <li><Link to="/business">Business</Link></li>
+                  <li><Link to="/engineering">Engineering</Link></li>
+                  
                 </ul>
               </div>
             </div>
@@ -110,7 +114,7 @@ function Education() {
                 ))}
                 responsive={responsive}
                 autoPlay
-                autoPlayInterval={3500}
+                autoPlayInterval={3000}
                 duration={1000}
                 fadeOutAnimation={true}
                 disableButtonsControls
