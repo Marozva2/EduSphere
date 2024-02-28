@@ -1,4 +1,3 @@
-# ---------------------JERRY TARUS -----------------------
 from flask import Blueprint, jsonify
 from flask_restful import Api, Resource, abort, reqparse
 from flask_marshmallow import Marshmallow
@@ -46,7 +45,7 @@ class LecturerRs(Resource):
         data = post_args.parse_args()
 
         datetime_str = data['datetime']
-        datetime_obj = datetime.strptime(datetime_str, '%Y:%m:%d')
+        datetime_obj = datetime.strptime(datetime_str, '%Y-%m-%d')
 
         lecturer = Lecturer.query.filter_by(id='id').first()
         if lecturer:

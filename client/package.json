@@ -10,11 +10,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "bootstrap": "^5.3.2",
+    "bootstrap": "^5.3.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-icons": "^5.0.1",
     "react-router-dom": "^6.22.1",
     "react-slick": "^0.30.2",
+<<<<<<< HEAD
+    "semantic-ui-css": "^2.5.0",
+    "semantic-ui-react": "^2.1.5",
+=======
+>>>>>>> 2b2b87d (Feature: hero section)
     "slick-carousel": "^1.8.1"
   },
   "devDependencies": {

@@ -15,13 +15,13 @@ signUp_args.add_argument('username', type=str,
                          required=True, help='Username cannot be blank')
 signUp_args.add_argument('role', type=str, required=True,
                          help='Role cannot be blank')
-signUp_args.add_argument("created_at", type=str, required=True)
-signUp_args.add_argument("updated_at", type=str, required=True)
+signUp_args.add_argument('email', type=str, required=True)
 signUp_args.add_argument("password", type=str, required=True)
-signUp_args.add_argument("confirmPassword", type=str, required=True)
+signUp_args.add_argument("confirmPassword", type=str)
 
 
 login_args = reqparse.RequestParser()
+login_args.add_argument('email', type=str, required=True)
 login_args.add_argument("username", type=str, required=True)
 login_args.add_argument("password", type=str, required=True)
 
@@ -32,8 +32,8 @@ class UserRegister(Resource):
         if data["password"] != data["confirmPassword"]:
             return abort(422, detail="Passwords do not match")
 
-        new_user = User(username=data.username, role=data.role, password=bcrypt.generate_password_hash(
-            data.password).decode('utf-8'), created_at=data.created_at, updated_at=data.updated_at)
+        new_user = User(username=data.username, email=data.email, role=data.role, password=bcrypt.generate_password_hash(
+            data.password).decode('utf-8'))
         db.session.add(new_user)
         db.session.commit()
 
@@ -46,7 +46,7 @@ class UserRegister(Resource):
 class Login(Resource):
     def post(self):
         data = login_args.parse_args()
-        user = User.query.filter_by(email=data['email']).first()
+        user = User.query.filter_by(username=data['username']).first()
 
         if not user:
             return abort(404, detail="User does not exist")
@@ -54,7 +54,7 @@ class Login(Resource):
         if not bcrypt.check_password_hash(user.password, data['password']):
             return abort(403, detail="Incorrect password")
         token = create_access_token(identity=user.id)
-        return {"access_token": token, "user_id": user.id, "username": user.username, "role": user.role, "created_at": user.created_at, "updated_at": user.updated_at}
+        return {"access_token": token, "user_id": user.id, "username": user.username, "role": user.role, "created_at": user.created_at.isoformat()}
 
 
 api.add_resource(Login, '/login')
