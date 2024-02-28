@@ -266,6 +266,107 @@
 }
 
 
+/* ENGINEERING ROUTE */
+
+.landing-section {
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.landing-content {
+  color: white;
+  position: auto;
+  margin-top: 40px;
+  border-radius: 400px;
+}
+
+.h1eng {
+  color: gold;
+  font-size: 70px;
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+.h2eng {
+  color: white;
+  font-size: 60px;
+  margin-left: 10px;
+}
+
+.line {
+  color: white;
+}
+
+.h3eng {
+  color: white;
+  font-size: 15px;
+  margin-left: 10px;
+}
+
+
+.departments-section {
+  padding: 50px 0;
+}
+
+.departments-box {
+  border: 2px solid black; 
+  border-radius: 40px; 
+  padding: 40px; 
+  position: relative; 
+  overflow: hidden; 
+}
+
+@keyframes color-rotation {
+  0% { background-color: maroon; }
+  33% { background-color: goldenrod; }
+  66% { background-color: white; }
+  100% { background-color: gold; }
+}
+
+
+.departments-box:hover {
+  animation: color-rotation 5s linear infinite; 
+}
+
+
+.departments, .explore-programs {
+  margin-bottom: 30px;
+}
+
+.department-list, .programs-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+
+.carousel-section {
+  padding: 50px 0;
+}
+
+.carousel-image {
+  width: 100%;
+  height: auto;
+}
+
+
+
+.gallery-section {
+  padding: 50px 0;
+  text-align: center;
+}
+
+.gallery-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.carousel-image {
+  border-radius: 40px;
+  max-width: 50%;
+}
+
 
 
 

@@ -148,7 +148,6 @@ and take charge of our student's learning. For the service of God and humanity
 
 {/* Testimonials SECTION */}
 
-
 <section id="testimonials" className="testimonials section-bg">
 <div className="container" data-aos="fade-up">
 <div className="section-header">

@@ -1,17 +1,14 @@
-import React from 'react';
-import Footer from '../Footer';
-import Header from '../Header';
-import AliceCarousel from 'react-alice-carousel';
-import 'react-alice-carousel/lib/alice-carousel.css';
-import l3 from '../../../images/l3.jpg';
-import l4 from '../../../images/l4.jpg';
-import l5 from '../../../images/l5.jpg';
+import React from "react";
+import Footer from "../Footer";
+import Header from "../Header";
+import AliceCarousel from "react-alice-carousel";
+import "react-alice-carousel/lib/alice-carousel.css";
+import l3 from "../../../images/l3.jpg";
+import l4 from "../../../images/l4.jpg";
+import l5 from "../../../images/l5.jpg";
 
 function Engineering() {
-  // Sample data for carousel images
   const carouselImages = [l3, l4, l5];
-
-  // Responsive settings for the carousel
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 3000 },
@@ -34,21 +31,22 @@ function Engineering() {
   return (
     <>
       <Header />
-      <section className="landing-section" style={{ width: '100%', height: '50%' }}>
-        <div className="landing-image" style={{ backgroundImage: `url(${l3})` }}>
-          <div className="overlay"></div>
-          <div className="container">
-            <div className="row">
-
+      <section
+        className="landing-section"
+        style={{ backgroundImage: `url(${l3})` }}
+      >
+        <div className="overlay"></div>
+        <div className="container">
+          <div className="row align-items-center">
             <div className="col-md-6">
-                            <div className="image-wrapper" style={{ position: 'relative' }}>
-                                <img src={l3} alt="Dean" style={{ width: '200px', height: '600px', borderRadius: '50%', marginRight: '0' }} />
-                                <div className="text-wrapper" style={{ position: 'absolute', top: '50%', transform: 'translateY(-50%)' }}>
-                                    <h2>Dean, Faculty of Engineering</h2>
-                                    <p>Email: eng@edusphere.ac.ke</p>
-                                </div>
-                            </div>
-                        </div>
+              <div className="landing-content">
+                <h1 className="h1eng">FACULTY OF ENGINEERING</h1>
+                <h2 className="h2eng">Where Innovation meets Brilliance</h2>
+                <hr className="line"></hr>
+                <h3 className="h3eng">
+                  Explore our departments and courses below
+                </h3>
+              </div>
             </div>
           </div>
         </div>
@@ -56,22 +54,21 @@ function Engineering() {
 
       <section className="departments-section">
         <div className="container">
-        <div className="col-md-12 text-right" style={{ color: 'goldenrod' }}>
-                <h1 className="landing-title">FACULTY OF ENGINEERING</h1>
-              </div>
           <div className="row">
             <div className="col-md-6">
-              <div className="departments">
-                <h2>Departments</h2>
-                <ul className="department-list">
-                  <li>Computer Science & IT</li>
-                  <li>Actuarial Science</li>
-                  <li>Telecommunications</li>
-                  <li>Information Systems</li>
-                  <li>Mechatronics Engineering</li>
-                  <li>Electrical and Electronics Engineering</li>
-                  <li>Civil Engineering</li>
-                </ul>
+              <div className="departments-box">
+                <div className="departments">
+                  <h2>Departments</h2>
+                  <ul className="department-list">
+                    <li>Computer Science & IT</li>
+                    <li>Actuarial Science</li>
+                    <li>Telecommunications</li>
+                    <li>Information Systems</li>
+                    <li>Mechatronics Engineering</li>
+                    <li>Electrical and Electronics Engineering</li>
+                    <li>Civil Engineering</li>
+                  </ul>
+                </div>
               </div>
             </div>
             <div className="col-md-6">
@@ -89,18 +86,25 @@ function Engineering() {
         </div>
       </section>
 
-      <section className="carousel-section">
+      <section className="gallery-section">
         <div className="container">
+          <h2 className="gallery-title">Gallery</h2>
           <div className="row">
             <div className="col-md-12">
               <AliceCarousel
                 items={carouselImages.map((image, index) => (
-                  <img key={index} src={image} className="carousel-image" alt={`Image ${index + 1}`} />
+                  <img
+                    key={index}
+                    src={image}
+                    className="carousel-image"
+                    alt={`Image ${index + 1}`}
+                  />
                 ))}
                 responsive={responsive}
                 autoPlay
-                autoPlayInterval={3000}
+                autoPlayInterval={2500} 
                 duration={1000}
+                fadeOutAnimation={true} 
                 disableButtonsControls
                 disableDotsControls
               />
@@ -108,7 +112,6 @@ function Engineering() {
           </div>
         </div>
       </section>
-
       <Footer />
     </>
   );
