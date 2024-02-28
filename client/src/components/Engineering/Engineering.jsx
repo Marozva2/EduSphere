@@ -1,12 +1,13 @@
 import React from "react";
-import Footer from "../Footer";
 import Header from "../Header";
+import Footer from "../Footer";
+import { Link } from 'react-router-dom';
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
 import l3 from "../../../images/l3.jpg";
 import l4 from "../../../images/l4.jpg";
 import l5 from "../../../images/l5.jpg";
-import deanImage from "../../../images/steve.jpg" // Import the dean's image
+import deanImage from "../../../images/steve.jpg" 
 
 function Engineering() {
   const carouselImages = [l3, l4, l5];
@@ -105,10 +106,10 @@ function Engineering() {
               <div className="explore-programs">
                 <h2>Explore Our Other Programs</h2>
                 <ul className="programs-list">
-                  <li>Medicine</li>
-                  <li>Business</li>
-                  <li>Education</li>
-                  <li>Law</li>
+                  <li><Link to="/medicine">Medicine</Link></li>
+                  <li><Link to="business">Business</Link></li>
+                  <li><Link to="education">Education</Link></li>
+                  <li><Link to="law">Law</Link></li>
                 </ul>
               </div>
             </div>

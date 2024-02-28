@@ -9,7 +9,7 @@ function Education() {
     "image1.jpg",
     "image2.jpg",
     "image3.jpg",
-    // Add more images as needed
+    
   ];
 
   const responsive = {

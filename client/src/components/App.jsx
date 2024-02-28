@@ -7,15 +7,14 @@ import Education  from "./Education/Education.jsx";
 import Health from "./Health/Health.jsx"
 import Law from "./Law/Law.jsx"
 import Business from "./Business/Business.jsx"
-// import Business from "../components/Business.jsx";
-// import Health from "../components/Health.jsx";
-// import Law from "../components/Law.jsx";
 import HeroSection from "./HeroSection.jsx";
-// import AboutUs  from "./AboutUs.jsx";
 import Footer from "./Footer.jsx";
 
 function App() {
   return (
+
+
+    
     <Router>
       <div>
         <Routes>

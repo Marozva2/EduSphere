@@ -291,22 +291,19 @@
 
 /* Dean info */
 .dean-info {
-  text-align: center; /* Center the content */
+  text-align: center; 
 }
 
 .dean-image {
-  width: 200px; /* Adjust the width of the dean's image */
-  height: 200px; /* Adjust the height of the dean's image */
-  border-radius: 50%; /* Create a circle shape */
-  margin-bottom: 10px; /* Adjust spacing between the image and caption */
+  width: 200px; 
+  height: 200px; 
+  border-radius: 50%; 
+  margin-bottom: 10px; 
 }
 
 .dean-info p {
-  font-size: 14px; /* Adjust font size of the caption */
+  font-size: 14px; 
 }
-
-
-
 
 
 
