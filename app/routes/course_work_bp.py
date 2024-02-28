@@ -1,90 +1,60 @@
+
 from flask import Blueprint, jsonify
-from flask_restful import Api, Resource, abort, reqparse
-from flask_marshmallow import Marshmallow
-
+from flask_restful import Api, Resource, reqparse, abort
 from models import CourseWork, db
-
 
 from serializers import CourseWorkSchema
 
-coursework_bp = Blueprint('coursework_bp', __name__)
-ma = Marshmallow(coursework_bp)
-api = Api(coursework_bp)
+course_work_bp = Blueprint('course_work_bp', __name__)
+api = Api(course_work_bp)
 
-post_args = reqparse.RequestParser()
-# post_args.add_argument('id', type=str, required=True, help='ID is required')
-post_args.add_argument('unit_id', type=int,
-                       required=True, help='Unit_id is required')
-post_args.add_argument('student_id', type=int, required=True,
-                       help='student_id is required')
-post_args.add_argument('score', type=float, required=True,
-                       help='score is required')
+# Request parser for parsing course work data
+course_work_args = reqparse.RequestParser()
+course_work_args.add_argument('unit_id', type=int, required=True, help='Unit ID is required')
+course_work_args.add_argument('student_id', type=int, required=True, help='Student ID is required')
+course_work_args.add_argument('score', type=float, required=True, help='Score is required')
 
-
-patch_args = reqparse.RequestParser()
-patch_args.add_argument('unit_id', type=int)
-patch_args.add_argument('student_id', type=int)
-patch_args.add_argument('score', type=float)
-
-
-course_work_schema = CourseWorkSchema(many=True)
-course_work_single = CourseWorkSchema()
-
-
-class CourseWorkRs(Resource):
+class CourseWorks(Resource):
     def get(self):
-        course_work = CourseWork.query.all()
-        result = course_work_schema.dump(course_work, many=True)
-        return jsonify(result)
+        course_works = CourseWork.query.all()
+        course_work_list = [{'id': course_work.id, 'unit_id': course_work.unit_id, 'student_id': course_work.student_id, 'score': course_work.score} for course_work in course_works]
+        return jsonify(course_work_list)
 
     def post(self):
-        data = post_args.parse_args()
-
-        course_work = CourseWork.query.filter_by(id='id').first()
-        if course_work:
-            abort(409, detail="course_work with the same id already exists")
-
-        new_course_work = CourseWork(
-            unit_id=data['unit_id'], student_id=data['student_id'], score=data['score'])
+        data = course_work_args.parse_args()
+        new_course_work = CourseWork(unit_id=data['unit_id'], student_id=data['student_id'], score=data['score'])
         db.session.add(new_course_work)
         db.session.commit()
+        return jsonify({'message': 'Course work created successfully'}), 201
 
-        result = course_work_single.dump(new_course_work)
-        return result, 201
-
-
-class CourseWorkByIdRs(Resource):
+class CourseWorkById(Resource):
     def get(self, id):
         course_work = CourseWork.query.get(id)
         if not course_work:
-            abort(404, detail=f'course_work with id {id} does not exist')
+            abort(404, message=f'Course work with id {id} does not exist')
+        return jsonify({'id': course_work.id, 'unit_id': course_work.unit_id, 'student_id': course_work.student_id, 'score': course_work.score})
 
-        result = course_work_single.dump(course_work)
-        return jsonify(result)
-
-    def patch(self, id):
+    def put(self, id):
         course_work = CourseWork.query.get(id)
         if not course_work:
-            abort(404, detail=f'course_work with {id} does not exist')
+            abort(404, message=f'Course work with id {id} does not exist')
+        
+        data = course_work_args.parse_args()
+        course_work.unit_id = data['unit_id']
+        course_work.student_id = data['student_id']
+        course_work.score = data['score']
 
-        data = patch_args.parse_args()
-        for key, value in data.items():
-            if value is not None:
-                setattr(course_work, key, value)
-            db.session.commit()
-
-            result = course_work_single.dump(course_work)
-            return jsonify(result)
+        db.session.commit()
+        return jsonify({'message': 'Course work updated successfully'})
 
     def delete(self, id):
         course_work = CourseWork.query.get(id)
         if not course_work:
-            abort(404, detail=f'course_work with id {id} does not exist')
+            abort(404, message=f'Course work with id {id} does not exist')
 
         db.session.delete(course_work)
         db.session.commit()
-        return f'course_work with {id=} has been successfully deleted.', 204
+        return jsonify({'message': 'Course work deleted successfully'})
 
-
-api.add_resource(CourseWorkRs, '/course_works')
-api.add_resource(CourseWorkByIdRs, '/course_work/<string:id>')
+api.add_resource(CourseWorks, '/course-works')
+api.add_resource(CourseWorkById, '/course-work/<string:id>')

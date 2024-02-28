@@ -19,6 +19,10 @@ async function getUserData() {
   const data = await response.json();
   return data;
 }
+import React, { Fragment } from "react";
+import Header from "./Header.jsx";
+import HeroSection from "./HeroSection.jsx";
+import Footer from "./Footer.jsx";
 
 function App() {
   const [userRole, setUserRole] = useState(null);

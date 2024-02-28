@@ -1,6 +1,13 @@
 {
     "_meta": {
         "hash": {
+<<<<<<< HEAD
+            "sha256": "0c81890a13136d05e80c8a707de387f0a35b11649ada9b1d3bcde94fb68f50e4"
+        },
+        "pipfile-spec": 6,
+        "requires": {
+            "python_version": "3.10"
+=======
             "sha256": "0c81890a13136d05e80c8a707de387f0a35b11649ada9b1d3bcde94fb68f50e4"
         },
         "pipfile-spec": 6,

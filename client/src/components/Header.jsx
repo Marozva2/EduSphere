@@ -3,6 +3,8 @@ import React, { useState } from "react";
 function Header() {
   const [showAcademicsDropdown, setShowAcademicsDropdown] = useState(false);
   const [showAdmissionsDropdown, setShowAdmissionsDropdown] = useState(false);
+  const [showAcademicsDropdown, setShowAcademicsDropdown] = useState(false);
+  const [showAdmissionsDropdown, setShowAdmissionsDropdown] = useState(false);
 
   return (
     <header>
