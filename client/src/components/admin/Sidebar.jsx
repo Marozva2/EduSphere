@@ -1,5 +1,12 @@
 import React from "react";
-import { BsCart3, BsGrid1X2Fill, BsPeopleFill } from "react-icons/bs";
+import {
+  BsBackpackFill,
+  BsGrid1X2Fill,
+  BsFillArchiveFill,
+  BsFillGrid3X3GapFill,
+  BsDatabaseLock,
+  BsPeopleFill,
+} from "react-icons/bs";
 
 function Sidebar({ openSidebarToggle, OpenSidebar }) {
   return (
@@ -9,7 +16,7 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
     >
       <div className="sidebar-title">
         <div className="sidebar-brand">
-          <BsCart3 className="icon_header" /> EDUSPHERE
+          <BsBackpackFill className="icon_header" /> EDUSPHERE
         </div>
         <span className="icon close_icon" onClick={OpenSidebar}>
           X
@@ -24,12 +31,27 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
         </li>
         <li className="sidebar-list-item">
           <a href="">
+            <BsDatabaseLock className="icon" /> Admin
+          </a>
+        </li>
+        <li className="sidebar-list-item">
+          <a href="/admindash/lecturers">
+            <BsFillGrid3X3GapFill className="icon" /> Lecturers
+          </a>
+        </li>
+        <li className="sidebar-list-item">
+          <a href="/admindash/students">
             <BsPeopleFill className="icon" /> Students
           </a>
         </li>
         <li className="sidebar-list-item">
-          <a href="/units">
-            <BsPeopleFill className="icon" /> Units
+          <a href="/admindash/courses">
+            <BsFillArchiveFill className="icon" /> Courses
+          </a>
+        </li>
+        <li className="sidebar-list-item">
+          <a href="/">
+            <BsFillArchiveFill className="icon" /> Home
           </a>
         </li>
       </ul>

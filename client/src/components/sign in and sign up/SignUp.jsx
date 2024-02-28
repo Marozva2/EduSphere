@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+// import { Link, useHistory } from "react-router-dom";
 import Header from "/src/components/Header.jsx";
 
 function SignUp() {
@@ -10,7 +10,7 @@ function SignUp() {
   const [role, setRole] = useState("");
   const [error, setError] = useState(null);
 
-  const history = useHistory();
+  // const history = useHistory();
 
   const handleSignUp = async (event) => {
     event.preventDefault();
@@ -34,7 +34,7 @@ function SignUp() {
       });
       const data = await response.json();
       if (response.ok) {
-        history.push("/login-page");
+        // history.push("/login-page");
       } else {
         setError(data.detail);
       }

@@ -17,7 +17,6 @@ const CourseList = () => {
   return (
     <div>
       <h2 className="ui inverted segment">Course List</h2>
-      <a href="/admindash">Admin Dashboard</a>
       <Card.Group>
         {courseList.map((course) => (
           <Card key={course.id}>

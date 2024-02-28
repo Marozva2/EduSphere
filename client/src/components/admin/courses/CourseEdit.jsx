@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import CourseList from "./CourseList";
 
 function CourseEdit({ courseId }) {
   const [course, setCourse] = useState({});
@@ -40,33 +41,41 @@ function CourseEdit({ courseId }) {
   return (
     <div>
       <h2>Edit Course</h2>
-      <form onSubmit={handleSubmit}>
+      <form className="ui form" onSubmit={handleSubmit}>
+        <div className="inline fields"></div>
         <input
           type="text"
           name="id"
+          placeholder="course ID"
           value={course.id}
           onChange={handleInputChange}
         />
         <input
           type="text"
           name="name"
+          placeholder="course name"
           value={course.name}
           onChange={handleInputChange}
         />
         <input
           type="text"
-          name="faculty_id"
+          name="code"
+          placeholder="code"
           value={course.code}
           onChange={handleInputChange}
         />
         <input
           type="text"
-          name="faculty_id"
+          name="department_id"
+          placeholder="department_id"
           value={course.department_id}
           onChange={handleInputChange}
         />
-        <button type="submit">Submit</button>
+        <button className="ui primary button" type="submit">
+          Submit
+        </button>
       </form>
+      <CourseList />
     </div>
   );
 }

@@ -10,15 +10,9 @@ import HeroSection from "./HeroSection.jsx";
 import Footer from "./Footer.jsx";
 import SignIn from "/src/components/sign in and sign up/SignIn.jsx";
 import SignUp from "/src/components/sign in and sign up/SignUp.jsx";
-import AdminDashboard from "./AdminDashboard/AdminDashboard.jsx";
-import LecturerDashboard from "./LecturerDashboard/LecturerDashboard.jsx";
-import StudentDashboard from "./StudentDashboard/Student.jsx";
-import Course_WorkList from "/src/components/WorkManagement/Course_WorkList.jsx";
-import UnitList from "./UnitManagement/UnitList.jsx";
-import DepartList from "./Department/DeptList.jsx";
-import LecturerList from "./Lecturer/LecturerList.jsx";
-import CourseList from "./Courses/CourseList.jsx";
-import StudentList from "./Student/StudentList"
+import AdminDashboard from "/src/components/admin/AdminDashboard.jsx";
+import LecturerDashboard from "/src/components/lecturer/LecturerDashboard.jsx";
+import StudentDashboard from "/src/components/student/StudentDashboard.jsx";
 
 async function getUserData() {
   const response = await fetch("http://127.0.0.1:5000/users");
@@ -64,15 +58,9 @@ function App() {
           }
         />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/course_work" element={<Course_WorkList />} />
-        <Route path="/units" element={<UnitList />} />
-        <Route path="/departments" element={<DepartList />} />
-        <Route path="/courses" element={<CourseList />} />
-        <Route path="/students" element={<StudentList />} />
-        <Route path="/lecturers" element={<LecturerList />} />
-        <Route path="/admindash" element={<AdminDashboard />} />
-        <Route path="/studentdash" element={<StudentDashboard />} />
-        <Route path="/lecturerdash" element={<LecturerDashboard />} />
+        <Route path="/admindash/*" element={<AdminDashboard />} />
+        <Route path="/studentdash/*" element={<StudentDashboard />} />
+        <Route path="/lecturerdash/*" element={<LecturerDashboard />} />
 
         <Route
           path="/"

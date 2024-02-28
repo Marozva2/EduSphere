@@ -1,29 +1,29 @@
 import React, { useState, useEffect } from "react";
 
-const LecEdit = ({ lecturerId }) => {
-  const [lecturer, setLec] = useState({});
+function SemesterEdit({ semesterId }) {
+  const [semester, setSemester] = useState({});
 
   useEffect(() => {
-    async function fetchlecturer() {
+    async function fetchSemester() {
       const response = await fetch(
-        `http://127.0.0.1:5000/lecturer/${lecturerId}`
+        `http://127.0.0.1:5000/semester/${semesterId}`
       );
       const data = await response.json();
-      setLec(data);
+      setSemester(data);
     }
 
-    fetchlecturer();
-  }, [lecturerId]);
+    fetchSemester();
+  }, [semesterId]);
 
-  async function updateLecturer() {
+  async function updateSemester() {
     const response = await fetch(
-      `http://127.0.0.1:5000/lecturer/${lecturerId}`,
+      `http://127.0.0.1:5000/semester/${semesterId}`,
       {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(lecturer),
+        body: JSON.stringify(semester),
       }
     );
     const data = await response.json();
@@ -31,55 +31,49 @@ const LecEdit = ({ lecturerId }) => {
   }
 
   const handleInputChange = (event) => {
-    setLec({
-      ...lecturer,
+    setSemester({
+      ...semester,
       [event.target.name]: event.target.value,
     });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    updateLecturer();
+    updateSemester();
   };
 
   return (
     <div>
-      <h2>Edit Lecturer</h2>
+      <h2>Edit semester</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
           name="id"
-          value={lecturer.id}
+          value={semester.id}
           onChange={handleInputChange}
         />
         <input
           type="text"
-          name="lecture_title"
-          value={lecturer.lecture_title}
+          name="name"
+          value={semester.name}
           onChange={handleInputChange}
         />
         <input
           type="text"
-          name="faculty_id"
-          value={lecturer.faculty_id}
-          onChange={handleInputChange}
-        />
-        <input
-          type="date"
-          name="datetime"
-          value={lecturer.datetime}
+          name="start_date"
+          value={semester.start_date}
           onChange={handleInputChange}
         />
         <input
           type="text"
-          name="location"
-          value={lecturer.location}
+          name="end_date"
+          value={semester.end_date}
           onChange={handleInputChange}
         />
         <button type="submit">Submit</button>
       </form>
     </div>
   );
-};
+}
 
-export default LecEdit;
+export default SemesterEdit;
