@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Card, Image } from "semantic-ui-react";
+import { Table } from "semantic-ui-react";
 
 const FeeList = () => {
   const [feeList, setFeeList] = useState([]);
@@ -16,25 +16,24 @@ const FeeList = () => {
 
   return (
     <div>
-      <h2 className="ui inverted segment">Fees List</h2>
-      <a href="/admindash">Admin Dashboard</a>
-      <Card.Group>
-        {feeList.map((fee) => (
-          <Card key={fee.id}>
-            {/* <Image
-              src={fee.thumbnail || "https://via.placeholder.com/150"}
-              wrapped
-              ui={false}
-            /> */}
-            <Card.Content>
-              <Card.Header>{fee.amount}</Card.Header>
-              <Card.Meta>
-                <span className="date">User ID: {fee.user_id}</span>
-              </Card.Meta>
-            </Card.Content>
-          </Card>
-        ))}
-      </Card.Group>
+      <h2 className="ui center aligned header">Fees List</h2>
+      <Table celled>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell>Amount</Table.HeaderCell>
+            <Table.HeaderCell>Student ID</Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+
+        <Table.Body>
+          {feeList.map((fee) => (
+            <Table.Row key={fee.id}>
+              <Table.Cell>{fee.amount}</Table.Cell>
+              <Table.Cell>{fee.student_id}</Table.Cell>
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table>
     </div>
   );
 };

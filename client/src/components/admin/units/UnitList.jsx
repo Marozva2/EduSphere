@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Card, Image } from "semantic-ui-react";
+import { Card, Image, Button } from "semantic-ui-react";
 
 const UnitList = () => {
   const [unitList, setUnitList] = useState([]);
@@ -13,6 +13,18 @@ const UnitList = () => {
 
     fetchUnitList();
   }, []);
+
+  const handleDelete = async (id) => {
+    const response = await fetch(`http://127.0.0.1:5000/unit/${id}`, {
+      method: "DELETE",
+    });
+
+    if (response.ok) {
+      setUnitList(unitList.filter((unit) => unit.id !== id));
+    } else {
+      console.error("Failed to delete unit:", response);
+    }
+  };
 
   return (
     <div>
@@ -34,6 +46,7 @@ const UnitList = () => {
                 Contact Hours: {unit.contact_hours}
               </Card.Description>
             </Card.Content>
+            <Button className="ui primary button" onClick={() => handleDelete(unit.id)}>Delete</Button>
           </Card>
         ))}
       </Card.Group>
