@@ -3,8 +3,6 @@ from flask_restful import Api, Resource, abort, reqparse
 from flask_marshmallow import Marshmallow
 
 from models import Exam, db
-
-
 from serializers import ExamSchema
 
 exam_bp = Blueprint('exam_bp', __name__)
@@ -87,5 +85,13 @@ class ExamRsById(Resource):
         return f'exam with {id=} has been successfully deleted.', 204
 
 
+class ExamList(Resource):
+    def get(self):
+        exams = Exam.query.all()
+        exam_list = [examschema_single.dump(exam) for exam in exams]
+        return jsonify(exam_list)
+
+
 api.add_resource(ExamRs, '/exams')
 api.add_resource(ExamRsById, '/exam/<string:id>')
+api.add_resource(ExamList, '/exam_list')
