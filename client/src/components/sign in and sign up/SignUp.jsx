@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 // import { Link, useHistory } from "react-router-dom";
 import Header from "/src/components/Header.jsx";
+import { Link } from "react-router-dom";
 
 function SignUp() {
   const [username, setUsername] = useState("");
