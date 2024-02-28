@@ -34,12 +34,12 @@ function Header() {
           >
             <ul className="navbar-nav">
               <li className="nav-item">
-                <a className="nav-link" href="#home">
+                <a className="nav-link" href="/">
                   Home
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#about">
+                <a className="nav-link" href="/about">
                   About Us
                 </a>
               </li>
@@ -64,27 +64,27 @@ function Header() {
                   style={{ display: showAcademicsDropdown ? "block" : "none" }}
                 >
                   <li>
-                    <a className="dropdown-item" href="#engineering">
+                    <a className="dropdown-item" href="/engineering">
                       Faculty of Engineering
                     </a>
                   </li>
                   <li>
-                    <a className="dropdown-item" href="#education">
+                    <a className="dropdown-item" href="/education">
                       Faculty of Education
                     </a>
                   </li>
                   <li>
-                    <a className="dropdown-item" href="#business">
+                    <a className="dropdown-item" href="/business">
                       Faculty of Business
                     </a>
                   </li>
                   <li>
-                    <a className="dropdown-item" href="#health">
+                    <a className="dropdown-item" href="/health">
                       Faculty of Medicine & Health Sciences
                     </a>
                   </li>
                   <li>
-                    <a className="dropdown-item" href="#law">
+                    <a className="dropdown-item" href="/law">
                       Faculty of Law
                     </a>
                   </li>

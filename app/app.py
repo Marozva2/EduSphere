@@ -28,6 +28,7 @@ def create_app():
 
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///edusphere.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['SECRET_KEY'] = 'qaddetvteverer3fg5'
 
     db.init_app(app)
     jwt.init_app(app)
