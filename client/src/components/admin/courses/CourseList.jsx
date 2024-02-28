@@ -15,7 +15,7 @@ const CourseList = () => {
   }, []);
 
   const handleDelete = async (id) => {
-    const response = await fetch(`http://127.0.0.1:5000/courses/${id}`, {
+    const response = await fetch(`http://127.0.0.1:5000/course/${id}`, {
       method: "DELETE",
     });
 
