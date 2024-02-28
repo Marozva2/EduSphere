@@ -1,4 +1,5 @@
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
+from marshmallow import fields
 
 from models import User, Semester, Lecturer, Exam, Unit, Course, Department, Faculty, Student, CourseSemester, CourseWork, LecturerUnit, StudentCourses
 
@@ -30,8 +31,11 @@ class UnitSchema(SQLAlchemyAutoSchema):
 
 
 class CourseSchema(SQLAlchemyAutoSchema):
+    thumbnail = fields.Str()
+
     class Meta:
         model = Course
+        include_fk = True
 
 
 class DepartmentSchema(SQLAlchemyAutoSchema):
@@ -58,9 +62,11 @@ class CourseWorkSchema(SQLAlchemyAutoSchema):
     class Meta:
         model = CourseWork
 
+
 class LecturerUnitschema(SQLAlchemyAutoSchema):
     class Meta:
         model = LecturerUnit
+
 
 class StudentCourseSchema(SQLAlchemyAutoSchema):
     class Meta:
