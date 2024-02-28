@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 .maroon-bg {
   background-color: maroon;
@@ -373,3 +374,143 @@ hr{
   flex-basis: 100%;
 }
 }
+=======
+.hero {
+    border-top: 2px solid goldenrod; 
+    padding-top: 20px; 
+    display: flex;
+  }
+
+  .hero-content {
+    padding: 20px; 
+  }
+
+  .hero-image {
+    width: 50%; 
+  }
+
+  .text-content {
+    width: 50%; 
+  }
+
+.header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px; 
+  }
+  
+  .maroon-bg {
+    background-color: maroon;
+    color: #fff; 
+  }
+  
+  .white-bg {
+    background-color: white;
+    color: #000; 
+    border-left: 1px solid #ccc;
+  }
+  
+  .header-section nav ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .header-section nav ul li {
+    display: inline;
+    margin-right: 20px;
+  }
+  
+  .header-section nav ul li a {
+    text-decoration: none;
+    color: inherit; 
+  }
+  
+  .header-section nav ul li a:hover {
+    color: #007bff;
+  }
+  
+  .logo img {
+    width: 100px;
+    height: auto;
+  }
+  
+  
+  
+  .dropdown {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+  
+  .dropdown li {
+    display: block;
+  }
+  
+  
+  .apply-button {
+    display: flex;
+    background-color: #800000;
+    color: hsl(0, 0%, 100%);
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .apply-button:hover {
+    background-color: goldenrod;
+    color: #000000;
+  }
+  
+  .apply-button span {
+    margin-left: 10px;
+  }
+
+  .slick-slide {
+    position: relative;
+  }
+  
+
+
+.slick-slider {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .slick-slide img {
+    width: 600px;
+    height: auto;
+  }
+
+  .nav-button {
+    position: absolute;
+    top: 50%; 
+    background-color: maroon;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: mouse;
+    transition: background-color 0.3s ease;
+  }
+
+
+.nav-button.prev {
+    left: 10px; 
+    transform: translate(0, -50%); 
+  }
+  
+  
+  .nav-button.next {
+    right: 95px;
+    top: 50%; 
+    transform: translate(0, -50%); 
+  }
+  
+  .nav-button:hover {
+    background-color: hsl(0, 100%, 25%); 
+    color: white;
+  }
+>>>>>>> 2b2b87d (Feature: hero section)
