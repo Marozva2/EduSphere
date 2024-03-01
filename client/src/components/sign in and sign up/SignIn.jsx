@@ -1,13 +1,22 @@
 import React, { useState } from "react";
-import Header from "/src/components/Header.jsx";
-import { Link } from "react-router-dom";
-import SignUp from "./SignUp";
+import { useNavigate } from "react-router-dom";
+import NavBar from "/src/components/NavBar.jsx";
+
+import {
+  Button,
+  Form,
+  Grid,
+  Message,
+  Segment,
+} from "semantic-ui-react";
 
 function SignIn() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+
+  const navigate = useNavigate();
 
   const handleSignIn = async (event) => {
     event.preventDefault();
@@ -23,11 +32,27 @@ function SignIn() {
           password,
         }),
       });
-      const data = await response.json();
+      const result = await response.json();
+
+      const { role } = result;
+      console.log(role);
       if (response.ok) {
-        console.log(data);
+        localStorage.getItem("role", role);
+        switch (role) {
+          case "admin":
+            navigate("/admindash/*");
+            break;
+          case "lecturer":
+            navigate("/lecturerdash");
+            break;
+          case "student":
+            navigate("/studentdash");
+            break;
+          default:
+            setError("Invalid user role:", role);
+        }
       } else {
-        setError(data.detail);
+        setError(result.detail);
       }
     } catch (err) {
       console.error(err);
@@ -35,51 +60,49 @@ function SignIn() {
   };
 
   return (
-    <>
-      <Header />
-      <div className="ui container" style={{ marginTop: "10em" }}>
-        <form className="ui form" onSubmit={handleSignIn}>
-          <div>
-            <h2>Sign In</h2>
-          </div>
-          {error && <p>{error}</p>}
-          <div className="inline fields">
-            <input
-              type="text"
-              placeholder="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-          </div>
-          <div className="inline fields">
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              // required
-            />
-          </div>
-
-          <div className="inline fields">
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          <button className="ui primary button" type="submit">
-            Sign In
-          </button>
-          <p>
-            Don't have an account? <Link to="/signup">Sign up</Link>
-          </p>
-        </form>
-      </div>
-    </>
+    <div>
+      <NavBar/>
+      <Grid
+        textAlign="center"
+        style={{ height: "80vh" }}
+        verticalAlign="middle"
+      >
+        <Grid.Column style={{ maxWidth: 650 }}>
+          <h1 color="teal">Sign In</h1>
+          <Form size="large" onSubmit={handleSignIn}>
+            <Segment stacked style={{ width: "300%" }}>
+              <Form.Input
+                fluid
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
+              <Form.Input
+                fluid
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <Form.Input
+                placeholder="Password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <Button color="blue" fluid size="large" type="submit">
+                Sign In
+              </Button>
+            </Segment>
+          </Form>
+          <Message>
+            Don't have an account? <a href="/signup">Sign up</a>
+          </Message>
+          <div>{error && <p>{error}</p>}</div>
+        </Grid.Column>
+      </Grid>
+    </div>
   );
 }
 

@@ -44,10 +44,10 @@ class SemesterRs(Resource):
         data = post_args.parse_args()
 
         start_date_str = data['start_date']
-        start_date_obj = datetime.strptime(start_date_str, '%Y:%m:%d').date()
+        start_date_obj = datetime.strptime(start_date_str, '%Y-%m-%d').date()
 
         end_date_str = data['end_date']
-        end_date_obj = datetime.strptime(end_date_str, '%Y:%m:%d').date()
+        end_date_obj = datetime.strptime(end_date_str, '%Y-%m-%d').date()
 
         semester = Semester.query.filter_by(id='id').first()
         if semester:

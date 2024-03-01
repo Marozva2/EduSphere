@@ -5,7 +5,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import Header from "./Header.jsx";
+import Header from "./NavBar.jsx";
 import HeroSection from "./HeroSection.jsx";
 import Footer from "./Footer.jsx";
 import SignIn from "/src/components/sign in and sign up/SignIn.jsx";
@@ -22,6 +22,7 @@ async function getUserData() {
 
 function App() {
   const [userRole, setUserRole] = useState(null);
+  useState(localStorage.getItem("userRole") || null);
 
   useEffect(() => {
     getUserData().then((data) => setUserRole(data.role));
@@ -31,14 +32,21 @@ function App() {
     <Router>
       <Routes>
         <Route path="/login" element={<SignIn />} />
-        <Route
-          path="/student"
+        <Route path="/admindash/*" element={<AdminDashboard />} />
+        <Route path="/lecturerdash/*" element={<LecturerDashboard />} />
+        <Route path="/studentdash/*" element={<StudentDashboard />} />
+        {/* <Route
+          path="/studentdash"
           element={
-            userRole === "student" ? <StudentDashboard /> : <Navigate to="/" />
+            userRole === "student" ? (
+              <StudentDashboard />
+            ) : (
+              <Navigate to="/login" />
+            )
           }
-        />
-        <Route
-          path="/lecturer"
+        /> */}
+        {/* <Route
+          path="/lecturerdash"
           element={
             userRole === "lecturer" ? (
               <LecturerDashboard />
@@ -46,26 +54,30 @@ function App() {
               <Navigate to="/login" />
             )
           }
-        />
+        /> */}
         <Route
-          path="/admin"
+          path="/admindash/*"
           element={
             userRole === "admin" ? <AdminDashboard /> : <Navigate to="/login" />
           }
         />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/admindash/*" element={<AdminDashboard />} />
-        <Route path="/studentdash/*" element={<StudentDashboard />} />
-        <Route path="/lecturerdash/*" element={<LecturerDashboard />} />
-
         <Route
           path="/"
           element={
-            <>
-              <Header />
-              <HeroSection />
-              <Footer />
-            </>
+            userRole === "student" ? (
+              <Navigate to="/studentdash/*" />
+            ) : userRole === "lecturer" ? (
+              <Navigate to="/lecturerdash/*" />
+            ) : userRole === "admin" ? (
+              <Navigate to="/admindash" />
+            ) : (
+              <>
+                <Header />
+                <HeroSection />
+                <Footer />
+              </>
+            )
           }
         />
       </Routes>

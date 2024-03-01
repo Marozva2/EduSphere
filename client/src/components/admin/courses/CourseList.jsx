@@ -28,7 +28,7 @@ const CourseList = () => {
 
   return (
     <div>
-      <h2 className="ui inverted segment">Course List</h2>
+      <h2 className="ui header">Course List</h2>
       <Card.Group>
         {courseList.map((course) => (
           <Card key={course.id}>
@@ -49,7 +49,12 @@ const CourseList = () => {
                 Department ID: {course.department_id}
               </Card.Description>
             </Card.Content>
-            <Button className="ui primary button" onClick={() => handleDelete(course.id)}>Delete</Button>
+            <Button
+              className="ui primary button"
+              onClick={() => handleDelete(course.id)}
+            >
+              Delete
+            </Button>
           </Card>
         ))}
       </Card.Group>

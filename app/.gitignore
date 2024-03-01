@@ -1,4 +1,4 @@
 *.pyc
-instance/
+app/instance/
 migrations/
-
+__pycache__/
