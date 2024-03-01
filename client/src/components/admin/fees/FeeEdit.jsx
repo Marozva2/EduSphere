@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import FeeList from "./FeeList";
 
 function FeeEdit({ feeId }) {
   const [fee, setFee] = useState({});
@@ -38,29 +39,37 @@ function FeeEdit({ feeId }) {
   };
 
   return (
-    <div>
+    <div className="inline fields">
       <h2>Edit fee</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="id"
-          value={fee.id}
-          onChange={handleInputChange}
-        />
-        <input
-          type="number"
-          name="amount"
-          value={fee.amount}
-          onChange={handleInputChange}
-        />
-        <input
-          type="number"
-          name="user_id"
-          value={fee.user_id}
-          onChange={handleInputChange}
-        />
-        <button type="submit">Submit</button>
+      <form className="ui form" onSubmit={handleSubmit}>
+        {/* <div className="inline fields"> */}
+          <input
+            type="text"
+            placeholder="Fee ID"
+            name="id"
+            value={fee.id}
+            onChange={handleInputChange}
+          />
+          <input
+            type="number"
+            placeholder="amount"
+            name="amount"
+            value={fee.amount}
+            onChange={handleInputChange}
+          />
+          <input
+            type="number"
+            name="user_id"
+            placeholder="user_id"
+            value={fee.user_id}
+            onChange={handleInputChange}
+          />
+          <button className="ui button" type="submit">
+            Submit
+          </button>
+        {/* </div> */}
       </form>
+      <FeeList/>
     </div>
   );
 }
