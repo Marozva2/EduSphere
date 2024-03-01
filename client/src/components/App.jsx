@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,Fragment } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -11,18 +11,20 @@ import Footer from "./Footer.jsx";
 import SignIn from "/src/components/sign in and sign up/SignIn.jsx";
 import SignUp from "/src/components/sign in and sign up/SignUp.jsx";
 import AdminDashboard from "/src/components/admin/AdminDashboard.jsx";
-import LecturerDashboard from "/src/components/lecturer/LecturerDashboard.jsx";
-import StudentDashboard from "/src/components/student/StudentDashboard.jsx";
+import LecturerDashboard from "/src/components/LecturerDashboard.jsx";
+import StudentDashboard from "/src/components/StudentDashboard.jsx";
+
+
 
 async function getUserData() {
   const response = await fetch("http://127.0.0.1:5000/users");
   const data = await response.json();
   return data;
 }
-import React, { Fragment } from "react";
-import Header from "./Header.jsx";
-import HeroSection from "./HeroSection.jsx";
-import Footer from "./Footer.jsx";
+// import React, { Fragment } from "react";
+// import Header from "./Header.jsx";
+// import HeroSection from "./HeroSection.jsx";
+// import Footer from "./Footer.jsx";
 
 function App() {
   const [userRole, setUserRole] = useState(null);
