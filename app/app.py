@@ -40,6 +40,8 @@ def create_app():
     app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
     app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=2)
 
+    # postgres://frank:13pnkG7evhkB7E9pNqaiYMUKa8rB32VN@dpg-cngmjr7sc6pc73aul1t0-a.oregon-postgres.render.com/dbedusphere
+
     db.init_app(app)
     jwt.init_app(app)
     bcrypt.init_app(app)
@@ -63,5 +65,8 @@ def create_app():
     app.register_blueprint(enrollment_bp)
     app.register_blueprint(fees_bp)
 
-    CORS(app)
+    CORS(app, resources={r"*": {"origins": "*"}})
     return app
+
+
+app = create_app()
