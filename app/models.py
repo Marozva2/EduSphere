@@ -30,6 +30,7 @@ class Student(db.Model):
     email = db.Column(db.String)
     department_id = db.Column(db.String(36), db.ForeignKey('departments.id'))
     profile_photo = db.Column(db.String(100))
+    fees = db.relationship('Fee', backref='student')
 
 
 class Admin(db.Model):
@@ -142,6 +143,30 @@ class StudentCourses(db.Model):
     id = db.Column(db.String(36), primary_key=True, default=generate_uuid)
     student_id = db.Column(db.Integer, db.ForeignKey('students.id'))
     course_id = db.Column(db.Integer, db.ForeignKey('courses.id'))
+
+
+class Fee(db.Model):
+    __tablename__ = 'fees'
+
+    id = db.Column(db.String(36), primary_key=True, default=generate_uuid)
+    amount = db.Column(db.String)
+    student_id = db.Column(db.String, db.ForeignKey('students.id'))
+
+
+class Enrollment(db.Model):
+    __tablename__ = 'enrollments'
+
+    id = db.Column(db.String(36), primary_key=True, default=generate_uuid)
+    student_id = db.Column(db.Integer, db.ForeignKey(
+        'students.id'), nullable=False)
+    course_id = db.Column(db.Integer, db.ForeignKey(
+        'courses.id'), nullable=False)
+    enrollment_date = db.Column(db.DateTime, nullable=False)
+
+    student = db.relationship(
+        'Student', backref=db.backref('enrollments', lazy=True))
+    course = db.relationship(
+        'Course', backref=db.backref('enrollments', lazy=True))
 
 
 class TokenBlocklist(db.Model):

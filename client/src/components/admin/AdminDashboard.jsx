@@ -24,6 +24,10 @@ import UnitCreate from "./units/UnitCreate";
 import FeeList from "./fees/FeeList";
 import FeeEdit from "./fees/FeeEdit";
 
+import LecturerCreate from "./lecturers/CreateLecturer";
+import LecturerList from "./lecturers/LecturerList";
+import EditLecturer from "./lecturers/EditLecturer";
+
 function AdminDashboard() {
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false);
 
@@ -59,6 +63,10 @@ function AdminDashboard() {
 
         <Route path="fees" element={<FeeList />} />
         <Route path="fees/edit/:id" element={<FeeEdit />} />
+
+        <Route path="lecturers" element={<LecturerList />} />
+        <Route path="lecturer/create" element={<LecturerCreate />} />
+        <Route path="lecturers/edit/:id" element={<EditLecturer />} />
       </Routes>
     </div>
   );

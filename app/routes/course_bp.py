@@ -11,16 +11,16 @@ api = Api(courses_bp)
 post_args = reqparse.RequestParser()
 # post_args.add_argument('id', type=str, required=True,
 #                        help='Id is required')
-post_args.add_argument('course_name', type=str, required=True,
+post_args.add_argument('name', type=str, required=True,
                        help='course name is required')
-post_args.add_argument('course_code', type=str, required=True,
+post_args.add_argument('code', type=str, required=True,
                        help='course code is required')
 post_args.add_argument('department_id', type=int,
                        required=True, help='Department is required')
 
 patch_args = reqparse.RequestParser()
-patch_args.add_argument('course_name', type=str)
-patch_args.add_argument('course_code', type=str)
+patch_args.add_argument('name', type=str)
+patch_args.add_argument('code', type=str)
 patch_args.add_argument('department_id', type=int)
 
 
@@ -43,7 +43,7 @@ class Courses(Resource):
             abort(409, message=f"Course with id {id} already exists")
 
         new_course = Course(
-            course_name=data['course_name'], course_code=data['course_code'], department_id=data['department_id'])
+            name=data['name'], code=data['code'], department_id=data['department_id'])
         db.session.add(new_course)
         db.session.commit()
 

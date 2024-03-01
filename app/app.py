@@ -1,10 +1,15 @@
+import os
+
+
 from flask import Flask
 from flask_migrate import Migrate
 from flask_cors import CORS
 from flask_marshmallow import Marshmallow
+from dotenv import load_dotenv
+from datetime import timedelta
 
 
-from models import db
+from models import db, TokenBlocklist
 
 
 from routes.auth import auth_bp, jwt
@@ -21,14 +26,21 @@ from routes.semester_bp import semester_bp
 from routes.student_bp import student_bp
 from routes.student_course_bp import student_course_bp
 from routes.unit_bp import unit_bp
+from routes.enrollment_bp import enrollment_bp
+from routes.fee_bp import fees_bp
 
 
 def create_app():
     app = Flask(__name__)
 
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///edusphere.db'
+    load_dotenv()
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
+        'SQLALCHEMY_DATABASE_URI')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['SECRET_KEY'] = 'qaddetvteverer3fg5'
+    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+    app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=2)
+
+    # postgres://frank:13pnkG7evhkB7E9pNqaiYMUKa8rB32VN@dpg-cngmjr7sc6pc73aul1t0-a.oregon-postgres.render.com/dbedusphere
 
     db.init_app(app)
     jwt.init_app(app)
@@ -50,6 +62,11 @@ def create_app():
     app.register_blueprint(student_bp)
     app.register_blueprint(student_course_bp)
     app.register_blueprint(unit_bp)
+    app.register_blueprint(enrollment_bp)
+    app.register_blueprint(fees_bp)
 
-    CORS(app)
+    CORS(app, resources={r"*": {"origins": "*"}})
     return app
+
+
+app = create_app()

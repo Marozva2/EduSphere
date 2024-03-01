@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import CourseList from "./CourseList";
 
 const CreateCourses = () => {
   const [course, setCourse] = useState({});
@@ -51,8 +52,9 @@ const CreateCourses = () => {
             onChange={handleInputChange}
           />
         </div>
-        <button className="ui button" type="submit">Submit</button>
+        <button className="ui primary button" type="submit">Submit</button>
       </form>
+      <CourseList/>
     </div>
   );
 };

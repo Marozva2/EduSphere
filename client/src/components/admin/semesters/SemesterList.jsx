@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Card, Image } from "semantic-ui-react";
+import { Card, Image, Button } from "semantic-ui-react";
 
 const SemesterList = () => {
   const [semesterList, setSemesterList] = useState([]);
@@ -13,6 +13,18 @@ const SemesterList = () => {
 
     fetchSemesterList();
   }, []);
+
+  const handleDelete = async (id) => {
+    const response = await fetch(`http://127.0.0.1:5000/semester/${id}`, {
+      method: "DELETE",
+    });
+
+    if (response.ok) {
+      setSemesterList(semesterList.filter((semester) => semester.id !== id));
+    } else {
+      console.error("Failed to delete semester:", response);
+    }
+  };
 
   return (
     <div>
@@ -44,6 +56,12 @@ const SemesterList = () => {
                 </span>
               </Card.Meta>
             </Card.Content>
+            <Button
+              color="red"
+              onClick={() => handleDelete(unit.id)}
+            >
+              Delete
+            </Button>
           </Card>
         ))}
       </Card.Group>

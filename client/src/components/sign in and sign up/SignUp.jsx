@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-// import { Link, useHistory } from "react-router-dom";
-import Header from "/src/components/Header.jsx";
+import { useNavigate } from "react-router-dom";
+import Header from "/src/components/NavBar.jsx";
+import { Link } from "react-router-dom";
+import { Button, Form, Grid, Message, Segment } from "semantic-ui-react";
 
 function SignUp() {
   const [username, setUsername] = useState("");
@@ -10,7 +12,7 @@ function SignUp() {
   const [role, setRole] = useState("");
   const [error, setError] = useState(null);
 
-  // const history = useHistory();
+  const navigate = useNavigate();
 
   const handleSignUp = async (event) => {
     event.preventDefault();
@@ -34,7 +36,13 @@ function SignUp() {
       });
       const data = await response.json();
       if (response.ok) {
-        // history.push("/login-page");
+        setUsername("");
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
+        setRole("");
+        setError(null);
+        navigate("/login");
       } else {
         setError(data.detail);
       }
@@ -44,71 +52,71 @@ function SignUp() {
   };
 
   return (
-    <>
+    <div>
       <Header />
-      <div className="ui container" style={{ marginTop: "10em" }}>
-        <form className="ui form" onSubmit={handleSignUp}>
-          <h2>Sign Up</h2>
-          {error && <p>{error}</p>}
-          <div className="inline fields">
-            <input
-              type="text"
-              placeholder="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-          </div>
-          <div className="inline fields">
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div className="inline fields">
-            <label>
-              <select
-                value={role}
-                onChange={(e) => setRole(e.target.value)}
+      <Grid
+        textAlign="center"
+        style={{ height: "80vh" }}
+        verticalAlign="middle"
+      >
+        <Grid.Column style={{ maxWidth: 650 }}>
+          <h1 color="teal">Sign In</h1>
+          <Form size="large" onSubmit={handleSignUp}>
+            <Segment stacked style={{ width: "300%" }}>
+              <Form.Input
+                fluid
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 required
-              >
-                <option value="">Select a role</option>
-                <option value="admin">Admin</option>
-                <option value="lecturer">Lecturer</option>
-                <option value="student">Student</option>
-              </select>
-            </label>
-          </div>
-          <div className="inline fields">
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          <div className="inline fields">
-            <input
-              type="password"
-              placeholder="Confirm Password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-            />
-          </div>
-          <button className="ui primary button" type="submit">
-            Sign Up
-          </button>
-          <p>
-            Have an account? <Link to="/login-page">Sign in</Link>
-          </p>
-        </form>
-      </div>
-    </>
+              />
+              <Form.Input
+                fluid
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+              <Form.Select
+                fluid
+                placeholder="Select a role"
+                options={[
+                  { key: "a", text: "admin", value: "admin" },
+                  { key: "l", text: "lecturer", value: "lecturer" },
+                  { key: "s", text: "student", value: "student" },
+                ]}
+                value={role}
+                onChange={(e, { value }) => setRole(value)}
+                required
+              />
+              <Form.Input
+                fluid
+                placeholder="Password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <Form.Input
+                fluid
+                placeholder="Confirm Password"
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+              />
+              <Button color="blue" fluid size="large" type="submit">
+                Sign Up
+              </Button>
+            </Segment>
+          </Form>
+          <Message>
+            Have an account? <Link to="/login">Sign in</Link>
+          </Message>
+          <div>{error && <p>{error}</p>}</div>
+        </Grid.Column>
+      </Grid>
+    </div>
   );
 }
 
