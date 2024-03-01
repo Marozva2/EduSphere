@@ -15,6 +15,7 @@ marshmallow-sqlalchemy = "*"
 flask-jwt-extended = "*"
 python-dotenv = "*"
 gunicorn = "*"
+psycopg2 = "*"
 
 [dev-packages]
 

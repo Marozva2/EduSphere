@@ -79,15 +79,15 @@ class Course(db.Model):
     name = db.Column(db.String)
     code = db.Column(db.String)
     thumbnail = db.Column(db.String)
-    department_id = db.Column(db.Integer, db.ForeignKey('departments.id'))
+    department_id = db.Column(db.String, db.ForeignKey('departments.id'))
 
 
 class CourseSemester(db.Model):
     __tablename__ = 'course_semester'
 
     id = db.Column(db.String(36), primary_key=True, default=generate_uuid)
-    course_id = db.Column(db.Integer, db.ForeignKey('courses.id'))
-    semester_id = db.Column(db.Integer, db.ForeignKey('semesters.id'))
+    course_id = db.Column(db.String, db.ForeignKey('courses.id'))
+    semester_id = db.Column(db.String, db.ForeignKey('semesters.id'))
 
 
 class Lecturer(db.Model):
@@ -95,7 +95,7 @@ class Lecturer(db.Model):
 
     id = db.Column(db.String(36), primary_key=True, default=generate_uuid)
     lecture_title = db.Column(db.String)
-    facult_id = db.Column(db.Integer, db.ForeignKey('faculties.id'))
+    facult_id = db.Column(db.String, db.ForeignKey('faculties.id'))
     datetime = db.Column(db.DateTime)
     location = db.Column(db.String)
 
@@ -112,8 +112,8 @@ class CourseWork(db.Model):
     __tablename__ = 'course_work'
 
     id = db.Column(db.String(36), primary_key=True, default=generate_uuid)
-    unit_id = db.Column(db.Integer, db.ForeignKey('units.id'))
-    student_id = db.Column(db.Integer, db.ForeignKey('students.id'))
+    unit_id = db.Column(db.String, db.ForeignKey('units.id'))
+    student_id = db.Column(db.String, db.ForeignKey('students.id'))
     score = db.Column(db.Float)
 
 
@@ -122,7 +122,7 @@ class Exam(db.Model):
 
     unit_id = db.Column(db.String(36), primary_key=True, default=generate_uuid)
     score = db.Column(db.Float)
-    student_id = db.Column(db.Integer, db.ForeignKey('students.id'))
+    student_id = db.Column(db.String, db.ForeignKey('students.id'))
     grade = db.Column(db.String)
 
 
@@ -141,8 +141,8 @@ class StudentCourses(db.Model):
     __tablename__ = 'student_courses'
 
     id = db.Column(db.String(36), primary_key=True, default=generate_uuid)
-    student_id = db.Column(db.Integer, db.ForeignKey('students.id'))
-    course_id = db.Column(db.Integer, db.ForeignKey('courses.id'))
+    student_id = db.Column(db.String, db.ForeignKey('students.id'))
+    course_id = db.Column(db.String, db.ForeignKey('courses.id'))
 
 
 class Fee(db.Model):
@@ -157,9 +157,9 @@ class Enrollment(db.Model):
     __tablename__ = 'enrollments'
 
     id = db.Column(db.String(36), primary_key=True, default=generate_uuid)
-    student_id = db.Column(db.Integer, db.ForeignKey(
+    student_id = db.Column(db.String, db.ForeignKey(
         'students.id'), nullable=False)
-    course_id = db.Column(db.Integer, db.ForeignKey(
+    course_id = db.Column(db.String, db.ForeignKey(
         'courses.id'), nullable=False)
     enrollment_date = db.Column(db.DateTime, nullable=False)
 
