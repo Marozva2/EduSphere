@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { List } from "semantic-ui-react";
 
 function CourseEnrollmentList() {
   const [courses, setCourses] = useState([]);
@@ -14,17 +13,17 @@ function CourseEnrollmentList() {
   return (
     <div>
       <h1>My Courses</h1>
-      <List>
+      <ul className="list-disc pl-5">
         {courses.map((course) => (
-          <List.Item key={course.course_id}>
-            <List.Icon name="book" />
-            <List.Content>
-              <List.Header>{course.course_id}</List.Header>
-              <List.Description>{course.enrollment_date}</List.Description>
-            </List.Content>
-          </List.Item>
+          <li key={course.course_id}>
+            <span className="material-icons">book</span>
+            <div>
+              <h2>{course.course_id}</h2>
+              <p>{course.enrollment_date}</p>
+            </div>
+          </li>
         ))}
-      </List>
+      </ul>
     </div>
   );
 }
