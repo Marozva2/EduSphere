@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import {
   BsBackpackFill,
-  BsGrid1X2Fill,
-  BsFillArchiveFill,
   BsFillGrid3X3GapFill,
-  BsDatabaseLock,
   BsPeopleFill,
 } from "react-icons/bs";
 

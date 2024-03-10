@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "/src/components/NavBar.jsx";
-import { Link } from "react-router-dom";
-import { Button, Form, Grid, Message, Segment } from "semantic-ui-react";
 
 function SignUp() {
   const [username, setUsername] = useState("");
@@ -11,11 +9,19 @@ function SignUp() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [role, setRole] = useState("");
   const [error, setError] = useState(null);
-
+  const [formValid, setFormValid] = useState(false);
   const navigate = useNavigate();
 
   const handleSignUp = async (event) => {
     event.preventDefault();
+
+    checkFormValidity();
+
+    if (!formValid) {
+      setError("Please fill in all required fields");
+      return;
+    }
+
     if (password !== confirmPassword) {
       setError("Passwords do not match");
       return;
@@ -51,72 +57,127 @@ function SignUp() {
     }
   };
 
+  const checkFormValidity = () => {
+    if (
+      username.trim() !== "" &&
+      email.trim() !== "" &&
+      password.trim() !== "" &&
+      confirmPassword.trim() !== "" &&
+      role.trim() !== ""
+    ) {
+      setFormValid(true);
+    } else {
+      setFormValid(false);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    switch (name) {
+      case "username":
+        setUsername(value);
+        break;
+      case "email":
+        setEmail(value);
+        break;
+      case "password":
+        setPassword(value);
+        break;
+      case "confirmPassword":
+        setConfirmPassword(value);
+        break;
+      case "role":
+        setRole(value);
+        break;
+      default:
+        break;
+    }
+    // checkFormValidity();
+  };
+
   return (
-    <div>
+    <>
       <Header />
-      <Grid
-        textAlign="center"
-        style={{ height: "80vh" }}
-        verticalAlign="middle"
-      >
-        <Grid.Column style={{ maxWidth: 650 }}>
-          <h1 color="teal">Sign In</h1>
-          <Form size="large" onSubmit={handleSignUp}>
-            <Segment stacked style={{ width: "300%" }}>
-              <Form.Input
-                fluid
-                placeholder="Username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-              />
-              <Form.Input
-                fluid
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-              <Form.Select
-                fluid
-                placeholder="Select a role"
-                options={[
-                  { key: "a", text: "admin", value: "admin" },
-                  { key: "l", text: "lecturer", value: "lecturer" },
-                  { key: "s", text: "student", value: "student" },
-                ]}
-                value={role}
-                onChange={(e, { value }) => setRole(value)}
-                required
-              />
-              <Form.Input
-                fluid
-                placeholder="Password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-              <Form.Input
-                fluid
-                placeholder="Confirm Password"
-                type="password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-              />
-              <Button color="blue" fluid size="large" type="submit">
-                Sign Up
-              </Button>
-            </Segment>
-          </Form>
-          <Message>
-            Have an account? <Link to="/login">Sign in</Link>
-          </Message>
-          <div>{error && <p>{error}</p>}</div>
-        </Grid.Column>
-      </Grid>
-    </div>
+      <div className="contain" style={{ marginTop: "5em" }}>
+        <form
+          onSubmit={handleSignUp}
+          className="ui form"
+          style={{ display: "flex", flexDirection: "column" }}
+        >
+          <h1 style={{ color: "maroon", paddingLeft: "30px" }}>Sign Up</h1>
+          <div className="fields" style={{ width: "50%" }}>
+            <input
+              type="email"
+              placeholder="Email"
+              name="email"
+              value={email}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+          <div className="fields" style={{ width: "50%" }}>
+            <input
+              type="text"
+              placeholder="Username"
+              name="username"
+              value={username}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+          <div className="fields" style={{ width: "50%" }}>
+            <select
+              value={role}
+              onChange={handleInputChange}
+              name="role"
+              required
+            >
+              <option value="">Select Role</option>
+              <option value="Admin">admin</option>
+              <option value="Lecturer">lecturer</option>
+              <option value="Student">student</option>
+            </select>
+          </div>
+          <div className="fields" style={{ width: "50%" }}>
+            <input
+              type="password"
+              placeholder="Password"
+              name="password"
+              value={password}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+          <div className="fields" style={{ width: "50%" }}>
+            <input
+              type="password"
+              placeholder="Confirm Password"
+              name="confirmPassword"
+              value={confirmPassword}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+
+            <button
+              type="submit"
+              className="ui button"
+              style={{ backgroundColor: "maroon", color: "white" }}
+            >
+              Sign Up
+            </button>
+          
+          <p>
+            Already have an account?{" "}
+            <a style={{ color: "maroon" }} href="/login">
+              Sign in
+            </a>{" "}
+            here!
+          </p>
+        </form>
+        <div>{error && <p>{error}</p>}</div>
+      </div>
+    </>
   );
 }
 

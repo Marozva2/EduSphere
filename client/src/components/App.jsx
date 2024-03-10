@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { Router, Routes, Route, Navigate } from "react-router-dom";
 import Header from "./NavBar.jsx";
 import HeroSection from "./HeroSection.jsx";
 import Footer from "./Footer.jsx";
@@ -29,13 +24,12 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/login" element={<SignIn />} />
-        <Route path="/admindash/*" element={<AdminDashboard />} />
-        <Route path="/lecturerdash/*" element={<LecturerDashboard />} />
-        <Route path="/studentdash/*" element={<StudentDashboard />} />
-        {/* <Route
+    <Routes>
+      <Route path="/login" element={<SignIn />} />
+      <Route path="/admindash/*" element={<AdminDashboard />} />
+      <Route path="/lecturerdash/*" element={<LecturerDashboard />} />
+      <Route path="/studentdash/*" element={<StudentDashboard />} />
+      {/* <Route
           path="/studentdash"
           element={
             userRole === "student" ? (
@@ -45,7 +39,7 @@ function App() {
             )
           }
         /> */}
-        {/* <Route
+      {/* <Route
           path="/lecturerdash"
           element={
             userRole === "lecturer" ? (
@@ -55,33 +49,32 @@ function App() {
             )
           }
         /> */}
-        <Route
-          path="/admindash/*"
-          element={
-            userRole === "admin" ? <AdminDashboard /> : <Navigate to="/login" />
-          }
-        />
-        <Route path="/signup" element={<SignUp />} />
-        <Route
-          path="/"
-          element={
-            userRole === "student" ? (
-              <Navigate to="/studentdash/*" />
-            ) : userRole === "lecturer" ? (
-              <Navigate to="/lecturerdash/*" />
-            ) : userRole === "admin" ? (
-              <Navigate to="/admindash" />
-            ) : (
-              <>
-                <Header />
-                <HeroSection />
-                <Footer />
-              </>
-            )
-          }
-        />
-      </Routes>
-    </Router>
+      <Route
+        path="/admindash/*"
+        element={
+          userRole === "Admin" ? <AdminDashboard /> : <Navigate to="/login" />
+        }
+      />
+      <Route path="/signup" element={<SignUp />} />
+      <Route
+        path="/"
+        element={
+          userRole === "Student" ? (
+            <Navigate to="/studentdash/*" />
+          ) : userRole === "Lecturer" ? (
+            <Navigate to="/lecturerdash/*" />
+          ) : userRole === "Admin" ? (
+            <Navigate to="/admindash" />
+          ) : (
+            <>
+              <Header />
+              <HeroSection />
+              <Footer />
+            </>
+          )
+        }
+      />
+    </Routes>
   );
 }
 

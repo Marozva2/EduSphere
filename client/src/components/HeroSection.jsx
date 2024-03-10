@@ -30,14 +30,6 @@ function HeroSection() {
     setDownloadClicked(true);
   };
 
-  const goToPrev = () => {
-    sliderRef.current.slickPrev();
-  };
-
-  const goToNext = () => {
-    sliderRef.current.slickNext();
-  };
-
   return (
     <>
       <section id="home " className="hero">
@@ -54,7 +46,7 @@ function HeroSection() {
                     student's learning. For the service of God and humanity{" "}
                   </p>
                   <button className="apply-button" onClick={handleDownload}>
-                    Apply for Course <span>&rarr;</span>
+                    Apply Now <span>&rarr;</span>
                   </button>
                   {downloadClicked && (
                     <a

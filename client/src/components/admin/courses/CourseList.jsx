@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Card, Image, Button } from "semantic-ui-react";
 
 const CourseList = () => {
   const [courseList, setCourseList] = useState([]);
@@ -27,38 +26,38 @@ const CourseList = () => {
   };
 
   return (
-    <div>
-      <h2 className="ui header">Course List</h2>
-      <Card.Group>
+    <main className="py-6 px-4 sm:p-6 md:py-10 md:px-8">
+      <div className="max-w-7xl mx-auto grid gap-70 md:grid-cols-2 lg:grid-cols-2">
         {courseList.map((course) => (
-          <Card key={course.id}>
-            <Image
+          <figure
+            key={course.id}
+            className="bg-slate-100 rounded-xl p-4 md:p-0 dark:bg-slate-800 border border-gray-300"
+          >
+            <img
+              className="w-full h-32 md:h-48 object-cover rounded-lg"
               src={course.thumbnail || "https://via.placeholder.com/150"}
-              wrapped
-              ui={false}
+              alt={course.name}
             />
-            <Card.Content>
-              <Card.Header>{course.name}</Card.Header>
-              <Card.Meta>
-                <span className="date">Course ID: {course.id}</span>
-              </Card.Meta>
-              <Card.Meta>
-                <span className="date">Course code: {course.code}</span>
-              </Card.Meta>
-              <Card.Description>
-                Department ID: {course.department_id}
-              </Card.Description>
-            </Card.Content>
-            <Button
-              className="ui primary button"
+            <div className="pt-4">
+              <p className="text-sky-500 dark:text-sky-400">{course.name}</p>
+              <div className="text-sky-500 dark:text-sky-400">
+                Course ID: {course.id}
+              </div>
+              <div className="text-slate-700 dark:text-slate-500">
+                Course Code: {course.code}
+              </div>
+            </div>
+            <button
+              type="button"
+              className="block w-full mt-4 py-2 px-4 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600 transition duration-300"
               onClick={() => handleDelete(course.id)}
             >
               Delete
-            </Button>
-          </Card>
+            </button>
+          </figure>
         ))}
-      </Card.Group>
-    </div>
+      </div>
+    </main>
   );
 };
 

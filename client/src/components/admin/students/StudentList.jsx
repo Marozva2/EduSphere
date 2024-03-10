@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Card, Image } from "semantic-ui-react";
 
 const StudentList = () => {
   const [studentList, setStudentList] = useState([]);
@@ -15,32 +14,35 @@ const StudentList = () => {
   }, []);
 
   return (
-    <div>
-      <h2 className="ui inverted segment">Student List</h2>
-      <a href="/admindash">Admin Home</a>
-      <Card.Group>
+    <div className="px-4 md:px-8 py-6 md:py-10">
+      <h2 className="text-2xl font-semibold mb-4">Student List</h2>
+      <a href="/admindash" className="block text-blue-500 mb-4">
+        Admin Home
+      </a>
+      <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {studentList.map((student) => (
-          <Card key={student.id}>
-            <Image
+          <div
+            key={student.id}
+            className="bg-gray-100 rounded-xl border border-gray-300 p-4"
+          >
+            <img
               src={student.profile_photo || "https://via.placeholder.com/150"}
-              wrapped
-              ui={false}
+              alt={student.first_name + " " + student.last_name}
+              className="w-full object-cover rounded-lg"
             />
-            <Card.Content>
-              <Card.Header>
+            <div>
+              <h3 className="text-lg font-semibold">
                 {student.first_name + " " + student.last_name}
-              </Card.Header>
-              <Card.Meta>
-                <span className="date">Student ID: {student.id}</span>
-              </Card.Meta>
-              <Card.Description>Email: {student.email}</Card.Description>
-              <Card.Description>
+              </h3>
+              <p className="text-gray-600">Student ID: {student.id}</p>
+              <p className="text-gray-600">Email: {student.email}</p>
+              <p className="text-gray-600">
                 Department ID: {student.department_id}
-              </Card.Description>
-            </Card.Content>
-          </Card>
+              </p>
+            </div>
+          </div>
         ))}
-      </Card.Group>
+      </div>
     </div>
   );
 };

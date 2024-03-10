@@ -1,11 +1,10 @@
 import { BsPeopleFill, BsFillBellFill } from "react-icons/bs";
 
-
 function Home() {
   return (
     <main className="main-container">
       <div className="main-title">
-        <h3 className="bg-dark text-white">DASHBOARD</h3>
+        <h3 style={{ color: "maroon", paddingLeft: "30px" }}>DASHBOARD</h3>
       </div>
 
       <div className="main-cards">

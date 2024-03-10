@@ -40,6 +40,7 @@ function LecturerCreate() {
           <input type="number" name="facult_id" onChange={handleInputChange} />
           <input type="date" name="datetime" onChange={handleInputChange} />
           <input type="text" name="location" onChange={handleInputChange} />
+          <input type="text" name="thumbnail" onChange={handleInputChange} />
         </div>
 
         <button className="ui button" type="submit">

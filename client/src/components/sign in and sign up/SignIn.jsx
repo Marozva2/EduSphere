@@ -1,24 +1,16 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import NavBar from "/src/components/NavBar.jsx";
-
-import {
-  Button,
-  Form,
-  Grid,
-  Message,
-  Segment,
-} from "semantic-ui-react";
+import { useNavigate } from "react-router-dom";
 
 function SignIn() {
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
 
-  const handleSignIn = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const response = await fetch("http://127.0.0.1:5000/login", {
@@ -28,7 +20,6 @@ function SignIn() {
         },
         body: JSON.stringify({
           email,
-          username,
           password,
         }),
       });
@@ -43,16 +34,18 @@ function SignIn() {
             navigate("/admindash/*");
             break;
           case "lecturer":
-            navigate("/lecturerdash");
+            navigate("/lecturerdash/*");
             break;
           case "student":
-            navigate("/studentdash");
+            navigate("/studentdash/*");
             break;
           default:
             setError("Invalid user role:", role);
+            window.alert("Invalid user role: " + role);
         }
       } else {
         setError(result.detail);
+        window.alert(result.detail);
       }
     } catch (err) {
       console.error(err);
@@ -61,47 +54,55 @@ function SignIn() {
 
   return (
     <div>
-      <NavBar/>
-      <Grid
-        textAlign="center"
-        style={{ height: "80vh" }}
-        verticalAlign="middle"
+      <NavBar />
+
+      <form
+        onSubmit={handleSubmit}
+        className="ui form"
+        style={{ display: "flex", flexDirection: "column" }}
       >
-        <Grid.Column style={{ maxWidth: 650 }}>
-          <h1 color="teal">Sign In</h1>
-          <Form size="large" onSubmit={handleSignIn}>
-            <Segment stacked style={{ width: "300%" }}>
-              <Form.Input
-                fluid
-                placeholder="Username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-              />
-              <Form.Input
-                fluid
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <Form.Input
-                placeholder="Password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-              <Button color="blue" fluid size="large" type="submit">
-                Sign In
-              </Button>
-            </Segment>
-          </Form>
-          <Message>
-            Don't have an account? <a href="/signup">Sign up</a>
-          </Message>
-          <div>{error && <p>{error}</p>}</div>
-        </Grid.Column>
-      </Grid>
+        <h1 style={{ color: "maroon", marginTop: "5em", paddingLeft: "30px" }}>
+          Sign In
+        </h1>
+        <div className="field" style={{ width: "50%" }}>
+          <input
+            type="text"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+        <div className="field" style={{ width: "50%" }}>
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <input
+            type="checkbox"
+            checked={showPassword}
+            onChange={(e) => setShowPassword(e.target.checked)}
+          />
+          Show Password
+        </div>
+        <button
+          type="submit"
+          className="ui button"
+          style={{ backgroundColor: "maroon", color: "white" }}
+        >
+          Sign In
+        </button>
+        <p>
+          Don't have an account?{" "}
+          <a style={{ color: "maroon" }} href="/signup">
+            Sign up
+          </a>
+        </p>
+      </form>
+      {/* <div style={{}}>{error && <p>{error}</p>}</div> */}
     </div>
   );
 }

@@ -1,58 +1,130 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+// import AboutUs from "./AboutUs.jsx";
 
 function Header() {
   const [showAcademicsDropdown, setShowAcademicsDropdown] = useState(false);
   const [showAdmissionsDropdown, setShowAdmissionsDropdown] = useState(false);
 
-    return (
-        <header>
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <div className="container">
-                    <Link className="navbar-brand" to="/">
-                        <img src="../../images/logo.png" alt="Logo" className="logo" style={{ width: "80px" }} />
-                        <span className="d-none d-lg-inline">EduSphere</span>
-                    </Link>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                    <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
-                        <ul className="navbar-nav">
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/">Home</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/about-us">About Us</Link>
-                            </li>
-                            <li className="nav-item dropdown" onMouseEnter={() => setShowAcademicsDropdown(true)} onMouseLeave={() => setShowAcademicsDropdown(false)}>
-                                <a className="nav-link dropdown-toggle" href="#academics" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Academics
-                                </a>
-                                <ul className="dropdown-menu" aria-labelledby="navbarDropdown" style={{ display: showAcademicsDropdown ? 'block' : 'none' }}>
-                                    <li><Link className="dropdown-item" to="/engineering">Faculty of Engineering</Link></li>
-                                    <li><Link className="dropdown-item" to="/education">Faculty of Education</Link></li>
-                                    <li><Link className="dropdown-item" to="/business">Faculty of Business</Link></li>
-                                    <li><Link className="dropdown-item" to="/health">Faculty of Medicine & Health Sciences</Link></li>
-                                    <li><Link className="dropdown-item" to="/law">Faculty of Law</Link></li>
-                                </ul>
-                            </li>
-                            <li className="nav-item dropdown" onMouseEnter={() => setShowAdmissionsDropdown(true)} onMouseLeave={() => setShowAdmissionsDropdown(false)}>
-                                <a className="nav-link dropdown-toggle" href="#admissions" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Admissions
-                                </a>
-                                <ul className="dropdown-menu" aria-labelledby="navbarDropdown" style={{ display: showAdmissionsDropdown ? 'block' : 'none' }}>
-                                    <li><a className="dropdown-item" href="../../form/application-form.pdf" download>Download Application Form</a></li>
-                                </ul>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/login">Login</Link>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </header>
-    );
+  return (
+    <header className="bg-light">
+      <nav className="container mx-auto flex items-center justify-between py-5">
+        <Link to="/" className="flex items-center">
+          <img
+            src="../../images/logo.png"
+            alt="Logo"
+            className="w-16 h-17 mr-5"
+          />
+          <span className="text-xl font-bold hidden lg:inline">EduSphere</span>
+        </Link>
+        <button className="block lg:hidden">
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="hidden lg:flex">
+          <ul className="flex">
+            <li className="nav-item">
+              <Link to="/" className="nav-link hover:text-blue-500 px-4 py-2">
+                Home
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                to="/about-us"
+                className="nav-link hover:text-blue-500 px-4 py-2"
+              >
+                About Us
+              </Link>
+            </li>
+            <li className="nav-item relative">
+              <span
+                className="nav-link hover:text-blue-500 px-4 py-2"
+                onMouseEnter={() => setShowAcademicsDropdown(true)}
+                onMouseLeave={() => setShowAcademicsDropdown(false)}
+              >
+                Academics
+              </span>
+              <ul
+                className="dropdown-menu absolute hidden bg-white rounded-lg shadow-lg"
+                style={{ display: showAcademicsDropdown ? "block" : "none" }}
+              >
+                <li>
+                  <Link
+                    to="/engineering"
+                    className="dropdown-item hover:text-blue-500 px-4 py-2 block"
+                  >
+                    Faculty of Engineering
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/education"
+                    className="dropdown-item hover:text-blue-500 px-4 py-2 block"
+                  >
+                    Faculty of Education
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/business"
+                    className="dropdown-item hover:text-blue-500 px-4 py-2 block"
+                  >
+                    Faculty of Business
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/health"
+                    className="dropdown-item hover:text-blue-500 px-4 py-2 block"
+                  >
+                    Faculty of Medicine & Health Sciences
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/law"
+                    className="dropdown-item hover:text-blue-500 px-4 py-2 block"
+                  >
+                    Faculty of Law
+                  </Link>
+                </li>
+              </ul>
+            </li>
+            <li className="nav-item relative">
+              <span
+                className="nav-link hover:text-blue-500 px-4 py-2"
+                onMouseEnter={() => setShowAdmissionsDropdown(true)}
+                onMouseLeave={() => setShowAdmissionsDropdown(false)}
+              >
+                Admissions
+              </span>
+              <ul
+                className="dropdown-menu absolute hidden bg-white rounded-lg shadow-lg"
+                style={{ display: showAdmissionsDropdown ? "block" : "none" }}
+              >
+                <li>
+                  <a
+                    href="../../form/application-form.pdf"
+                    download
+                    className="dropdown-item hover:text-blue-500 px-4 py-2 block"
+                  >
+                    Download Application Form
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li className="nav-item">
+              <Link
+                to="/login"
+                className="nav-link hover:text-blue-500 px-4 py-2"
+              >
+                Login
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+  );
 }
 
 export default Header;
