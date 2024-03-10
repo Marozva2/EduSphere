@@ -1,6 +1,5 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import { Grid } from "semantic-ui-react";
 import Footer from "/src/components/Footer.jsx";
 import Head from "./Head";
 import Home from "./Home";
@@ -15,14 +14,12 @@ function StudentDashboard() {
   return (
     <div>
       <Head />
-      <Grid>
-        <Grid.Column width={4}>
+      <div className="grid grid-cols-12">
+        <div className="col-span-3">
           <SideBar />
-        </Grid.Column>
-        <Grid.Column width={12}>
-          <h1
-            style={{ color: "maroon", paddingLeft: "30px" }}
-          >
+        </div>
+        <div className="col-span-9">
+          <h1 style={{ color: "maroon", paddingLeft: "30px" }}>
             Student Dashboard
           </h1>
           <Routes>
@@ -33,8 +30,8 @@ function StudentDashboard() {
             <Route path="/examCards/" element={<ExamCardList />} />
             <Route path="/examResults/" element={<ExamResults />} />
           </Routes>
-        </Grid.Column>
-      </Grid>
+        </div>
+      </div>
       <div
         style={{
           position: "fixed",
