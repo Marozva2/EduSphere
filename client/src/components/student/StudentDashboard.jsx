@@ -20,7 +20,11 @@ function StudentDashboard() {
           <SideBar />
         </Grid.Column>
         <Grid.Column width={12}>
-          <h1 style={{backgroundColor: 'maroon'}}>Student Dashboard</h1>
+          <h1
+            style={{ color: "maroon", paddingLeft: "30px" }}
+          >
+            Student Dashboard
+          </h1>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/feePayment/" element={<FeePaymentList />} />
@@ -31,7 +35,15 @@ function StudentDashboard() {
           </Routes>
         </Grid.Column>
       </Grid>
-      <div style={{ position: "fixed", left: 0, bottom: 0, width: "100%", height: "410px"}}>
+      <div
+        style={{
+          position: "fixed",
+          left: 0,
+          bottom: 0,
+          width: "100%",
+          height: "410px",
+        }}
+      >
         <Footer />
       </div>
     </div>

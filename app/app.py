@@ -33,11 +33,10 @@ from routes.fee_bp import fees_bp
 def create_app():
     app = Flask(__name__)
 
-    load_dotenv()
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
-        'SQLALCHEMY_DATABASE_URI')
+    #load_dotenv()
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///edu.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+    app.config['SECRET_KEY'] = 'sgbryifir5'
     app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=2)
 
     db.init_app(app)

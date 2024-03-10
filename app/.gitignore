@@ -3,3 +3,4 @@ app/instance/
 migrations/
 __pycache__/
 .env
+instance/

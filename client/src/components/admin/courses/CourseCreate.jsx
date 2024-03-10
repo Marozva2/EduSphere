@@ -30,9 +30,9 @@ const CreateCourses = () => {
 
   return (
     <div>
-      <h2>Create Course</h2>
+      <h2 style={{ color: "maroon", paddingLeft: "350px" }}>Create Course</h2>
       <form onSubmit={handleSubmit} className="ui form">
-        <div className="inline fields">
+        <div className="fields">
           <input
             type="text"
             placeholder="name"
@@ -51,10 +51,18 @@ const CreateCourses = () => {
             name="department_id"
             onChange={handleInputChange}
           />
+          <input
+            type="text"
+            placeholder="thumbnail"
+            name="thumbnail"
+            onChange={handleInputChange}
+          />
         </div>
-        <button className="ui primary button" type="submit">Submit</button>
+        <button className="ui primary button" type="submit">
+          Submit
+        </button>
       </form>
-      <CourseList/>
+      <CourseList />
     </div>
   );
 };
