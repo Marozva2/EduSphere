@@ -1,4 +1,4 @@
-from models import User, db, Lecturer, Course, Unit, Department, TokenBlocklist, Student
+from models import User, db, Lecturer, Course, Unit, Department, TokenBlocklist, Student, Fee
 from app import create_app
 from datetime import datetime
 from models import generate_uuid
@@ -16,6 +16,7 @@ def seed_database():
         Department.query.delete()
         Student.query.delete()
         TokenBlocklist.query.delete()
+        Fee.query.delete()
 
         users = [{
 
@@ -206,6 +207,26 @@ def seed_database():
             db.session.add(token)
         db.session.commit()
         print("Student added!!!")
+
+        fees = [{
+            "amount": 4196.4,
+        }, {
+            "amount": 3849.76,
+        }, {
+            "amount": 3452.32,
+        }, {
+            "amount": 2621.97,
+        }, {
+            "amount": 4954.32,
+        }]
+
+        for fee in fees:
+            fee["id"] = generate_uuid()
+            fee["student_id"] = generate_uuid()
+            token = Fee(**fee)
+            db.session.add(token)
+        db.session.commit()
+        print("Fee added!!!")
 
 
 if __name__ == "__main__":

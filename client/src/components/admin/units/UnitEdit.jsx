@@ -39,59 +39,100 @@ function EditUnit({ unitId }) {
   };
 
   return (
-    <div>
-      <h2>Edit unit</h2>
-      <form className="ui form" onSubmit={handleSubmit}>
-        <div className="inline fields">
-          <input
-            type="number"
-            name="id"
-            placeholder="ID"
-            value={unit.id}
-            onChange={handleInputChange}
-          />
-          <input
-            type="number"
-            name="unit_code"
-            placeholder="unit_code"
-            value={unit.unit_code}
-            onChange={handleInputChange}
-          />
-          <input
-            type="text"
-            name="name"
-            placeholder="name"
-            value={unit.name}
-            onChange={handleInputChange}
-          />
-          <input
-            type="text"
-            name="passmark"
-            placeholder="passmark"
-            value={unit.passmark}
-            onChange={handleInputChange}
-          />
-          <input
-            type="text"
-            name="contact_hours"
-            placeholder="course_id"
-            value={unit.course_id}
-            onChange={handleInputChange}
-          />
-          <input
-            type="text"
-            name="contact_hours"
-            placeholder="contact_hours"
-            value={unit.contact_hours}
-            onChange={handleInputChange}
-          />
-        </div>
-        <button className="ui primary button" type="submit">
-          Submit
-        </button>
-      </form>
+    <>
+      <div className="max-w-md mx-auto bg-white p-8 rounded shadow-md mt-8">
+        <h2 className="text-2xl mb-4 font-semibold">Edit Unit</h2>
+        <form className="space-y-4" onSubmit={handleSubmit}>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                ID
+              </label>
+              <input
+                type="number"
+                name="id"
+                className="input"
+                placeholder="ID"
+                value={unit.id || ""}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Unit Code
+              </label>
+              <input
+                type="number"
+                name="unit_code"
+                className="input"
+                placeholder="Unit Code"
+                value={unit.unit_code || ""}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Name
+              </label>
+              <input
+                type="text"
+                name="name"
+                className="input"
+                placeholder="Name"
+                value={unit.name || ""}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Passmark
+              </label>
+              <input
+                type="text"
+                name="passmark"
+                className="input"
+                placeholder="Passmark"
+                value={unit.passmark || ""}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-black-700">
+                Course ID
+              </label>
+              <input
+                type="text"
+                name="course_id"
+                className="input"
+                placeholder="Course ID"
+                value={unit.course_id || ""}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Contact Hours
+              </label>
+              <input
+                type="text"
+                name="contact_hours"
+                className="input"
+                placeholder="Contact Hours"
+                value={unit.contact_hours || ""}
+                onChange={handleInputChange}
+              />
+            </div>
+          </div>
+          <button
+            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4"
+            type="submit"
+          >
+            Edit
+          </button>
+        </form>
+      </div>
       <UnitList />
-    </div>
+    </>
   );
 }
 

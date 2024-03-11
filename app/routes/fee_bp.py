@@ -12,7 +12,7 @@ post_args = reqparse.RequestParser()
 post_args.add_argument('amount', type=float, required=True,
                        help='fee amount is required')
 post_args.add_argument('student_id', type=str, required=True,
-                       help='fee student_id is required')
+                       help='student_id is required')
 
 patch_args = reqparse.RequestParser()
 patch_args.add_argument('amount', type=float)
@@ -32,10 +32,6 @@ class Fees(Resource):
 
     def post(self):
         data = post_args.parse_args()
-
-        fees = Fee.query.filter_by(id='id').first()
-        if fees:
-            abort(409, message=f"fee with id {id} already exists")
 
         new_fee = Fee(
             amount=data['amount'], student_id=data['student_id'])

@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Table } from "semantic-ui-react";
 
 const FeeList = () => {
   const [feeList, setFeeList] = useState([]);
 
   useEffect(() => {
     async function fetchFeeList() {
-      const response = await fetch("http://127.0.0.1:5000/fees");
-      const data = await response.json();
-      setFeeList(data);
+      try {
+        const response = await fetch("http://127.0.0.1:5000/fees");
+        const data = await response.json();
+        setFeeList(data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
     }
 
     fetchFeeList();
@@ -16,24 +19,27 @@ const FeeList = () => {
 
   return (
     <div>
-      <h2 className="ui center aligned header">Fees List</h2>
-      <Table celled>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell>Amount</Table.HeaderCell>
-            <Table.HeaderCell>Student ID</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-
-        <Table.Body>
+      <h1 className="text-4xl mb-3 text-center font-semibold">Fees List</h1>
+      <table className="w-full border-collapse border border-gray-400">
+        <thead>
+          <tr>
+            <th className="border border-gray-400 px-4 py-2">Id</th>
+            <th className="border border-gray-400 px-4 py-2">Amount</th>
+            <th className="border border-gray-400 px-4 py-2">Student ID</th>
+          </tr>
+        </thead>
+        <tbody>
           {feeList.map((fee) => (
-            <Table.Row key={fee.id}>
-              <Table.Cell>{fee.amount}</Table.Cell>
-              <Table.Cell>{fee.student_id}</Table.Cell>
-            </Table.Row>
+            <tr key={fee.id}>
+              <td className="border border-gray-400 px-4 py-2">{fee.id}</td>
+              <td className="border border-gray-400 px-4 py-2">{fee.amount}</td>
+              <td className="border border-gray-400 px-4 py-2">
+                {fee.student_id}
+              </td>
+            </tr>
           ))}
-        </Table.Body>
-      </Table>
+        </tbody>
+      </table>
     </div>
   );
 };

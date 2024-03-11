@@ -8,9 +8,4 @@ export default defineConfig({
       localsConvention: "dashesOnly",
     },
   },
-  build: {
-    rollupOptions: {
-      external: ["semantic-ui-css", "semantic-ui-react"],
-    },
-  },
 });
