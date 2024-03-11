@@ -33,10 +33,11 @@ from routes.fee_bp import fees_bp
 def create_app():
     app = Flask(__name__)
 
-    #load_dotenv()
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///edu.db'
+    load_dotenv()
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
+        'SQLALCHEMY_DATABASE_URI')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['SECRET_KEY'] = 'sgbryifir5'
+    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
     app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=2)
 
     db.init_app(app)
@@ -44,6 +45,12 @@ def create_app():
     bcrypt.init_app(app)
     ma = Marshmallow(app)
     migrate = Migrate(app, db)
+
+    @jwt.token_in_blocklist_loader
+    def check_if_token_is_revoked(jwt_header, jwt_payload: dict):
+        jti = jwt_payload["jti"]
+        token = db.session.query(TokenBlocklist).filter_by(jti=jti).first()
+        return token is not None
 
     app.register_blueprint(user_bp)
     app.register_blueprint(auth_bp)
