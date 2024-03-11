@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import StudentList from "./StudentList";
 
 function StudentCreate() {
   const [student, setStudent] = useState({});
@@ -22,34 +23,75 @@ function StudentCreate() {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    postStudentData();
+    await postStudentData();
+    setStudent({});
   };
 
   return (
-    <div>
-      <h2>Create student</h2>
-      <form className="ui form" onSubmit={handleSubmit}>
-        <div className="inline fields">
-          <input placeholder="first name" type="text" name="first_name" onChange={handleInputChange} />
-          <input placeholder="last name" type="text" name="last_name" onChange={handleInputChange} />
-          <input placeholder="email" type="email" name="email" onChange={handleInputChange} />
+    <div className="flex justify-center items-center">
+      <div>
+        <h2 className="text-2xl font-bold mb-4 flex justify-center items-center">
+          Enroll Student
+        </h2>
+        <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
           <input
+            className="border border-gray-300 rounded-md p-2"
+            type="text"
+            name="first_name"
+            placeholder="First Name"
+            value={student.first_name || ""}
+            onChange={handleInputChange}
+            required
+          />
+          <input
+            className="border border-gray-300 rounded-md p-2"
+            type="text"
+            name="last_name"
+            placeholder="Last Name"
+            value={student.last_name || ""}
+            onChange={handleInputChange}
+            required
+          />
+          <input
+            className="border border-gray-300 rounded-md p-2"
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={student.email || ""}
+            onChange={handleInputChange}
+            required
+          />
+          <input
+            className="border border-gray-300 rounded-md p-2"
             type="number"
             name="department_id"
-            placeholder="department ID"
+            placeholder="Department ID"
+            value={student.department_id || ""}
             onChange={handleInputChange}
+            required
           />
           <input
+            className="border border-gray-300 rounded-md p-2"
             type="text"
             name="profile_photo"
-            placeholder="profile photo"
+            placeholder="Profile Photo"
+            value={student.profile_photo || ""}
             onChange={handleInputChange}
+            required
           />
-        </div>
-        <button className="ui primary button" type="submit">Submit</button>
-      </form>
+          <div className="col-span-2">
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+              type="submit"
+            >
+              Enroll
+            </button>
+          </div>
+        </form>
+      </div>
+      <StudentList />
     </div>
   );
 }

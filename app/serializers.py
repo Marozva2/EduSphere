@@ -28,6 +28,7 @@ class ExamSchema(SQLAlchemyAutoSchema):
 class UnitSchema(SQLAlchemyAutoSchema):
     class Meta:
         model = Unit
+    course_id = fields.Str()
 
 
 class CourseSchema(SQLAlchemyAutoSchema):
@@ -36,6 +37,7 @@ class CourseSchema(SQLAlchemyAutoSchema):
     class Meta:
         model = Course
         include_fk = True
+    deparment_id = fields.Str()
 
 
 class DepartmentSchema(SQLAlchemyAutoSchema):
@@ -51,6 +53,8 @@ class FacultySchema(SQLAlchemyAutoSchema):
 class StudentSchema(SQLAlchemyAutoSchema):
     class Meta:
         model = Student
+
+    department_id = fields.Str()
 
 
 class CourseSemesterSchema(SQLAlchemyAutoSchema):
@@ -81,3 +85,5 @@ class EnrollmentSchema(SQLAlchemyAutoSchema):
 class FeeSchema(SQLAlchemyAutoSchema):
     class Meta:
         model = Fee
+
+    student_id = fields.Str()

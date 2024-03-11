@@ -33,48 +33,66 @@ function CourseEdit({ courseId }) {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    updateCourse();
+    await updateCourse();
   };
 
   return (
-    <div>
-      <h2>Edit Course</h2>
-      <form className="ui form" onSubmit={handleSubmit}>
-        <div className="inline fields"></div>
-        <input
-          type="text"
-          name="id"
-          placeholder="course ID"
-          value={course.id}
-          onChange={handleInputChange}
-        />
-        <input
-          type="text"
-          name="name"
-          placeholder="course name"
-          value={course.name}
-          onChange={handleInputChange}
-        />
-        <input
-          type="text"
-          name="code"
-          placeholder="code"
-          value={course.code}
-          onChange={handleInputChange}
-        />
-        <input
-          type="text"
-          name="department_id"
-          placeholder="department_id"
-          value={course.department_id}
-          onChange={handleInputChange}
-        />
-        <button className="ui primary button" type="submit">
-          Submit
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <div className="max-w-md w-full bg-white p-8 rounded-lg shadow-md mt-8">
+        <h2 className="text-2xl mb-4 font-semibold text-center">Edit Course</h2>
+        <form className="space-y-4" onSubmit={handleSubmit}>
+          <div className="flex flex-col">
+            <input
+              type="text"
+              id="id"
+              name="id"
+              className="border border-gray-300 rounded-md p-2 mb-4 w-full max-w-xs"
+              placeholder="Course ID"
+              value={course.id || ""}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="flex flex-col">
+            <input
+              type="text"
+              name="name"
+              className="border border-gray-300 rounded-md p-2 mb-4 w-full max-w-xs"
+              placeholder="Name"
+              value={course.name || ""}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="flex flex-col">
+            <input
+              type="text"
+              name="code"
+              className="border border-gray-300 rounded-md p-2 mb-4 w-full max-w-xs"
+              placeholder="Code"
+              value={course.code || ""}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="flex flex-col">
+            <input
+              type="text"
+              name="department_id"
+              className="border border-gray-300 rounded-md p-2 mb-4 w-full max-w-xs"
+              placeholder="Department ID"
+              value={course.department_id || ""}
+              onChange={handleInputChange}
+            />
+          </div>
+        </form>
+        <button
+          type="submit"
+          onClick={handleSubmit}
+          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded w-full"
+        >
+          Edit Course
         </button>
-      </form>
+      </div>
       <CourseList />
     </div>
   );
